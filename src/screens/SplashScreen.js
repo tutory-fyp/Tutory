@@ -53,6 +53,7 @@ class SplashScreen extends React.Component {
 
     componentDidMount() {
         NativeSplashScreen.hide();
+        //this.props.navigation.navigate('Dashboard');
         this.spring();
     }
 

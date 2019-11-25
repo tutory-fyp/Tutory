@@ -1,48 +1,38 @@
 import React, { Component } from 'react';
 import {
-    View,
-    Text,
     StyleSheet,
+    SafeAreaView,
+    ImageBackground,
+    StatusBar,
 } from 'react-native';
-import 
-{
-    Button,
-    Input,
-} from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import LoginForm from '../components/LoginForm';
 import SplashScreen from 'react-native-splash-screen';
 
 class LoginScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            loading: false,
+            email: '',
+            password: '',
+            emailErrMsg: '',
+            passwordErrMsg: '',
         };
     }
 
     render() {
         return (
-            <View style={styles.container} >
-                <Text>
-                    This is the Login Screen
-                </Text>
-                <Button
-                    title="This is a Button"
-                    onPress={() => {
-                        this.props.navigation.navigate('Signup');
-                    }}    
-                />     
-                <Input
-                    placeholder='INPUT WITH ICON'
-                    leftIcon={
-                        <Icon
-                            name='user'
-                            size={24}
-                            color='black'
-                        />
-                    }
-                />
-            </View>
+            <>
+                <SafeAreaView>
+                    <StatusBar backgroundColor='#63a7fa' />
+                    <ImageBackground
+                        source={require('../../assets/login_bg.jpg')}
+                        style={styles.bg}
+                    >
+                       <LoginForm  />
+                    </ImageBackground>
+                </SafeAreaView>
+            </>
         );
     }
 
@@ -55,7 +45,12 @@ class LoginScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-    }
+    },  
+    bg: {
+        resizeMode: 'cover',
+        width: '100%',
+        height: '100%',
+    },
 });
 
 export default LoginScreen;
