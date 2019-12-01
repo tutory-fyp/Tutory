@@ -10,7 +10,7 @@ const navigator = createSwitchNavigator({
   Signup: Signup,
   Dashboard: DashboardScreen,
 }, {
-  initialRouteName: 'Login',
+  initialRouteName: 'Dashboard',
 });
 
 const App = createAppContainer(navigator);

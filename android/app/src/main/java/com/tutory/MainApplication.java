@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.swmansion.reanimated.ReanimatedPackage;
+import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
@@ -28,7 +30,9 @@ public class MainApplication extends Application implements ReactApplication {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
                     new SplashScreenReactPackage(),
-                    new VectorIconsPackage()
+                    new VectorIconsPackage(),
+                    new ReanimatedPackage(),
+                    new RNGestureHandlerPackage()
             );
         }
 

@@ -1,34 +1,14 @@
 import React, { Component } from 'react';
-import {
-    StyleSheet,
-    View,
-    Text,
-} from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import LoginScreen from './LoginScreen';
+import SignupScreen from './SignupScreen';
 
-class DashboardScreen extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
 
-        };
-    }
-
-    render() {
-        return (
-            <View style={styles.container} >
-                <Text>
-                    This is Dashboard Screen
-                </Text>
-            </View>
-        );
-    }
-}
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    }
+const tabNavigator = createBottomTabNavigator({
+    Test: LoginScreen,
+    Test1: SignupScreen,
 });
 
-export default DashboardScreen;
+export default createAppContainer(tabNavigator);
