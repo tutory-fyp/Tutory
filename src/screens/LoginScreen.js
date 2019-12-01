@@ -3,8 +3,15 @@ import {
     StyleSheet,
     SafeAreaView,
     ImageBackground,
+    KeyboardAvoidingView,
+    View,
+    Text,
+    Image,
     StatusBar,
 } from 'react-native';
+import {  
+    
+} from 'react-native-elements';
 import LoginForm from '../components/LoginForm';
 import SplashScreen from 'react-native-splash-screen';
 
@@ -23,14 +30,15 @@ class LoginScreen extends Component {
     render() {
         return (
             <>
-                <SafeAreaView>
-                    <StatusBar backgroundColor='#63a7fa' />
-                    <ImageBackground
-                        source={require('../../assets/login_bg.jpg')}
-                        style={styles.bg}
-                    >
-                       <LoginForm  />
-                    </ImageBackground>
+                <SafeAreaView style={styles.bg} >
+                    <StatusBar backgroundColor='#3185E8' />
+                    <KeyboardAvoidingView behavior="position" >
+                        <Image
+                            source={require('../../assets/logo.jpg')}
+                            style={styles.logo}
+                        />
+                        <LoginForm />
+                    </KeyboardAvoidingView>
                 </SafeAreaView>
             </>
         );
@@ -47,9 +55,15 @@ const styles = StyleSheet.create({
         flex: 1,
     },  
     bg: {
-        resizeMode: 'cover',
-        width: '100%',
-        height: '100%',
+        flex: 1,
+        backgroundColor: '#eeeeee',
+    },
+    logo: {
+        height: 200,
+        width: 200,
+        borderRadius: 100,
+        alignSelf: 'center',
+        marginTop: '5%',
     },
 });
 

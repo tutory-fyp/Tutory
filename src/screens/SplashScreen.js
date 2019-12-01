@@ -38,7 +38,7 @@ class SplashScreen extends React.Component {
     }
 
     spring() {
-        if(this.state.animationCount < 2) {
+        if(this.state.animationCount < 1) {
             this.springValue.setValue(0.3)
             Animated.spring(
                 this.springValue,
@@ -48,6 +48,8 @@ class SplashScreen extends React.Component {
                 }
             ).start(this.spring);
             this.setState({ animationCount: this.state.animationCount + 1 });
+        } else {
+            this.props.navigation.navigate('Login');
         }
     }
 
