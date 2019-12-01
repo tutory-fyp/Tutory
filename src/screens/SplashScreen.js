@@ -24,7 +24,7 @@ class SplashScreen extends React.Component {
     render() {
         return(
             <ImageBackground
-                source={require('../../assets/splash.png')}
+                source={require('../../assets/Splash.png')}
                 style={styles.bgStyle}
             >
                 <StatusBar backgroundColor="#4C9BFA" />

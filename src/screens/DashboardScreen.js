@@ -12,6 +12,3 @@ const tabNavigator = createBottomTabNavigator({
 });
 
 export default createAppContainer(tabNavigator);
-
-
-// Renamed Splash.png to splash.png
