@@ -18,7 +18,7 @@ class DashboardScreen extends Component {
         return (
             <View style={styles.container} >
                 <Text>
-                    This is Dashboard Screen
+                    This is Sample Component
                 </Text>
             </View>
         );
