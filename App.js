@@ -1,18 +1,12 @@
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import Signup from './src/screens/SignupScreen';
-import Login from './src/screens/LoginScreen';
-import SplashScreen from './src/screens/SplashScreen';
-import DashboardScreen from './src/screens/DashboardScreen';
+import React, { Component } from 'react';
+import { createAppContainer } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import LoginScreen from './src/screens/LoginScreen';
+import SignupScreen from './src/screens/SignupScreen';
 
-const navigator = createSwitchNavigator({
-  Splash: SplashScreen,
-  Login: Login,
-  Signup: Signup,
-  Dashboard: DashboardScreen,
-}, {
-  initialRouteName: 'Dashboard',
+const tabNavigator = createBottomTabNavigator({
+  Login: LoginScreen,
+  Signup: SignupScreen,
 });
 
-const App = createAppContainer(navigator);
-
-export default App;
+export default createAppContainer(tabNavigator);

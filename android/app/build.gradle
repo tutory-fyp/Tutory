@@ -132,6 +132,7 @@ android {
         applicationId "com.tutory"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
     }
@@ -182,10 +183,12 @@ android {
 dependencies {
     implementation project(':react-native-splash-screen')
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "com.facebook.react:react-native:+"  // From node_modules
+    implementation "com.facebook.react:react-native:+"
+    implementation 'com.android.support:multidex:1.0.3'
     implementation project(':react-native-vector-icons')
     implementation project(path: ":@react-native-firebase_app")
     implementation project(path: ":@react-native-firebase_auth")
+    implementation project(path: ":@react-native-firebase_firestore")
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";

@@ -165,9 +165,14 @@ class LoginForm extends Component {
                     }} >
                         Don't Have an Account? 
                     </Text>
-                    <TouchableOpacity style={{
-                        marginLeft: '2%',
-                    }} >
+                    <TouchableOpacity
+                        style={{
+                            marginLeft: '2%',
+                        }}
+                        onPress={() => {
+                            this.props.navigation.navigate('Signup');
+                        }}  
+                    >
                         <Text style={{
                             fontSize: 16,
                             color: '#3185E8',

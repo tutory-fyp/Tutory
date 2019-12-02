@@ -11,6 +11,7 @@ import {
     Input as EInput,
     Button as EButton,
 } from 'react-native-elements';
+import firestore from '@react-native-firebase/firestore';
 
 const { width: WIDTH } = Dimensions.get('window');
 
@@ -62,6 +63,15 @@ class StudentSignupForm extends Component {
                 <EButton
                     containerStyle={styles.submitButton}
                     title="Signup"
+                    onPress={ async () => {
+                        console.log('dad');
+                        const documentSnapshot = await firestore()
+                            .collection('students')
+                            .doc('1').set({ name: "Muhammad Usman" , email: "usmanzahoor123@gmail.com" })
+                            .catch(error => {
+                                console.log(error);
+                            });
+                    }}
                 />
             </View> 
         );

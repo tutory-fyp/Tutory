@@ -4,8 +4,10 @@ import {
     View,
     ScrollView,
     Image,
+    Text,
     Picker,
     Button,
+    TouchableOpacity,
 } from 'react-native';
 import {
     Button as EButton,
@@ -63,13 +65,30 @@ class SignupForm extends Component {
                         }
                     )()
                 }
-                <EButton
-                    title="Login"
-                    onPress={() => {
-                        this.props.navigation.navigate('Login');
-                    }}
-                    containerStyle={{ marginVertical: '2%', width: '40%' }} 
-                />
+                <View style={{ flexDirection: 'row' }} >
+                    <Text style={{
+                        marginLeft: '8%',
+                        fontSize: 16,
+                        alignSelf: 'center'
+                    }} >
+                        Already Have an Account?
+                    </Text>
+                    <TouchableOpacity 
+                        style={{
+                            marginLeft: '2%',
+                        }}
+                        onPress={() => {
+                            this.props.navigation.navigate('Login');
+                        }} 
+                    >
+                        <Text style={{
+                            fontSize: 16,
+                            color: '#3185E8',
+                        }} >
+                            Login Instead!
+                        </Text>
+                    </TouchableOpacity>
+                </View>
             </ScrollView>
         );
     }

@@ -7,8 +7,11 @@ import SignupScreen from './SignupScreen';
 
 
 const tabNavigator = createBottomTabNavigator({
-    Test: LoginScreen,
-    Test1: SignupScreen,
+    GotoLogin: LoginScreen,
+    GotoSignup: SignupScreen,
+},
+{
+    initialRouteName: 'GotoLogin'
 });
 
 export default createAppContainer(tabNavigator);
