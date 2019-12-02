@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "21453626126",
+    "firebase_url": "https://tutory-2b015.firebaseio.com",
+    "project_id": "tutory-2b015",
+    "storage_bucket": "tutory-2b015.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:21453626126:android:55c8524092c3fe816f155f",
+        "android_client_info": {
+          "package_name": "com.tutory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "21453626126-8v9uagbjotpl220375ebe10fqftrid9k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tutory",
+            "certificate_hash": "38274b0ae878d1d84ce49d6c020c17bc5b22beac"
+          }
+        },
+        {
+          "client_id": "21453626126-fi6cng4itji9ggl93bhpbeilfutu10mi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxy2TFenHweLmuu_mfgmrlv0bzUX1qGb0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "21453626126-fi6cng4itji9ggl93bhpbeilfutu10mi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

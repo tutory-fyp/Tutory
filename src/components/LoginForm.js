@@ -14,6 +14,7 @@ import {
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import { withNavigation } from 'react-navigation';
 import authApi from '../api/authApi';
+import auth from '@react-native-firebase/auth';
 
 const { width: WIDTH } = Dimensions.get('window');
 
@@ -82,20 +83,28 @@ class LoginForm extends Component {
         }
         if(re_email.test(this.state.email) && re_password.test(this.state.password)) {
             this.setState({loading: true});
-            authApi.post('', {
-                email: this.state.email,
-                password: this.state.password,
-                returnSecureToken: true,
-            }).then( res => {
-                if(res.data.registered) {
-                    this.props.navigation.navigate('Dashboard');
+            // authApi.post('', {
+            //     email: this.state.email,
+            //     password: this.state.password,
+            //     returnSecureToken: true,
+            // }).then( res => {
+            //     if(res.data.registered) {
+            //         this.props.navigation.navigate('Dashboard');
+            //     }
+            // }).catch(err => {
+            //     this.setState({ loading: false });
+            //     if(err.response.data.error) {
+            //         alert("Incorrect Username or Password");
+            //     }
+            // });
+            (async (email, password) => {
+                try {
+                    let res = await auth().signInWithEmailAndPassword(email, password);
+                    console.log(res);
+                } catch (error) {
+                    console.log(error);
                 }
-            }).catch(err => {
-                this.setState({ loading: false });
-                if(err.response.data.error) {
-                    alert("Incorrect Username or Password");
-                }
-            });
+            })(this.state.email, this.state.password);
         }
     }
 

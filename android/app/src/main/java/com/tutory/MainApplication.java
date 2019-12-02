@@ -8,6 +8,8 @@ import com.swmansion.reanimated.ReanimatedPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
+import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
+import io.invertase.firebase.auth.ReactNativeFirebaseAuthPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -32,7 +34,9 @@ public class MainApplication extends Application implements ReactApplication {
                     new SplashScreenReactPackage(),
                     new VectorIconsPackage(),
                     new ReanimatedPackage(),
-                    new RNGestureHandlerPackage()
+                    new RNGestureHandlerPackage(),
+                    new ReactNativeFirebaseAppPackage(),
+                    new ReactNativeFirebaseAuthPackage()
             );
         }
 
