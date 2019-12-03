@@ -1,17 +1,33 @@
 import React, { Component } from 'react';
-import { createAppContainer } from 'react-navigation';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
-import LoginScreen from './LoginScreen';
-import SignupScreen from './SignupScreen';
+import { 
+    View,
+    StyleSheet,
+    Text,
+} from 'react-native';
+class DashboardScreen extends Component {
+    constructor(props) {
+        super(props)
 
+        this.state = {
+            
+        }
+    }
 
+    render() {
+        return (
+            <View style={styles.container} >
+                <Text>
+                    This is the Dashboard
+                </Text>
+            </View>
+        )
+    }
+}
 
-const tabNavigator = createBottomTabNavigator({
-    GotoLogin: LoginScreen,
-    GotoSignup: SignupScreen,
-},
-{
-    initialRouteName: 'GotoLogin'
-});
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+})
 
-export default createAppContainer(tabNavigator);
+export default DashboardScreen;

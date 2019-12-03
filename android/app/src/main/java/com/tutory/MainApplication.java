@@ -11,6 +11,7 @@ import com.oblador.vectoricons.VectorIconsPackage;
 import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
 import io.invertase.firebase.auth.ReactNativeFirebaseAuthPackage;
 import io.invertase.firebase.firestore.ReactNativeFirebaseFirestorePackage;
+import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -38,7 +39,8 @@ public class MainApplication extends Application implements ReactApplication {
                     new RNGestureHandlerPackage(),
                     new ReactNativeFirebaseAppPackage(),
                     new ReactNativeFirebaseAuthPackage(),
-                    new ReactNativeFirebaseFirestorePackage()
+                    new ReactNativeFirebaseFirestorePackage(),
+                    new PickerPackage()
             );
         }
 

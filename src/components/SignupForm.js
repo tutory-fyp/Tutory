@@ -68,8 +68,9 @@ class SignupForm extends Component {
                 <View style={{ flexDirection: 'row' }} >
                     <Text style={{
                         marginLeft: '8%',
-                        fontSize: 16,
-                        alignSelf: 'center'
+                        fontSize: 18,
+                        alignSelf: 'center',
+                        color: 'white',
                     }} >
                         Already Have an Account?
                     </Text>
@@ -82,7 +83,7 @@ class SignupForm extends Component {
                         }} 
                     >
                         <Text style={{
-                            fontSize: 16,
+                            fontSize: 18,
                             color: '#3185E8',
                         }} >
                             Login Instead!
