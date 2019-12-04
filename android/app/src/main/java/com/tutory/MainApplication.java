@@ -4,13 +4,16 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.imagepicker.ImagePickerPackage;
 import com.swmansion.reanimated.ReanimatedPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+import com.reactnativecomponent.splashscreen.RCTSplashScreenPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
 import io.invertase.firebase.auth.ReactNativeFirebaseAuthPackage;
 import io.invertase.firebase.firestore.ReactNativeFirebaseFirestorePackage;
+import io.invertase.firebase.storage.ReactNativeFirebaseStoragePackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -33,13 +36,16 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-                    new SplashScreenReactPackage(),
+                    new ImagePickerPackage(),
+                    new RCTSplashScreenPackage(),
+                    //new SplashScreenReactPackage(),
                     new VectorIconsPackage(),
                     new ReanimatedPackage(),
                     new RNGestureHandlerPackage(),
                     new ReactNativeFirebaseAppPackage(),
                     new ReactNativeFirebaseAuthPackage(),
                     new ReactNativeFirebaseFirestorePackage(),
+                    new ReactNativeFirebaseStoragePackage(),
                     new PickerPackage()
             );
         }

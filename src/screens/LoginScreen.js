@@ -13,7 +13,7 @@ import {
     
 } from 'react-native-elements';
 import LoginForm from '../components/LoginForm';
-import SplashScreen from 'react-native-splash-screen';
+import SplashScreen from 'react-native-smart-splash-screen';
 
 class LoginScreen extends Component {
     constructor(props) {
@@ -45,7 +45,11 @@ class LoginScreen extends Component {
     }
 
     componentDidMount() {
-        SplashScreen.hide();
+        SplashScreen.close({
+            animationType: SplashScreen.animationType.scale,
+            duration: 850,
+            delay: 500,
+        })
     }
 
 }
