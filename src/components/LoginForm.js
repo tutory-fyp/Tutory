@@ -84,20 +84,6 @@ class LoginForm extends Component {
         }
         if(re_email.test(this.state.email) && re_password.test(this.state.password)) {
             this.setState({loading: true});
-            // authApi.post('', {
-            //     email: this.state.email,
-            //     password: this.state.password,
-            //     returnSecureToken: true,
-            // }).then( res => {
-            //     if(res.data.registered) {
-            //         this.props.navigation.navigate('Dashboard');
-            //     }
-            // }).catch(err => {
-            //     this.setState({ loading: false });
-            //     if(err.response.data.error) {
-            //         alert("Incorrect Username or Password");
-            //     }
-            // });
             (async (email, password) => {
                 try {
                     let res = await auth().signInWithEmailAndPassword(email, password);
