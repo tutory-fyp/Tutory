@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { createAppContainer } from 'react-navigation';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import LoginScreen from './src/screens/LoginScreen';
 import SignupScreen from './src/screens/SignupScreen';
 import ImagePickerScreen from './src/screens/ImagePickerScreen';
 
-const tabNavigator = createBottomTabNavigator({
+const switchNavigator = createSwitchNavigator({
   Login: LoginScreen,
   Signup: SignupScreen,
   Image: ImagePickerScreen,
 });
 
-export default createAppContainer(tabNavigator);
+export default createAppContainer(switchNavigator);

@@ -13,7 +13,6 @@ import {
     Button as EButton,
 } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
-import SplashScreen from 'react-native-splash-screen';
 import StudentSignupForm from './StudentSignupForm';
 import TutorSignupForm from './TutorSignupForm';
 import ParentSignupForm from './ParentSignupForm';
@@ -93,11 +92,6 @@ class SignupForm extends Component {
             </ScrollView>
         );
     }
-
-    componentDidMount() {
-        SplashScreen.hide();
-    }
-
 }
 
 const styles = StyleSheet.create({

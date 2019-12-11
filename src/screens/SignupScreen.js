@@ -20,12 +20,7 @@ class SignupScreen extends Component {
             <>
                 <SafeAreaView>
                     <StatusBar backgroundColor='#63a7fa' />
-                    <ImageBackground
-                        source={require('../../assets/login_bg.jpg')}
-                        style={styles.bg}
-                    >
-                        <SignupForm />
-                    </ImageBackground>
+                    <SignupForm />
                 </SafeAreaView>
             </>
         );

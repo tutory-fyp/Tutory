@@ -9,6 +9,7 @@ import com.swmansion.reanimated.ReanimatedPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.reactnativecomponent.splashscreen.RCTSplashScreenPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
+import com.BV.LinearGradient.LinearGradientPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
 import io.invertase.firebase.auth.ReactNativeFirebaseAuthPackage;
@@ -46,7 +47,8 @@ public class MainApplication extends Application implements ReactApplication {
                     new ReactNativeFirebaseAuthPackage(),
                     new ReactNativeFirebaseFirestorePackage(),
                     new ReactNativeFirebaseStoragePackage(),
-                    new PickerPackage()
+                    new PickerPackage(),
+                    new LinearGradientPackage()
             );
         }
 
