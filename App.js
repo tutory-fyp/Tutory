@@ -8,6 +8,8 @@ const switchNavigator = createSwitchNavigator({
   Login: LoginScreen,
   Signup: SignupScreen,
   Image: ImagePickerScreen,
+}, {
+  initialRouteName: 'Login',
 });
 
 export default createAppContainer(switchNavigator);

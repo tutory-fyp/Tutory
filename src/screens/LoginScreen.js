@@ -9,6 +9,7 @@ import {
     Dimensions,
     Platform,
     TouchableOpacity,
+    KeyboardAvoidingView,
 } from 'react-native';
 import {
     Text as EText,
@@ -18,6 +19,7 @@ import {
 } from 'react-native-elements';
 import {
     TextInput as PTextInput,
+    HelperText,
 } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import SplashScreen from 'react-native-smart-splash-screen';
@@ -33,8 +35,6 @@ class LoginScreen extends Component {
             loading: false,
             email: '',
             password: '',
-            emailErrMsg: '',
-            passwordErrMsg: '',
             emailErr: false,
             passwordErr: false,
             rememberMe: false,
@@ -45,7 +45,7 @@ class LoginScreen extends Component {
         this._handleLogin = this._handleLogin.bind(this);
         this._checkEmail = this._checkEmail.bind(this);
         this._checkPassword = this._checkPassword.bind(this);
-        this.passwordInputRef = null;
+        this._passwordInputRef = null;
     }
 
     _handleRememberMe() {
@@ -67,8 +67,10 @@ class LoginScreen extends Component {
     _checkEmail() {
         if (this.state.email.length != 0) {
             let re_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+[^<>()\.,;:\s@\"]{2,})$/;
-            if (!re_email.test(this.state.email)) {
-                this.setState({ emailErr: true });
+            if (re_email.test(this.state.email)) {
+                return true;
+            } else {
+                return false;
             }
         }
     }
@@ -76,8 +78,10 @@ class LoginScreen extends Component {
     _checkPassword() {
         if (this.state.password.length != 0) {
             let re_password = /\S{6,}/;
-            if (!re_password.test(this.state.password)) {
-                this.setState({ passwordErr: true });
+            if (re_password.test(this.state.password)) {
+                return true;
+            } else {
+                return false;
             }
         }
     }
@@ -110,23 +114,19 @@ class LoginScreen extends Component {
     render() {
         return (
             <ImageBackground
-                source={require('../../assets/Login/login_bg.png')}
+                source={require('../../assets/Login/backGround.png')}
                 style={styles.bg}
             >
-                <StatusBar backgroundColor="#3185E8" />
-                {/* <EText h1 style={styles.welcomeText} >
-                    Tutory
-                </EText> */}
                 <EText h1 style={styles.loginText} >
                     Tutory
-                    </EText>
+                </EText>
                 <View
                     style={styles.loginCard}
                 >
                     <PTextInput
                         label='Email'
                         mode='outlined'
-                        theme={{ primary: '#3185E8'}}
+                        theme={{ primary: '#3185E8' }}
                         placeholder='Enter Email'
                         placeholderTextColor="rgba(255,255,255,0.7)"
                         returnKeyType="next"
@@ -135,18 +135,18 @@ class LoginScreen extends Component {
                         autoCapitalize="none"
                         autoCorrect={false}
                         style={styles.inputTextStyle}
-                        onSubmitEditing={() => this.passwordInputRef.focus()}
+                        onSubmitEditing={() => this._passwordInputRef.focus()}
                         onChangeText={this._handleEmailInput}
                     />
                     <PTextInput
-                        ref={(ref) => this.passwordInputRef = ref}
+                        ref={(ref) => this._passwordInputRef = ref}
                         label='Password'
                         mode='outlined'
                         value={this.state.password}
                         secureTextEntry
                         placeholder='Atleast 6 characters'
                         placeholderTextColor="rgba(255,255,255,0.7)"
-                        returnKeyType="go"
+                        returnKeyType="done"
                         onChangeText={this._handlePasswordInput}
                         style={styles.inputTextStyle}
                     />
@@ -167,18 +167,19 @@ class LoginScreen extends Component {
                             </EText>
                         </TouchableOpacity>
                     </View>
-                    <LinearGradientButton
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 0 }}
-                        colors={['#3185E8', '#0221A0']}
-                        containerStyle={styles.loginBtnStyle}
-                        label="Login"
-                        labelColor="white"
-                        labelFontSize={20}
-                        labelFontWeight="bold"
+                    <EButton
+                        title="Login"
+                        ViewComponent={LinearGradient}
+                        linearGradientProps={{
+                            colors: ['#3185E8', '#0221A0'],
+                            start: { x: 0, y: 0 },
+                            end: { x: 1, y: 0 },
+                        }}
                         loading={this.state.loading}
-                        loadingSize="large"
-                        loadingColor="white"
+                        loadingProps={{ size: 'large', color: 'white' }}
+                        titleStyle={styles.loginBtnTitle}
+                        containerStyle={styles.loginBtnContainer}
+                        buttonStyle={styles.loginBtn}
                         onPress={this._handleLogin}
                     />
                     <View style={styles.signUpText} >
@@ -189,7 +190,9 @@ class LoginScreen extends Component {
                         </EText>
                         <TouchableOpacity
                             style={{ alignSelf: 'center', marginLeft: '2%', }}
-                            onPress={() => this.props.navigation.navigate('RoleSelector')}
+                            onPress={() => {
+                                this.props.navigation.navigate('Signup');
+                            }}
                         >
                             <EText style={{ color: '#3185E8', fontSize: 16, borderBottomWidth: 1, borderColor: '#3185E8' }} >
                                 Sign up
@@ -207,6 +210,7 @@ class LoginScreen extends Component {
             duration: 850,
             delay: 500,
         })
+        //this.props.navigation.navigate('Signup');
     }
 
 }
@@ -217,9 +221,9 @@ const styles = StyleSheet.create({
     },
     bg: {
         flex: 1,
-        alignItems: 'center',
         height: '100%',
         width: '100%',
+        alignItems: 'center',
         justifyContent: 'center',
     },
     welcomeText: {
@@ -231,10 +235,11 @@ const styles = StyleSheet.create({
     loginText: {
         position: 'absolute',
         top: '5%',
-        left: '13%',
+        left: '8%',
         color: 'white',
     },
     loginCard: {
+        marginTop: '3%',
         alignItems: 'center',
         justifyContent: 'flex-start',
         width: WIDTH - 80,
@@ -264,15 +269,18 @@ const styles = StyleSheet.create({
     errMsgStyle: {
         fontSize: 15,
     },
-    loginBtnStyle: {
+    loginBtnContainer: {
         width: '80%',
         height: 50,
         borderRadius: 30,
         marginTop: '3%',
     },
-    btnStyle: {
+    loginBtn: {
         borderRadius: 30,
-        backgroundColor: 'black',
+    },
+    loginBtnTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
     },
 });
 
