@@ -2,200 +2,238 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    TextInput,
     Dimensions,
-    KeyboardAvoidingView,
-    Text,
-    Alert,
+    TouchableOpacity,
 } from 'react-native';
 import {
-    Input as EInput,
+    Text as EText,
     Button as EButton,
 } from 'react-native-elements';
-import firestore from '@react-native-firebase/firestore';
-import auth from '@react-native-firebase/auth';
+import {
+    TextInput as PTextInput,
+} from 'react-native-paper';
+import TextInputMask from 'react-native-text-input-mask';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import LinearGradient from 'react-native-linear-gradient';
+import { withNavigation } from 'react-navigation';
 
-const { width: WIDTH } = Dimensions.get('window');
+const { height: HEIGHT } = Dimensions.get('window');
 
 class StudentSignupForm extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
             fname: '',
             email: '',
             phoneNo: '',
-            cnic: '',
             password: '',
+            cnic: '',
+            loading: false,
         };
+        this._emailInputRef = React.createRef();
+        this._phoneNoInputRef = React.createRef();
+        this._passwordInputRef = React.createRef();
+        this._CNICInputRef = React.createRef();
         this._handleSignup = this._handleSignup.bind(this);
     }
 
     _handleSignup() {
-        let re_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+[^<>()\.,;:\s@\"]{2,})$/;
-        if(this.state.fname.length === 0) {
-            Alert.alert(
-                'Full Name Empty',
-                'Full Name cannot be Empty',
-                [
-                    { text: 'OK', onPress: () => { } },
-                ],
-                { cancelable: true },
-            );
-            return;
-        }
-        if(!re_email.test(this.state.email)) {
-            Alert.alert(
-                'Invalid Email',
-                'The Email You Entered is Invalid',
-                [
-                    { text: 'OK', onPress: () => {}},
-                ],
-                { cancelable: true },
-            );
-            return;
-        }
-        if (this.state.phoneNo.length != 11) {
-            Alert.alert(
-                'Invalid Phone Number',
-                'The Phone Number you Entered is Invalid',
-                [
-                    { text: 'OK', onPress: () => { } },
-                ],
-                { cancelable: true },
-            );
-            return;
-        }
-        if (this.state.cnic.length != 13) {
-            Alert.alert(
-                'Invalid CNIC',
-                'The CNIC you Entered is Invalid',
-                [
-                    { text: 'OK', onPress: () => { } },
-                ],
-                { cancelable: true },
-            );
-            return;
-        }
-        if (this.state.password.length != 6) {
-            Alert.alert(
-                'Invalid Password',
-                'Password must be 6 characters long',
-                [
-                    { text: 'OK', onPress: () => { } },
-                ],
-                { cancelable: true },
-            );
-            return;
-        }
-        if (this.state.fname.length && re_email.test(this.state.email) && 
-            this.state.phoneNo.length == 11 && this.state.cnic.length == 13 && 
-            this.state.password.length == 6) {
-            console.log('Here');
-            (async (email, password, fname, phoneNo, cnic) => {
-                try {
-                    let authEmailPass = await auth().createUserWithEmailAndPassword(email, password);
-                    try {
-                        let res = firestore().collection('students').doc(authEmailPass.uid).set({
-                            fname,
-                            phoneNo,
-                            cnic,
-                        })
-                        console.log(res);
-                    } catch (error) {
-                        console.log(error);
-                    }
-                } catch (error) {
-                    console.log(error);
-                }
-            })(this.state.email, this.state.password,
-                this.state.fname, this.state.phoneNo, this.state.cnic)
-        }
-        
+
     }
 
     render() {
         return (
-            <View style={styles.container} >
-                <TextInput
-                    placeholder="Full Name"
-                    placeholderTextColor="white"
-                    style={styles.inputs}
-                    value={this.state.fname}
-                    onChangeText={(fname) => {
-                        this.setState({ fname });
-                    }}
-                />
-                <TextInput
-                    placeholder="Email"
-                    placeholderTextColor="white"
-                    keyboardType="email-address"
-                    style={styles.inputs}
-                    value={this.state.email}
-                    onChangeText={(email) => {
-                        this.setState({ email });
-                    }}
-                />
-                <TextInput
-                    placeholder="Phone Number"
-                    placeholderTextColor="white"
-                    keyboardType="phone-pad"
-                    style={styles.inputs}
-                    value={this.state.phoneNo}
-                    onChangeText={(phoneNo) => {
-                        this.setState({ phoneNo });
-                    }}
-                />
-                <TextInput
-                    placeholder="CNIC"
-                    placeholderTextColor="white"
-                    keyboardType="number-pad"
-                    style={styles.inputs}
-                    value={this.state.cnic}
-                    onChangeText={(cnic) => {
-                        this.setState({ cnic });
-                    }}
-                />
-                <TextInput
-                    placeholder="Password"
-                    placeholderTextColor="white"
-                    secureTextEntry
-                    style={styles.inputs}
-                    value={this.state.password}
-                    onChangeText={(password) => {
-                        this.setState({ password });
-                    }}
-                />
-                <EButton
-                    containerStyle={styles.submitButton}
-                    title="Signup"
-                    onPress={this._handleSignup}
-                />
-            </View> 
+            <View
+                style={styles.signupCard}
+            >
+                <KeyboardAwareScrollView
+                    style={styles.signupFormWrapper}
+                    contentContainerStyle={styles.signupFormContentContainer}
+                >
+                    <PTextInput
+                        style={styles.signupFormInput}
+                        mode="outlined"
+                        label="Full Name"
+                        placeholder="Enter Full Name"
+                        returnKeyType="next"
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        value={this.state.fname}
+                        onChangeText={(fname) => {
+                            this.setState({ fname });
+                        }}
+                        onSubmitEditing={() => this._emailInputRef.current.focus()}
+                    />
+                    <PTextInput
+                        ref={this._emailInputRef}
+                        style={styles.signupFormInput}
+                        mode="outlined"
+                        label="Email"
+                        placeholder="Enter Email"
+                        keyboardType="email-address"
+                        returnKeyType="next"
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        value={this.state.email}
+                        onChangeText={(email) => {
+                            this.setState({ email });
+                        }}
+                        onSubmitEditing={() => this._passwordInputRef.current.focus()}
+                    />
+                    <PTextInput
+                        ref={this._passwordInputRef}
+                        style={styles.signupFormInput}
+                        mode="outlined"
+                        label="Password"
+                        placeholder="Atleast 6 Characters"
+                        returnKeyType="next"
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        value={this.state.password}
+                        onChangeText={(password) => {
+                            this.setState({ password });
+                        }}
+                        onSubmitEditing={() => {
+                            this._phoneNoInputRef.focus();
+                        }}
+                    />
+                    <PTextInput
+                        style={styles.signupFormInput}
+                        mode="outlined"
+                        label="Phone Number"
+                        placeholder="Enter Phone Number"
+                        keyboardType="phone-pad"
+                        returnKeyType="next"
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        onSubmitEditing={() => {
+                            this._CNICInputRef.focus();
+                        }}
+                        render={props =>
+                            <TextInputMask
+                                {...props}
+                                refInput={ref => { this._phoneNoInputRef = ref }}
+                                mask="+92 [000]-[0000000]"
+                            />
+                        }
+                    />
+                    <PTextInput
+                        style={styles.signupFormInput}
+                        mode="outlined"
+                        label="CNIC"
+                        keyboardType="number-pad"
+                        returnKeyType="done"
+                        value={this.state.cnic}
+                        onChangeText={(cnic) => {
+                            this.setState({ cnic });
+                        }}
+                        render={props =>
+                            <TextInputMask
+                                {...props}
+                                refInput={ref => { this._CNICInputRef = ref }}
+                                mask="[00000]-[0000000]-[0]"
+                            />
+                        }
+                    />
+                    <EButton
+                        title="Signup"
+                        ViewComponent={LinearGradient}
+                        linearGradientProps={{
+                            colors: ['#3185E8', '#0221A0'],
+                            start: { x: 0, y: 0 },
+                            end: { x: 1, y: 0 },
+                        }}
+                        loading={this.state.loading}
+                        loadingProps={{ size: 'large', color: 'white' }}
+                        titleStyle={styles.signupBtnTitle}
+                        containerStyle={styles.signupBtnContainer}
+                        buttonStyle={styles.signupBtn}
+                    />
+                </KeyboardAwareScrollView>
+                <View style={styles.regAccWrapper}>
+                    <EText style={styles.regAccText}>
+                        Already Registered?
+                    </EText>
+                    <TouchableOpacity
+                        style={styles.regAccLoginBtn}
+                        onPress={() => this.props.navigation.navigate('Login')}
+                    >
+                        <EText style={styles.regAccLoginBtnText}>
+                            Log in
+                        </EText>
+                    </TouchableOpacity>
+                </View>
+            </View>
         );
     }
+
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        width: '100%',
+    signupCard: {
+        marginTop: '10%',
+        height: HEIGHT - 220,
+        width: '90%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'white',
+        elevation: 10,
+        borderRadius: 30,
+    },
+    signupFormWrapper: {
+        borderRadius: 30,
+        ...StyleSheet.absoluteFill,
+    },
+    signupFormContentContainer: {
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        paddingTop: '5%',
+    },
+    signupFormInput: {
+        width: '80%',
+        height: 50,
+        marginTop: '2%',
+    },
+    signupBtnStyle: {
+        width: '70%',
+        height: 50,
+        borderRadius: 30,
+        marginTop: '2%',
+    },
+    signupBtnContainer: {
+        width: '70%',
+        height: 50,
+        borderRadius: 30,
+        marginTop: '5%',
+    },
+    signupBtn: {
+        borderRadius: 30,
+    },
+    signupBtnTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+    regAccWrapper: {
+        position: 'absolute',
+        bottom: '2%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    regAccText: {
+        color: 'rgba(0,0,0,0.7)',
+        marginTop: '3%',
+    },
+    regAccLoginBtn: {
+        marginLeft: '3%',
+        justifyContent: 'center',
         alignItems: 'center',
     },
-    inputs: {
-        color: 'white',
-        marginVertical: '2%',
-        borderRadius: 100,
-        backgroundColor: '#3483E8',
-        fontSize: 20,
-        width: '80%',
-        opacity: 0.7,
-        paddingLeft: '10%',
-    },
-    submitButton: {
-        marginVertical: '2%',
-        width: '50%',
+    regAccLoginBtnText: {
+        fontSize: 16,
+        borderBottomWidth: 1,
+        borderBottomColor: '#3185E8',
     },
 });
 
-export default StudentSignupForm;
+export default withNavigation(StudentSignupForm);

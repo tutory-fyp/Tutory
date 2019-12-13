@@ -194,6 +194,8 @@ dependencies {
     implementation project(path: ":@react-native-firebase_storage")
     implementation project(':react-native-smart-splashscreen')
     implementation project(':react-native-linear-gradient')
+    implementation project(':react-native-text-input-mask')
+
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
