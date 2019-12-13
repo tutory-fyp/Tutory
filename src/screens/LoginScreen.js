@@ -24,7 +24,6 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import SplashScreen from 'react-native-smart-splash-screen';
 import auth from '@react-native-firebase/auth';
-import LinearGradientButton from '../components/LinearGradientButton';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 

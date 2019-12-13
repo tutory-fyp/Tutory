@@ -167,7 +167,7 @@ class SignupScreen extends Component {
                             </View>
                         </View>
                         <EButton
-                            title="Login"
+                            title="Signup"
                             ViewComponent={LinearGradient}
                             linearGradientProps={{
                                 colors: ['#3185E8', '#0221A0'],
