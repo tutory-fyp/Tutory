@@ -88,11 +88,38 @@ class LoginScreen extends Component {
     _handleLogin() {
         let re_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+[^<>()\.,;:\s@\"]{2,})$/;
         let re_password = /\S{6,}/;
+        if (this.state.email.length === 0) {
+            Alert.alert(
+                'Empty Email',
+                'Email cannot be empty',
+                [
+                    { text: 'OK' },
+                ],
+                { cancelable: true },
+            );
+            return;
+        }
         if (!re_email.test(this.state.email)) {
-            this.setState({ emailErrMsg: 'Invalid Email' });
+            Alert.alert(
+                'Invalid Email',
+                'The Entered Email is Invalid',
+                [
+                    { text: 'OK' },
+                ],
+                { cancelable: true },
+            );
+            return;
         }
         if (!re_password.test(this.state.password)) {
-            this.setState({ passwordErrMsg: 'Password length must be 6 characters' });
+            Alert.alert(
+                'Invalid Password',
+                'Password length must be atleast 6 characters',
+                [
+                    { text: 'OK' },
+                ],
+                { cancelable: true },
+            );
+            return;
         }
         if (re_email.test(this.state.email) && re_password.test(this.state.password)) {
             this.setState({ loading: true });
@@ -104,7 +131,16 @@ class LoginScreen extends Component {
                     }
                 } catch (error) {
                     this.setState({loading: false});
-                    console.log(error);
+                    Alert.alert(
+                        'Login Failed',
+                        'Email or Password is Incorrect',
+                        [
+                            { text: 'OK' },
+                        ],
+                        { cancelable: true },
+                    );
+                    return;
+                    console.log(error.code);
                 }
             })(this.state.email, this.state.password);
         }
@@ -143,7 +179,7 @@ class LoginScreen extends Component {
                         mode='outlined'
                         value={this.state.password}
                         secureTextEntry
-                        placeholder='Atleast 6 characters'
+                        placeholder='Enter Password'
                         placeholderTextColor="rgba(255,255,255,0.7)"
                         returnKeyType="done"
                         onChangeText={this._handlePasswordInput}
@@ -208,8 +244,7 @@ class LoginScreen extends Component {
             animationType: SplashScreen.animationType.scale,
             duration: 850,
             delay: 500,
-        })
-        //this.props.navigation.navigate('Signup');
+        });
     }
 
 }

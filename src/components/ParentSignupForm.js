@@ -94,28 +94,8 @@ class ParentSignupScreen extends Component {
                             this.setState({ password });
                         }}
                         onSubmitEditing={() => {
-                            this._phoneNoInputRef.focus();
-                        }}
-                    />
-                    <PTextInput
-                        style={styles.signupFormInput}
-                        mode="outlined"
-                        label="Phone Number"
-                        placeholder="Enter Phone Number"
-                        keyboardType="phone-pad"
-                        returnKeyType="next"
-                        autoCapitalize="none"
-                        autoCorrect={false}
-                        onSubmitEditing={() => {
                             this._CNICInputRef.focus();
                         }}
-                        render={props =>
-                            <TextInputMask
-                                {...props}
-                                refInput={ref => { this._phoneNoInputRef = ref }}
-                                mask="+92 [000]-[0000000]"
-                            />
-                        }
                     />
                     <PTextInput
                         style={styles.signupFormInput}
@@ -171,8 +151,8 @@ class ParentSignupScreen extends Component {
 
 const styles = StyleSheet.create({
     signupCard: {
-        marginTop: '10%',
-        height: HEIGHT - 220,
+        marginTop: '6%',
+        height: HEIGHT - 280,
         width: '90%',
         alignItems: 'center',
         justifyContent: 'center',

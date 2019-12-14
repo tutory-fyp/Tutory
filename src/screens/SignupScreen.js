@@ -8,13 +8,13 @@ import {
 } from 'react-native-elements';
 import ParentSignupForm from '../components/ParentSignupForm';
 import StudentSignupForm from '../components/StudentSignupForm';
-
+import TutorSignupForm from '../components/TutorSignupForm';
 
 class SignupScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            role: 'student',
+            role: 'tutor',
         };
         this._emailInputRef = null;
         this._phoneNoInputRef = null;
@@ -34,6 +34,11 @@ class SignupScreen extends Component {
             case 'student': {
                 return (
                     <StudentSignupForm />
+                );
+            }
+            case 'tutor': {
+                return (
+                    <TutorSignupForm />
                 );
             }
             default: {
