@@ -24,7 +24,6 @@ import ImagePicker from 'react-native-image-picker';
 import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import { request, PERMISSIONS } from 'react-native-permissions';
 
 const { height: HEIGHT } = Dimensions.get('window');
 
@@ -39,6 +38,7 @@ class TutorSignupForm extends Component {
             cnic: '',
             loading: false,
             filePath: {},
+            disable: false,
         };
         this._emailInputRef = React.createRef();
         this._phoneNoInputRef = React.createRef();
@@ -64,180 +64,181 @@ class TutorSignupForm extends Component {
     }
 
     _handleSignup() {
-        let regex_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-        if(this.state.fname.length === 0) {
-            Alert.alert(
-                'Empty Fullname',
-                'Fullname cannot be empty',
-                [
-                    { text: 'OK' },
-                ],
-                { cancelable: true },
-            );
-            return;
-        }
-        if(this.state.email.length === 0) {
-            Alert.alert(
-                'Empty Email',
-                'Email cannot be empty',
-                [
-                    { text: 'OK' },
-                ],
-                { cancelable: true },
-            );
-            return;
-        }
-        if (!regex_email.test(this.state.email)) {
-            Alert.alert(
-                'Invalid Email',
-                'The Entered Email is Invalid',
-                [
-                    { text: 'OK' },
-                ],
-                { cancelable: true },
-            );
-            return;
-        }
-        if (this.state.password.length < 6) {
-            Alert.alert(
-                'Invalid Password',
-                'Password length must be atleast 6 characters',
-                [
-                    { text: 'OK' },
-                ],
-                { cancelable: true },
-            );
-            return;
-        }
-        if (this.state.phoneNo.length === 0) {
-            Alert.alert(
-                'Empty Phone Number',
-                'Phone Number cannot be empty',
-                [
-                    { text: 'OK' },
-                ],
-                { cancelable: true },
-            );
-            return;
-        }
-        if (this.state.phoneNo.length < 13) {
-            Alert.alert(
-                'Invalid Phone Number',
-                'Phone Number Entered is Invalid',
-                [
-                    { text: 'OK' },
-                ],
-                { cancelable: true },
-            );
-            return;
-        }
-        if (this.state.cnic.length === 0) {
-            Alert.alert(
-                'CNIC Empty',
-                'CNIC cannot be empty',
-                [
-                    { text: 'OK' },
-                ],
-                { cancelable: true },
-            );
-            return;
-        }
-        if (this.state.cnic.length < 15) {
-            Alert.alert(
-                'Invalid CNIC',
-                'CNIC Entered is Invalid',
-                [
-                    { text: 'OK' },
-                ],
-                { cancelable: true },
-            );
-            return;
-        }
-        if(!this.state.filePath.path) {
-            Alert.alert(
-                'No Image File Selected',
-                'Please select image of latest academic document',
-                [
-                    { text: 'OK' },
-                ],
-                { cancelable: true },
-            );
-            return;
-        }
-        this.setState({ loading: true });
-        let authentication = auth();
-        authentication.createUserWithEmailAndPassword(this.state.email, this.state.password)
-        .then(userCredential => {
-            (async () => {
-                try {
-                    let tutors = await firestore().collection('tutors');
-                    let tutor = await tutors.add({
-                        id: userCredential.user.uid,
-                        fname: this.state.fname,
-                        email: this.state.email,
-                        phoneNo: this.state.phoneNo,
-                        cnic: this.state.cnic,
-                    });
-                    let ref = await tutor.get();
-                    console.log(ref.get('fname'));
-                }
-                catch(err) {
-                    Alert.alert(
-                        'Error',
-                        'Something went wrong with signup',
-                        [
-                            { text: 'OK', onPress: () => { console.log(err) } },
-                        ],
-                        { cancelable: true },
-                    );
-                    this.setState({ loading: false });
-                }
-            })();
-            let ref = storage().ref(`academicImages/${userCredential.user.uid}/${this.state.filePath.fileName}`);
-            let task = ref.putFile(this.state.filePath.path, {
-                cacheControl: 'no-store',
-            });
-            task.then((snapshot) => {
-                this.props.navigation.navigate('Login');
-            })
-            .catch(err => {
-                Alert.alert(
-                    'Error',
-                    'Something went wrong with signup',
-                    [
-                        { text: 'OK', onPress: () => { console.log(error.code) } },
-                    ],
-                    { cancelable: true },
-                );
-                this.setState({ loading: false });
-            });
-        })
-        .catch(error => {
-            if(error.code == 'auth/email-already-in-use') {
-                Alert.alert(
-                    'Email Already in use',
-                    'The Email you entered is already in use',
-                    [
-                        { text: 'OK' },
-                    ],
-                    { cancelable: true },
-                );
-                this.setState({ loading: false });
-                return;
-            }
-            else {
-                Alert.alert(
-                    'Error',
-                    'Something went wrong with signup',
-                    [
-                        { text: 'OK', onPress: () => { console.log(error.code) } },
-                    ],
-                    { cancelable: true },
-                );
-                this.setState({ loading: false });
-                return;
-            }
-        });
+        this.setState( {disable: true} );
+        // let regex_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        // if(this.state.fname.length === 0) {
+        //     Alert.alert(
+        //         'Empty Fullname',
+        //         'Fullname cannot be empty',
+        //         [
+        //             { text: 'OK' },
+        //         ],
+        //         { cancelable: true },
+        //     );
+        //     return;
+        // }
+        // if(this.state.email.length === 0) {
+        //     Alert.alert(
+        //         'Empty Email',
+        //         'Email cannot be empty',
+        //         [
+        //             { text: 'OK' },
+        //         ],
+        //         { cancelable: true },
+        //     );
+        //     return;
+        // }
+        // if (!regex_email.test(this.state.email)) {
+        //     Alert.alert(
+        //         'Invalid Email',
+        //         'The Entered Email is Invalid',
+        //         [
+        //             { text: 'OK' },
+        //         ],
+        //         { cancelable: true },
+        //     );
+        //     return;
+        // }
+        // if (this.state.password.length < 6) {
+        //     Alert.alert(
+        //         'Invalid Password',
+        //         'Password length must be atleast 6 characters',
+        //         [
+        //             { text: 'OK' },
+        //         ],
+        //         { cancelable: true },
+        //     );
+        //     return;
+        // }
+        // if (this.state.phoneNo.length === 0) {
+        //     Alert.alert(
+        //         'Empty Phone Number',
+        //         'Phone Number cannot be empty',
+        //         [
+        //             { text: 'OK' },
+        //         ],
+        //         { cancelable: true },
+        //     );
+        //     return;
+        // }
+        // if (this.state.phoneNo.length < 13) {
+        //     Alert.alert(
+        //         'Invalid Phone Number',
+        //         'Phone Number Entered is Invalid',
+        //         [
+        //             { text: 'OK' },
+        //         ],
+        //         { cancelable: true },
+        //     );
+        //     return;
+        // }
+        // if (this.state.cnic.length === 0) {
+        //     Alert.alert(
+        //         'CNIC Empty',
+        //         'CNIC cannot be empty',
+        //         [
+        //             { text: 'OK' },
+        //         ],
+        //         { cancelable: true },
+        //     );
+        //     return;
+        // }
+        // if (this.state.cnic.length < 15) {
+        //     Alert.alert(
+        //         'Invalid CNIC',
+        //         'CNIC Entered is Invalid',
+        //         [
+        //             { text: 'OK' },
+        //         ],
+        //         { cancelable: true },
+        //     );
+        //     return;
+        // }
+        // if(!this.state.filePath.path) {
+        //     Alert.alert(
+        //         'No Image File Selected',
+        //         'Please select image of latest academic document',
+        //         [
+        //             { text: 'OK' },
+        //         ],
+        //         { cancelable: true },
+        //     );
+        //     return;
+        // }
+        // this.setState({ loading: true });
+        // let authentication = auth();
+        // authentication.createUserWithEmailAndPassword(this.state.email, this.state.password)
+        // .then(userCredential => {
+        //     (async () => {
+        //         try {
+        //             let tutors = await firestore().collection('tutors');
+        //             let tutor = await tutors.add({
+        //                 id: userCredential.user.uid,
+        //                 fname: this.state.fname,
+        //                 email: this.state.email,
+        //                 phoneNo: this.state.phoneNo,
+        //                 cnic: this.state.cnic,
+        //             });
+        //             let ref = await tutor.get();
+        //             console.log(ref.get('fname'));
+        //         }
+        //         catch(err) {
+        //             Alert.alert(
+        //                 'Error',
+        //                 'Something went wrong with signup',
+        //                 [
+        //                     { text: 'OK', onPress: () => { console.log(err) } },
+        //                 ],
+        //                 { cancelable: true },
+        //             );
+        //             this.setState({ loading: false });
+        //         }
+        //     })();
+        //     let ref = storage().ref(`academicImages/${userCredential.user.uid}/${this.state.filePath.fileName}`);
+        //     let task = ref.putFile(this.state.filePath.path, {
+        //         cacheControl: 'no-store',
+        //     });
+        //     task.then((snapshot) => {
+        //         this.props.navigation.navigate('Login');
+        //     })
+        //     .catch(err => {
+        //         Alert.alert(
+        //             'Error',
+        //             'Something went wrong with signup',
+        //             [
+        //                 { text: 'OK', onPress: () => { console.log(error.code) } },
+        //             ],
+        //             { cancelable: true },
+        //         );
+        //         this.setState({ loading: false });
+        //     });
+        // })
+        // .catch(error => {
+        //     if(error.code == 'auth/email-already-in-use') {
+        //         Alert.alert(
+        //             'Email Already in use',
+        //             'The Email you entered is already in use',
+        //             [
+        //                 { text: 'OK' },
+        //             ],
+        //             { cancelable: true },
+        //         );
+        //         this.setState({ loading: false });
+        //         return;
+        //     }
+        //     else {
+        //         Alert.alert(
+        //             'Error',
+        //             'Something went wrong with signup',
+        //             [
+        //                 { text: 'OK', onPress: () => { console.log(error.code) } },
+        //             ],
+        //             { cancelable: true },
+        //         );
+        //         this.setState({ loading: false });
+        //         return;
+        //     }
+        // });
     }
 
     render() {
@@ -256,6 +257,7 @@ class TutorSignupForm extends Component {
                         placeholder="Enter Full Name"
                         returnKeyType="next"
                         autoCapitalize="none"
+                        disabled={this.state.disable}
                         autoCorrect={false}
                         value={this.state.fname}
                         onChangeText={(fname) => {
@@ -272,6 +274,7 @@ class TutorSignupForm extends Component {
                         keyboardType="email-address"
                         returnKeyType="next"
                         autoCapitalize="none"
+                        disabled={this.state.disable}
                         autoCorrect={false}
                         value={this.state.email}
                         onChangeText={(email) => {
@@ -287,6 +290,7 @@ class TutorSignupForm extends Component {
                         placeholder="Enter Password"
                         returnKeyType="next"
                         autoCapitalize="none"
+                        disabled={this.state.disable}
                         autoCorrect={false}
                         secureTextEntry
                         value={this.state.password}
@@ -305,6 +309,7 @@ class TutorSignupForm extends Component {
                         keyboardType="phone-pad"
                         returnKeyType="next"
                         autoCapitalize="none"
+                        disabled={this.state.disable}
                         autoCorrect={false}
                         value={this.state.phoneNo}
                         onChangeText={(phoneNo) => {
@@ -328,6 +333,7 @@ class TutorSignupForm extends Component {
                         placeholder="Enter CNIC"
                         keyboardType="number-pad"
                         returnKeyType="done"
+                        disabled={this.state.disable}
                         value={this.state.cnic}
                         onChangeText={(cnic) => {
                             this.setState({ cnic });

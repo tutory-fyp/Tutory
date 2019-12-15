@@ -4,6 +4,8 @@ import {
     View,
     Dimensions,
     TouchableOpacity,
+    Image,
+    Alert,
 } from 'react-native';
 import {
     Text as EText,
@@ -11,11 +13,17 @@ import {
 } from 'react-native-elements';
 import {
     TextInput as PTextInput,
+    HelperText,
 } from 'react-native-paper';
 import TextInputMask from 'react-native-text-input-mask';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import LinearGradient from 'react-native-linear-gradient';
 import { withNavigation } from 'react-navigation';
+import Icon from 'react-native-vector-icons/Entypo';
+import ImagePicker from 'react-native-image-picker';
+import storage from '@react-native-firebase/storage';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 const { height: HEIGHT } = Dimensions.get('window');
 
@@ -38,7 +46,152 @@ class StudentSignupForm extends Component {
     }
 
     _handleSignup() {
-
+        let regex_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        if (this.state.fname.length === 0) {
+            Alert.alert(
+                'Empty Fullname',
+                'Fullname cannot be empty',
+                [
+                    { text: 'OK' },
+                ],
+                { cancelable: true },
+            );
+            return;
+        }
+        if (this.state.email.length === 0) {
+            Alert.alert(
+                'Empty Email',
+                'Email cannot be empty',
+                [
+                    { text: 'OK' },
+                ],
+                { cancelable: true },
+            );
+            return;
+        }
+        if (!regex_email.test(this.state.email)) {
+            Alert.alert(
+                'Invalid Email',
+                'The Entered Email is Invalid',
+                [
+                    { text: 'OK' },
+                ],
+                { cancelable: true },
+            );
+            return;
+        }
+        if (this.state.password.length < 6) {
+            Alert.alert(
+                'Invalid Password',
+                'Password length must be atleast 6 characters',
+                [
+                    { text: 'OK' },
+                ],
+                { cancelable: true },
+            );
+            return;
+        }
+        if (this.state.phoneNo.length === 0) {
+            Alert.alert(
+                'Empty Phone Number',
+                'Phone Number cannot be empty',
+                [
+                    { text: 'OK' },
+                ],
+                { cancelable: true },
+            );
+            return;
+        }
+        if (this.state.phoneNo.length < 13) {
+            Alert.alert(
+                'Invalid Phone Number',
+                'Phone Number Entered is Invalid',
+                [
+                    { text: 'OK' },
+                ],
+                { cancelable: true },
+            );
+            return;
+        }
+        if (this.state.cnic.length === 0) {
+            Alert.alert(
+                'CNIC Empty',
+                'CNIC cannot be empty',
+                [
+                    { text: 'OK' },
+                ],
+                { cancelable: true },
+            );
+            return;
+        }
+        if (this.state.cnic.length < 15) {
+            Alert.alert(
+                'Invalid CNIC',
+                'CNIC Entered is Invalid',
+                [
+                    { text: 'OK' },
+                ],
+                { cancelable: true },
+            );
+            return;
+        }
+        this.setState({ loading: true });
+        let authentication = auth();
+        authentication.createUserWithEmailAndPassword(this.state.email, this.state.password)
+            .then(userCredential => {
+                (async () => {
+                    try {
+                        let tutors = await firestore().collection('students');
+                        let tutor = await tutors.add({
+                            id: userCredential.user.uid,
+                            fname: this.state.fname,
+                            email: this.state.email,
+                            phoneNo: this.state.phoneNo,
+                            cnic: this.state.cnic,
+                        });
+                        let ref = await tutor.get();
+                        console.log(ref.get('fname'));
+                        this.setState({ loading: false });
+                    }
+                    catch (err) {
+                        Alert.alert(
+                            'Error',
+                            'Something went wrong with signup',
+                            [
+                                { text: 'OK', onPress: () => { console.log(err) } },
+                            ],
+                            { cancelable: true },
+                        );
+                        this.setState({ loading: false });
+                    }
+                })();
+            })
+            .catch(error => {
+                if (error.code == 'auth/email-already-in-use') {
+                    Alert.alert(
+                        'Email Already in use',
+                        'The Email you entered is already in use',
+                        [
+                            { text: 'OK' },
+                        ],
+                        { cancelable: true },
+                    );
+                    this.setState({ loading: false });
+                    return;
+                }
+                else {
+                    Alert.alert(
+                        'Error',
+                        'Something went wrong with signup',
+                        [
+                            { text: 'OK', onPress: () => { console.log(error.code) } },
+                        ],
+                        { cancelable: true },
+                    );
+                    this.setState({ loading: false });
+                    return;
+                }
+            });
     }
 
     render() {
@@ -85,9 +238,10 @@ class StudentSignupForm extends Component {
                         style={styles.signupFormInput}
                         mode="outlined"
                         label="Password"
-                        placeholder="Atleast 6 Characters"
+                        placeholder="Enter Password"
                         returnKeyType="next"
                         autoCapitalize="none"
+                        secureTextEntry
                         autoCorrect={false}
                         value={this.state.password}
                         onChangeText={(password) => {
@@ -106,6 +260,9 @@ class StudentSignupForm extends Component {
                         returnKeyType="next"
                         autoCapitalize="none"
                         autoCorrect={false}
+                        onChangeText={(phoneNo) => {
+                            this.setState({ phoneNo });
+                        }}
                         onSubmitEditing={() => {
                             this._CNICInputRef.focus();
                         }}
@@ -148,6 +305,7 @@ class StudentSignupForm extends Component {
                         titleStyle={styles.signupBtnTitle}
                         containerStyle={styles.signupBtnContainer}
                         buttonStyle={styles.signupBtn}
+                        onPress={this._handleSignup}
                     />
                 </KeyboardAwareScrollView>
                 <View style={styles.regAccWrapper}>

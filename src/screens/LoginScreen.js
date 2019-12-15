@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import {
     StyleSheet,
-    SafeAreaView,
     ImageBackground,
-    ActivityIndicator,
     View,
-    StatusBar,
     Dimensions,
-    Platform,
     TouchableOpacity,
-    KeyboardAvoidingView,
+    Alert,
 } from 'react-native';
 import {
     Text as EText,
@@ -125,10 +121,16 @@ class LoginScreen extends Component {
             this.setState({ loading: true });
             (async (email, password) => {
                 try {
-                    let res = await auth().signInWithEmailAndPassword(email, password);
-                    if(res.user.uid) {
-                        this.props.navigation.navigate('Signup');
-                    }
+                    await auth().signInWithEmailAndPassword(email, password);
+                    this.setState({ loading: false });
+                    Alert.alert(
+                        'Login Successfully',
+                        'You are login Successfully',
+                        [
+                            { text: 'OK' },
+                        ],
+                        { cancelable: true },
+                    );
                 } catch (error) {
                     this.setState({loading: false});
                     Alert.alert(
@@ -139,8 +141,8 @@ class LoginScreen extends Component {
                         ],
                         { cancelable: true },
                     );
-                    return;
                     console.log(error.code);
+                    return;
                 }
             })(this.state.email, this.state.password);
         }
