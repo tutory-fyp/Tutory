@@ -64,6 +64,11 @@ class SignupScreen extends Component {
         );
     }
 
+    componentDidMount() {
+        let role = this.props.navigation.getParam('role');
+        this.setState({ role });
+    }
+
 }
 
 const styles = StyleSheet.create({
@@ -80,7 +85,7 @@ const styles = StyleSheet.create({
     signupText: {
         position: 'absolute',
         left: '6%',
-        top: '2%',
+        top: '4%',
         color: 'white',
     },
 });

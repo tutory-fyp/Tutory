@@ -8,6 +8,7 @@ import {
     StatusBar,
     Dimensions,
     Platform,
+    Alert,
     TouchableOpacity,
 } from 'react-native';
 import {
@@ -32,23 +33,25 @@ class RoleSelector extends Component {
         this.state = {
             role: ''
         };
-        this._handleLogin=this._handleLogin.bind(this);
+        this._handleProceed = this._handleProceed.bind(this);
     }
 
-    _handleLogin() {
-        console.log(this.state);
-        if (this.state.role == "Student") {
-            this.props.navigation.navigate("StudentSignup")
-        }
-        if (this.state.role == "Tutor") {
-            this.props.navigation.navigate("TutorSignup")
-        }
-        if (this.state.role == "Parent") {
-            this.props.navigation.navigate("ParentSignup")
+    _handleProceed() {
+        if(this.state.role) {
+            this.props.navigation.navigate('Signup', {
+                role: this.state.role.toLowerCase(),
+            });
+        } else {
+            Alert.alert(
+                'No Role Selected',
+                'Please Select a Role to Proceed',
+                [
+                    { text: 'OK' },
+                ],
+                { cancelable: true },
+            );
         }
     }
-
-
 
     render() {
         let data = [{
@@ -65,7 +68,7 @@ class RoleSelector extends Component {
             >
                 <EText h1 style={styles.loginText} >
                     Tutory
-                    </EText>
+                </EText>
                 <View style={styles.loginCard}>
                     <EText style={styles.selectorText}>How Would You Like To Sign up</EText>
                     <Dropdown
@@ -73,8 +76,8 @@ class RoleSelector extends Component {
                         data={data}
                         textColor="rgba(0,0,0,0.5)"
                         fontSize={18}
-                        onChangeText={(data) => {
-                            this.setState({ role: data });
+                        onChangeText={(role) => {
+                            this.setState({ role });
                         }}
                         containerStyle={{ width: 200, marginTop: '10%' }}
                     />
@@ -91,7 +94,7 @@ class RoleSelector extends Component {
                         titleStyle={styles.loginBtnTitle}
                         containerStyle={styles.loginBtnContainer}
                         buttonStyle={styles.loginBtn}
-                        onPress={this._handleLogin}
+                        onPress={this._handleProceed}
                     />
                 </View>
             </ImageBackground>
@@ -120,16 +123,10 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         justifyContent: 'center',
     },
-    welcomeText: {
-        position: 'absolute',
-        top: '2%',
-        left: '5%',
-        color: 'white',
-    },
     loginText: {
         position: 'absolute',
         top: '5%',
-        left: '9%',
+        left: '5%',
         color: 'white',
     },
     loginCard: {

@@ -228,7 +228,7 @@ class LoginScreen extends Component {
                         <TouchableOpacity
                             style={{ alignSelf: 'center', marginLeft: '2%', }}
                             onPress={() => {
-                                this.props.navigation.navigate('Signup');
+                                this.props.navigation.navigate('RoleSelector');
                             }}
                         >
                             <EText style={{ color: '#3185E8', fontSize: 16, borderBottomWidth: 1, borderColor: '#3185E8' }} >
