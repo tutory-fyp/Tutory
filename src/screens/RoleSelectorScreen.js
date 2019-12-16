@@ -74,7 +74,7 @@ class RoleSelector extends Component {
                     <Dropdown
                         label='Select'
                         data={data}
-                        textColor="rgba(0,0,0,0.5)"
+                        textColor="#3185E8"
                         fontSize={18}
                         onChangeText={(role) => {
                             this.setState({ role });

@@ -64,181 +64,180 @@ class TutorSignupForm extends Component {
     }
 
     _handleSignup() {
-        this.setState( {disable: true} );
-        // let regex_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-        // if(this.state.fname.length === 0) {
-        //     Alert.alert(
-        //         'Empty Fullname',
-        //         'Fullname cannot be empty',
-        //         [
-        //             { text: 'OK' },
-        //         ],
-        //         { cancelable: true },
-        //     );
-        //     return;
-        // }
-        // if(this.state.email.length === 0) {
-        //     Alert.alert(
-        //         'Empty Email',
-        //         'Email cannot be empty',
-        //         [
-        //             { text: 'OK' },
-        //         ],
-        //         { cancelable: true },
-        //     );
-        //     return;
-        // }
-        // if (!regex_email.test(this.state.email)) {
-        //     Alert.alert(
-        //         'Invalid Email',
-        //         'The Entered Email is Invalid',
-        //         [
-        //             { text: 'OK' },
-        //         ],
-        //         { cancelable: true },
-        //     );
-        //     return;
-        // }
-        // if (this.state.password.length < 6) {
-        //     Alert.alert(
-        //         'Invalid Password',
-        //         'Password length must be atleast 6 characters',
-        //         [
-        //             { text: 'OK' },
-        //         ],
-        //         { cancelable: true },
-        //     );
-        //     return;
-        // }
-        // if (this.state.phoneNo.length === 0) {
-        //     Alert.alert(
-        //         'Empty Phone Number',
-        //         'Phone Number cannot be empty',
-        //         [
-        //             { text: 'OK' },
-        //         ],
-        //         { cancelable: true },
-        //     );
-        //     return;
-        // }
-        // if (this.state.phoneNo.length < 13) {
-        //     Alert.alert(
-        //         'Invalid Phone Number',
-        //         'Phone Number Entered is Invalid',
-        //         [
-        //             { text: 'OK' },
-        //         ],
-        //         { cancelable: true },
-        //     );
-        //     return;
-        // }
-        // if (this.state.cnic.length === 0) {
-        //     Alert.alert(
-        //         'CNIC Empty',
-        //         'CNIC cannot be empty',
-        //         [
-        //             { text: 'OK' },
-        //         ],
-        //         { cancelable: true },
-        //     );
-        //     return;
-        // }
-        // if (this.state.cnic.length < 15) {
-        //     Alert.alert(
-        //         'Invalid CNIC',
-        //         'CNIC Entered is Invalid',
-        //         [
-        //             { text: 'OK' },
-        //         ],
-        //         { cancelable: true },
-        //     );
-        //     return;
-        // }
-        // if(!this.state.filePath.path) {
-        //     Alert.alert(
-        //         'No Image File Selected',
-        //         'Please select image of latest academic document',
-        //         [
-        //             { text: 'OK' },
-        //         ],
-        //         { cancelable: true },
-        //     );
-        //     return;
-        // }
-        // this.setState({ loading: true });
-        // let authentication = auth();
-        // authentication.createUserWithEmailAndPassword(this.state.email, this.state.password)
-        // .then(userCredential => {
-        //     (async () => {
-        //         try {
-        //             let tutors = await firestore().collection('tutors');
-        //             let tutor = await tutors.add({
-        //                 id: userCredential.user.uid,
-        //                 fname: this.state.fname,
-        //                 email: this.state.email,
-        //                 phoneNo: this.state.phoneNo,
-        //                 cnic: this.state.cnic,
-        //             });
-        //             let ref = await tutor.get();
-        //             console.log(ref.get('fname'));
-        //         }
-        //         catch(err) {
-        //             Alert.alert(
-        //                 'Error',
-        //                 'Something went wrong with signup',
-        //                 [
-        //                     { text: 'OK', onPress: () => { console.log(err) } },
-        //                 ],
-        //                 { cancelable: true },
-        //             );
-        //             this.setState({ loading: false });
-        //         }
-        //     })();
-        //     let ref = storage().ref(`academicImages/${userCredential.user.uid}/${this.state.filePath.fileName}`);
-        //     let task = ref.putFile(this.state.filePath.path, {
-        //         cacheControl: 'no-store',
-        //     });
-        //     task.then((snapshot) => {
-        //         this.props.navigation.navigate('Login');
-        //     })
-        //     .catch(err => {
-        //         Alert.alert(
-        //             'Error',
-        //             'Something went wrong with signup',
-        //             [
-        //                 { text: 'OK', onPress: () => { console.log(error.code) } },
-        //             ],
-        //             { cancelable: true },
-        //         );
-        //         this.setState({ loading: false });
-        //     });
-        // })
-        // .catch(error => {
-        //     if(error.code == 'auth/email-already-in-use') {
-        //         Alert.alert(
-        //             'Email Already in use',
-        //             'The Email you entered is already in use',
-        //             [
-        //                 { text: 'OK' },
-        //             ],
-        //             { cancelable: true },
-        //         );
-        //         this.setState({ loading: false });
-        //         return;
-        //     }
-        //     else {
-        //         Alert.alert(
-        //             'Error',
-        //             'Something went wrong with signup',
-        //             [
-        //                 { text: 'OK', onPress: () => { console.log(error.code) } },
-        //             ],
-        //             { cancelable: true },
-        //         );
-        //         this.setState({ loading: false });
-        //         return;
-        //     }
-        // });
+        let regex_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        if(this.state.fname.length === 0) {
+            Alert.alert(
+                'Empty Fullname',
+                'Fullname cannot be empty',
+                [
+                    { text: 'OK' },
+                ],
+                { cancelable: true },
+            );
+            return;
+        }
+        if(this.state.email.length === 0) {
+            Alert.alert(
+                'Empty Email',
+                'Email cannot be empty',
+                [
+                    { text: 'OK' },
+                ],
+                { cancelable: true },
+            );
+            return;
+        }
+        if (!regex_email.test(this.state.email)) {
+            Alert.alert(
+                'Invalid Email',
+                'The Entered Email is Invalid',
+                [
+                    { text: 'OK' },
+                ],
+                { cancelable: true },
+            );
+            return;
+        }
+        if (this.state.password.length < 6) {
+            Alert.alert(
+                'Invalid Password',
+                'Password length must be atleast 6 characters',
+                [
+                    { text: 'OK' },
+                ],
+                { cancelable: true },
+            );
+            return;
+        }
+        if (this.state.phoneNo.length === 0) {
+            Alert.alert(
+                'Empty Phone Number',
+                'Phone Number cannot be empty',
+                [
+                    { text: 'OK' },
+                ],
+                { cancelable: true },
+            );
+            return;
+        }
+        if (this.state.phoneNo.length < 13) {
+            Alert.alert(
+                'Invalid Phone Number',
+                'Phone Number Entered is Invalid',
+                [
+                    { text: 'OK' },
+                ],
+                { cancelable: true },
+            );
+            return;
+        }
+        if (this.state.cnic.length === 0) {
+            Alert.alert(
+                'CNIC Empty',
+                'CNIC cannot be empty',
+                [
+                    { text: 'OK' },
+                ],
+                { cancelable: true },
+            );
+            return;
+        }
+        if (this.state.cnic.length < 15) {
+            Alert.alert(
+                'Invalid CNIC',
+                'CNIC Entered is Invalid',
+                [
+                    { text: 'OK' },
+                ],
+                { cancelable: true },
+            );
+            return;
+        }
+        if(!this.state.filePath.path) {
+            Alert.alert(
+                'No Image File Selected',
+                'Please select image of latest academic document',
+                [
+                    { text: 'OK' },
+                ],
+                { cancelable: true },
+            );
+            return;
+        }
+        this.setState({ loading: true });
+        let authentication = auth();
+        authentication.createUserWithEmailAndPassword(this.state.email, this.state.password)
+        .then(userCredential => {
+            (async () => {
+                try {
+                    let tutors = await firestore().collection('tutors');
+                    let tutor = await tutors.add({
+                        id: userCredential.user.uid,
+                        fname: this.state.fname,
+                        email: this.state.email,
+                        phoneNo: this.state.phoneNo,
+                        cnic: this.state.cnic,
+                    });
+                    let ref = await tutor.get();
+                    console.log(ref.get('fname'));
+                }
+                catch(err) {
+                    Alert.alert(
+                        'Error',
+                        'Something went wrong with signup',
+                        [
+                            { text: 'OK', onPress: () => { console.log(err) } },
+                        ],
+                        { cancelable: true },
+                    );
+                    this.setState({ loading: false });
+                }
+            })();
+            let ref = storage().ref(`academicImages/${userCredential.user.uid}/${this.state.filePath.fileName}`);
+            let task = ref.putFile(this.state.filePath.path, {
+                cacheControl: 'no-store',
+            });
+            task.then((snapshot) => {
+                this.props.navigation.navigate('Login');
+            })
+            .catch(err => {
+                Alert.alert(
+                    'Error',
+                    'Something went wrong with signup',
+                    [
+                        { text: 'OK', onPress: () => { console.log(error.code) } },
+                    ],
+                    { cancelable: true },
+                );
+                this.setState({ loading: false });
+            });
+        })
+        .catch(error => {
+            if(error.code == 'auth/email-already-in-use') {
+                Alert.alert(
+                    'Email Already in use',
+                    'The Email you entered is already in use',
+                    [
+                        { text: 'OK' },
+                    ],
+                    { cancelable: true },
+                );
+                this.setState({ loading: false });
+                return;
+            }
+            else {
+                Alert.alert(
+                    'Error',
+                    'Something went wrong with signup',
+                    [
+                        { text: 'OK', onPress: () => { console.log(error.code) } },
+                    ],
+                    { cancelable: true },
+                );
+                this.setState({ loading: false });
+                return;
+            }
+        });
     }
 
     render() {
@@ -350,6 +349,8 @@ class TutorSignupForm extends Component {
                         style={styles.uploadImageWrapper}
                     >
                         <EButton
+                            title={this.state.filePath.fileName ? "1 file selected" : "Upload Latest Degree Image" }
+                            titleStyle={styles.uploadImageBtnTitle}
                             containerStyle={styles.uploadImageBtnContainer}
                             buttonStyle={styles.uploadImageBtn}
                             icon={<Icon name="upload" size={20} color="white" />}
@@ -357,10 +358,10 @@ class TutorSignupForm extends Component {
                                 this._chooseFile();
                             }}
                         />
-                        <Image
+                        {/* <Image
                             source={{ uri: this.state.filePath.uri }}
                             style={styles.uploadImagePlaceholder}
-                        />
+                        /> */}
                     </View>
                     <EButton
                         title="Signup"
@@ -464,22 +465,36 @@ const styles = StyleSheet.create({
         borderBottomColor: '#3185E8',
     },
     uploadImageWrapper: {
+        width: '100%',
+        height: 50,
         flexDirection: 'row', 
         justifyContent: 'center', 
         alignItems: 'center',
+        marginTop: '2%',
     },
     uploadImageBtnContainer: {
-        width: '18%',
-        marginTop: '4%',
+        marginTop: 5,
+    },
+    uploadImageBtnTitle: {
+        paddingLeft: '2%',
     },
     uploadImageBtn: { 
-        borderRadius: 30, 
+        borderRadius: 30,
+        height: 50,
+        width: 300, 
     },
     uploadImagePlaceholder: { 
         width: 35, 
         height: 60, 
         marginTop: '2%', 
         marginLeft: 20 
+    },
+    uploadImageText: {
+        fontSize: 14,
+        borderWidth: 3,
+        borderColor: 'rgba(0,0,0,0.5)',
+        borderRadius: 30,
+        padding: 10,
     },
 });
 

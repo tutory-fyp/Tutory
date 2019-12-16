@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     signupText: {
         position: 'absolute',
         left: '6%',
-        top: '4%',
+        top: '2%',
         color: 'white',
     },
 });

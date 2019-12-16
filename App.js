@@ -3,7 +3,6 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import LoginScreen from './src/screens/LoginScreen';
 import SignupScreen from './src/screens/SignupScreen';
-import ImagePickerScreen from './src/screens/ImagePickerScreen';
 import RoleSelectorScreen from './src/screens/RoleSelectorScreen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -15,12 +14,7 @@ const switchNavigator = createSwitchNavigator({
     }, {
         initialRouteName: 'Login',
         defaultNavigationOptions: {
-            headerTransparent: true,
-            headerBackImage: (props) => {
-                return (
-                    <Icon name="arrow-left" size={25} color="white" />
-                );
-            },
+            header: null,
         },
     }),
 }, {
