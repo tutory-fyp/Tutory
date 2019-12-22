@@ -7,10 +7,6 @@ import ImagePicker from 'react-native-image-picker';
 import { createStackNavigator } from 'react-navigation-stack';
 import { Icon } from 'react-native-vector-icons/Ionicons';
 
-
-
-
-
 export default class HomeScreen extends Component {
 render() {
     return (

@@ -6,9 +6,9 @@ import {
 import {
   Text as EText,
 } from 'react-native-elements';
-import ParentSignupForm from '../components/ParentSignupForm';
-import StudentSignupForm from '../components/StudentSignupForm';
-import TutorSignupForm from '../components/TutorSignupForm';
+import ParentSignupForm from '../../components/ParentSignupForm';
+import StudentSignupForm from '../../components/StudentSignupForm';
+import TutorSignupForm from '../../components/TutorSignupForm';
 
 class SignupScreen extends Component {
     constructor(props) {
@@ -50,7 +50,7 @@ class SignupScreen extends Component {
     render() {
         return (
             <ImageBackground
-                source={require('../../assets/Login/backGround.png')}
+                source={require('../../../assets/Login/backGround.png')}
                 style={styles.bg}
             >
                 <EText 

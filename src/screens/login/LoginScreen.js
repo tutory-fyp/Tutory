@@ -131,14 +131,6 @@ class LoginScreen extends Component {
                     await auth().signInWithEmailAndPassword(email, password);
                     this.setState({ loading: false });
                     this.props.navigation.navigate('dashboardFlow');
-                    // Alert.alert(
-                    //     'Login Successfully',
-                    //     'You are login Successfully',
-                    //     [
-                    //         { text: 'OK' },
-                    //     ],
-                    //     { cancelable: true },
-                    // );
                 } catch (error) {
                     this.setState({loading: false});
                     Alert.alert(
@@ -157,9 +149,10 @@ class LoginScreen extends Component {
     }
 
     render() {
+
         return (
             <ImageBackground
-                source={require('../../assets/Login/backGround.png')}
+                source={require('../../../assets/Login/backGround.png')}
                 style={styles.bg}
             >
                 <EText h1 style={styles.loginText} >
@@ -255,6 +248,13 @@ class LoginScreen extends Component {
             duration: 850,
             delay: 500,
         });
+        const {
+            navigation,
+        } = this.props;
+        const {
+            navigate,
+        } = navigation;
+        navigate('dashboardFlow');
     }
 
 }

@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import LoginScreen from './src/screens/LoginScreen';
-import SignupScreen from './src/screens/SignupScreen';
-import RoleSelectorScreen from './src/screens/RoleSelectorScreen';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createStackNavigator } from 'react-navigation-stack';
-import HomeScreen from './src/DashboardScreens/HomeScreen';
-import NotificationScreen from './src/DashboardScreens/NotificationScreen';
-import SettingScreen from './src/DashboardScreens/SettingScreen';
-import ProfileScreen from './src/DashboardScreens/ProfileScreen';
-import Icon from 'react-native-vector-icons/Ionicons';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+import Icon from 'react-native-vector-icons/Ionicons';
+import LoginScreen from './src/screens/login/LoginScreen';
+import SignupScreen from './src/screens/login/SignupScreen';
+import RoleSelectorScreen from './src/screens/login/RoleSelectorScreen';
+import HomeScreen from './src/screens/dashboard/HomeScreen';
+import NotificationScreen from './src/screens/dashboard/NotificationScreen';
+import SettingScreen from './src/screens/dashboard/SettingScreen';
+import ProfileScreen from './src/screens/dashboard/ProfileScreen';
 
 const loginFlowNavigator = createSwitchNavigator({
     loginFlow: createStackNavigator({
@@ -27,58 +27,57 @@ const loginFlowNavigator = createSwitchNavigator({
     initialRouteName: 'loginFlow',
 });
 
-const MainTabs = createMaterialBottomTabNavigator({
-    Home: {
-        screen: HomeScreen,
-        navigationOptions: {
-            tabBarIcon: ({ tintColor }) => (
-                <Icon
-                    style={{ paddingBottom: 4 }}
-                    name="ios-home"
-                    size={30}
-                />
-            )
-        }
-    },
-    Profile: {
-        screen: ProfileScreen,
-        navigationOptions: {
-            tabBarIcon: ({ tintColor }) => (
-                <Icon
-                    style={{ paddingBottom: 4 }}
-                    name="ios-body"
-                    size={30}
-                />
-            )
-        }
-    },
-    Notification: {
-        screen: NotificationScreen,
-        navigationOptions: {
-            tabBarIcon: ({ tintColor }) => (
-                <Icon
-                    style={{ paddingBottom: 4 }}
-                    name="ios-notifications"
-                    size={30}
-                />
-            )
-        }
-    },
-    Settings: {
-        screen: SettingScreen,
-        navigationOptions: {
-            tabBarIcon: ({ tintColor }) => (
-                <Icon
-                    style={{ paddingBottom: 4 }}
-                    name="ios-settings"
-                    size={30}
-                />
-            )
-        }
-    },
-},
+const MainTabs = createMaterialBottomTabNavigator(
     {
-
+        Home: {
+            screen: HomeScreen,
+            navigationOptions: {
+                tabBarIcon: ({ tintColor }) => (
+                    <Icon
+                        style={{ paddingBottom: 4 }}
+                        name="ios-home"
+                        size={30}
+                    />
+                )
+            }
+        },
+        Profile: {
+            screen: ProfileScreen,
+            navigationOptions: {
+                tabBarIcon: ({ tintColor }) => (
+                    <Icon
+                        style={{ paddingBottom: 4 }}
+                        name="ios-body"
+                        size={30}
+                    />
+                )
+            }
+        },
+        Notification: {
+            screen: NotificationScreen,
+            navigationOptions: {
+                tabBarIcon: ({ tintColor }) => (
+                    <Icon
+                        style={{ paddingBottom: 4 }}
+                        name="ios-notifications"
+                        size={30}
+                    />
+                )
+            }
+        },
+        Settings: {
+            screen: SettingScreen,
+            navigationOptions: {
+                tabBarIcon: ({ tintColor }) => (
+                    <Icon
+                        style={{ paddingBottom: 4 }}
+                        name="ios-settings"
+                        size={30}
+                    />
+                )
+            }
+        },
+    }, {
         navigationOptions: {
             activeTintColor: 'red',
             inactiveTintColor: 'yellow',
@@ -103,8 +102,9 @@ const MainTabs = createMaterialBottomTabNavigator({
                 //headerTitle: routeName,
             };
         }
-    });
-const DashboardStackNavigator = createStackNavigator(
+    }
+);
+const dashboardStackNavigator = createStackNavigator(
     {
         DashboardTabNavigator: MainTabs
     },
@@ -132,7 +132,7 @@ const DashboardStackNavigator = createStackNavigator(
 
 const AppDrawerNavigator = createDrawerNavigator({
     Dashboard: {
-        screen: DashboardStackNavigator,
+        screen: dashboardStackNavigator,
     },
     Login: LoginScreen,
     //rootNavigator:rootNavigator
@@ -147,6 +147,5 @@ const rootNavigator = createSwitchNavigator({
     initialRouteName: 'loginFlow',
     headerMode: 'none'
 })
-
 
 export default createAppContainer(rootNavigator);

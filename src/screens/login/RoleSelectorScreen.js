@@ -64,7 +64,7 @@ class RoleSelector extends Component {
         }];
         return (
             <ImageBackground
-                source={require('../../assets/Login/backGround.png')}
+                source={require('../../../assets/Login/backGround.png')}
                 style={styles.bg}
             >
                 <EText h1 style={styles.loginText} >
