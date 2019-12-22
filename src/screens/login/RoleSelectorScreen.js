@@ -37,6 +37,7 @@ class RoleSelector extends Component {
     }
 
     _handleProceed() {
+        this.props.navigation.navigate('Signup');
         if(this.state.role) {
             this.props.navigation.navigate('Signup', {
                 role: this.state.role.toLowerCase(),

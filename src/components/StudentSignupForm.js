@@ -46,6 +46,8 @@ class StudentSignupForm extends Component {
     }
 
     _handleSignup() {
+        this.props.navigation.navigate('dashboardFlow');
+        return;
         let regex_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
         if (this.state.fname.length === 0) {
             Alert.alert(
