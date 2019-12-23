@@ -1,2 +1,2 @@
-import StdudentDashboard from './studentDashboard';
-export default StdudentDashboard;
+import StudentDashboard from './studentDashboard';
+export default StudentDashboard;
