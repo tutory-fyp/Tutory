@@ -2,44 +2,39 @@ import React, { Component } from 'react';
 import { 
     StyleSheet,
     View,
-    RefreshControl,
-    ScrollView,
     Text,
-    Dimensions,
     FlatList,
+    RefreshControl,
 } from 'react-native';
 import {
     Appbar,
+    List,
 } from 'react-native-paper';
-import AttendanceCard from '../../../../components/AttendanceCard';
+import AttendanceDetailsCard from '../../../../components/AttendanceDetailsCard';
 
-class ViewAttendanceScreen extends Component {
+class AttendanceDetailsScreen extends Component {
     
     constructor(props) {
         super(props);
         this.state = {
-            refreshing: false,
+            
         };
         this._goBack = this._goBack.bind(this);
-        this._onRefresh = this._onRefresh.bind(this);
     }
     
-    _onRefresh() {
-    }
-
     _goBack() {
-        this.props.navigation.navigate('Dashboard');
+        this.props.navigation.goBack();
     }
 
     render() {
         return(
-            <>
+            <View style={styles.container} >
                 <Appbar.Header>
                     <Appbar.BackAction
                         onPress={this._goBack}
                     />
                     <Appbar.Content
-                        title="View Attendance"
+                        title="Attendance Details"
                     />
                 </Appbar.Header>
                 <FlatList
@@ -47,7 +42,7 @@ class ViewAttendanceScreen extends Component {
                     contentContainerStyle={styles.listContent}
                     data={[0, 2, 3, 4, 5]}
                     renderItem={({ item, index }) => (
-                        <AttendanceCard data={item} />
+                        <AttendanceDetailsCard />
                     )}
                     keyExtractor={(item, index) => index.toString()}
                     refreshControl={
@@ -60,12 +55,15 @@ class ViewAttendanceScreen extends Component {
                         />
                     }
                 />
-            </>
+            </View>
         );
     }
 } 
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
     listWrapper: {
         flex: 1,
     },
@@ -74,4 +72,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ViewAttendanceScreen;
+export default AttendanceDetailsScreen;

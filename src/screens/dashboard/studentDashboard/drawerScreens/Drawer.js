@@ -1,4 +1,9 @@
-import ViewAttendanceScreen from './ViewAttendanceScreen'
+import { createDrawerNavigator } from 'react-navigation-drawer';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+import { createSwitchNavigator, createAppContainer } from 'react-navigation';
+import ViewAttendanceScreen from './ViewAttendanceScreen';
+import AttendanceDetailsScreen from './AttendanceDetailsScreen';
 import React, { Component } from 'react';
 import { 
     StyleSheet,
@@ -10,8 +15,11 @@ import {
   Headline as PHeadline,
   Appbar as PAppbar, 
 } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/AntDesign';
-import { withNavigation } from 'react-navigation';
+import AntDesignIcon from 'react-native-vector-icons/AntDesign';
+import FontisoIcon from 'react-native-vector-icons/Fontisto';
+import ViewMarksScreen from './ViewMarksScreen';
+
+// Drawer Component 
 
 class Drawer extends Component {
     
@@ -21,10 +29,15 @@ class Drawer extends Component {
             
         };
         this._gotoViewAttendance = this._gotoViewAttendance.bind(this);
+        this._gotoViewMarks = this._gotoViewMarks.bind(this);
     }
     
+    _gotoViewMarks() {
+        this.props.navigation.navigate('ViewMarks');
+    }
+
     _gotoViewAttendance() {
-        this.props.navigation.navigate('ViewAttendance');
+        this.props.navigation.navigate('AttendanceNavigation');
     }
 
     render() {
@@ -32,10 +45,6 @@ class Drawer extends Component {
         const {
             profileImage,
         } = styles;
-
-        const {
-            navigation,
-        } = this.props;
 
         return(
             <View style={styles.container} >
@@ -52,10 +61,21 @@ class Drawer extends Component {
                     label="View Attendance"
                     onPress={this._gotoViewAttendance}
                     icon={
-                        () => <Icon
-                            name="book"
+                        () => <FontisoIcon
+                            name="date"
                             color="#000"
                             size={20}
+                        />
+                    }
+                />
+                <PDrawer.Item
+                    label="View Marks"
+                    onPress={this._gotoViewMarks}
+                    icon={
+                        () => <AntDesignIcon
+                            name="book"
+                            color="#000"
+                            size={22}
                         />
                     }
                 />
@@ -76,4 +96,20 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Drawer;
+// Navigation for the Drawer
+
+const attendanceStack = createStackNavigator({
+    ViewAttendance: ViewAttendanceScreen,
+    AttendanceDetails: AttendanceDetailsScreen,
+}, {
+    defaultNavigationOptions: {
+        header: null,
+    }
+});
+
+const rootNav = createSwitchNavigator({
+    AttendanceNavigation: attendanceStack,
+    ViewMarks: ViewMarksScreen,
+});
+
+export { Drawer as default, rootNav as DrawerNav, };

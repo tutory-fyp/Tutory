@@ -7,8 +7,7 @@ import HomeScreen from './HomeScreen';
 import NotificationScreen from './NotificationScreen';
 import SettingScreen from './SettingScreen';
 import ProfileScreen from './ProfileScreen';
-import Drawer from './drawerScreens/Drawer';
-import ViewAttendanceScreen from './drawerScreens/ViewAttendanceScreen';
+import Drawer, { DrawerNav } from './drawerScreens/Drawer';
 
 const MainTabs = createMaterialBottomTabNavigator(
     {
@@ -118,9 +117,9 @@ const AppDrawerNavigator = createDrawerNavigator({
     Dashboard: {
         screen: dashboardStackNavigator,
     },
-    ViewAttendance: {
-        screen: ViewAttendanceScreen,
-    },
+    DrawerNavigation: {
+        screen: DrawerNav,
+    }
 }, {
     contentComponent: Drawer,
     drawerBackgroundColor: '#ffff',
