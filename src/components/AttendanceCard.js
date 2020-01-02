@@ -31,14 +31,14 @@ class AttendanceCard extends React.Component {
         return (
             <View style={styles.cardWrapper} >
                 <Headline>
-                    Course: Course 101
+                    Course: {this.props.data.courseName}
                 </Headline>
                 <Subheading>
-                    Tutor: John Doe
+                    Tutor: {this.props.data.tutorName}
                 </Subheading>
                 <Divider style={{ backgroundColor: 'rgba(0,0,0,0.8)' }} />
                 <Subheading>
-                    Present: 10/10
+                    Present: {this.props.data.present}/{this.props.data.maxSessions}
                 </Subheading>
                 <TouchableRipple
                     style={styles.viewDetailsBtnWrapper}
@@ -55,13 +55,13 @@ class AttendanceCard extends React.Component {
 
 const styles = StyleSheet.create({
     cardWrapper: {
-        backgroundColor: '#eceff1',
-        marginVertical: 20,
-        width: WIDTH - 50,
+        backgroundColor: "#fff",//'#eceff1',
+        marginVertical: 3,
+        width: WIDTH - 10,
         height: 100,
-        borderRadius: 25,
+        borderRadius: 0,
         paddingHorizontal: 15,
-        elevation: 1,
+        elevation: 2,
     },
     viewDetailsBtnWrapper: {
         position: 'absolute',

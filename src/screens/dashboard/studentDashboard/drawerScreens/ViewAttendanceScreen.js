@@ -13,6 +13,17 @@ import {
 } from 'react-native-paper';
 import AttendanceCard from '../../../../components/AttendanceCard';
 
+let data = [
+    {id: 1, courseName: "Course 101", tutorName: "John Doe", present: 3, maxSessions: 10,},
+    { id: 2, courseName: "Course 101", tutorName: "John Doe", present: 4, maxSessions: 10, },
+    { id: 3, courseName: "Course 101", tutorName: "John Doe", present: 5, maxSessions: 10, },
+    { id: 4, courseName: "Course 101", tutorName: "John Doe", present: 6, maxSessions: 10, },
+    { id: 5, courseName: "Course 101", tutorName: "John Doe", present: 8, maxSessions: 10, },
+    { id: 6, courseName: "Course 101", tutorName: "John Doe", present: 10, maxSessions: 10, },
+    { id: 7, courseName: "Course 101", tutorName: "John Doe", present: 5, maxSessions: 10, },
+    { id: 8, courseName: "Course 101", tutorName: "John Doe", present: 7, maxSessions: 10, },
+]
+
 class ViewAttendanceScreen extends Component {
     
     constructor(props) {
@@ -45,11 +56,11 @@ class ViewAttendanceScreen extends Component {
                 <FlatList
                     style={styles.listWrapper}
                     contentContainerStyle={styles.listContent}
-                    data={[0, 2, 3, 4, 5]}
+                    data={data}
                     renderItem={({ item, index }) => (
                         <AttendanceCard data={item} />
                     )}
-                    keyExtractor={(item, index) => index.toString()}
+                    keyExtractor={(item, index) => item.id.toString()}
                     refreshControl={
                         <RefreshControl
                             refreshing={false}

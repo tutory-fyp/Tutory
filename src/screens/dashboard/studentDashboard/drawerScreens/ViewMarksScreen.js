@@ -3,10 +3,36 @@ import {
     StyleSheet,
     View,
     Text,
+    ScrollView,
 } from 'react-native';
 import {
     Appbar,
 } from 'react-native-paper';
+import { 
+    Table, 
+    TableWrapper, 
+    Row, 
+    Rows,
+    Col, 
+ } from 'react-native-table-component';
+
+let tableHead = [
+    'Quiz#',
+    'Date',
+    'Marks',
+];
+
+let tableData = [
+    ['1', '1-Aug-2019', '10/10'],
+    ['2', '1-Aug-2019', '8/10'],
+    ['3', '1-Aug-2019', '9/10'],
+    ['4', '1-Aug-2019', '4/10'],
+    ['5', '1-Aug-2019', '5/10'],
+    ['6', '1-Aug-2019', '4/10'],
+    ['7', '1-Aug-2019', '3/10'],
+    ['8', '1-Aug-2019', '0/10'],
+    ['9', '1-Aug-2019', '8.5/10'],
+];
 
 class ViewMarksScreen extends Component {
     
@@ -24,7 +50,7 @@ class ViewMarksScreen extends Component {
 
     render() {
         return(
-            <View style={styles.container} >
+            <>
                 <Appbar.Header>
                     <Appbar.BackAction
                         onPress={this._goBack}
@@ -33,7 +59,27 @@ class ViewMarksScreen extends Component {
                         title="View Marks"
                     />
                 </Appbar.Header>
-            </View>
+                <View style={styles.container} >
+                    <Table borderStyle={{ borderWidth: 0 }} >
+                        <Row data={tableHead} flexArr={[1, 2, 1, 1]} style={styles.head} textStyle={styles.text} />
+                    </Table>
+                    <ScrollView style={styles.dataWrapper}>
+                        <Table borderStyle={{ borderWidth: 0, borderColor: '#C1C0B9' }}>
+                            {
+                                tableData.map((rowData, index) => (
+                                    <Row
+                                        key={index}
+                                        data={rowData}
+                                        flexArr={[1, 2, 1, 1]}
+                                        style={[styles.row]}
+                                        textStyle={styles.text}
+                                    />
+                                ))
+                            }
+                        </Table>
+                    </ScrollView>
+                </View>
+            </>
         );
     }
 } 
@@ -41,7 +87,14 @@ class ViewMarksScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-    }
+    },
+    container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
+    head: { height: 40, backgroundColor: '#f1f8ff' },
+    wrapper: { flexDirection: 'row' },
+    title: { flex: 1, backgroundColor: '#f6f8fa' },
+    row: { height: 28 },
+    text: { textAlign: 'center', color: '#000000' },
+    dataWrapper: { marginTop: -1 },
 });
 
 export default ViewMarksScreen;
