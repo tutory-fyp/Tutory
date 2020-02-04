@@ -15,16 +15,9 @@ import { withNavigation } from 'react-navigation';
 
 const { height: HEIGHT, width: WIDTH } = Dimensions.get('window');
 
-class AttendanceCard extends React.Component {
+class CourseCardDrawer extends React.Component {
     constructor(props) {
         super(props);
-        this._gotoDetails = this._gotoDetails.bind(this);
-    }
-
-    _gotoDetails() {
-        this.props.navigation.navigate('AttendanceDetails', {
-            data: this.props.data,
-        });
     }
 
     render() {
@@ -38,11 +31,16 @@ class AttendanceCard extends React.Component {
                 </Subheading>
                 <Divider style={{ backgroundColor: 'rgba(0,0,0,0.8)' }} />
                 <Subheading>
-                    Present: {this.props.data.present}/{this.props.data.maxSessions}
+                    {
+                        this.props.isMarks === true ? null : 
+                        <Text>
+                                Present: {this.props.data.present}/{this.props.data.maxSessions}
+                        </Text>
+                    }
                 </Subheading>
                 <TouchableRipple
                     style={styles.viewDetailsBtnWrapper}
-                    onPress={this._gotoDetails}
+                    onPress={this.props.viewDetails}
                     rippleColor="#3185E8"
                 >
                     <Text style={styles.viewDetailsBtnText} >View Details</Text>
@@ -73,4 +71,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default withNavigation(AttendanceCard);
+export default withNavigation(CourseCardDrawer);

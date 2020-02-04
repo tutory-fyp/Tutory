@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { 
+import {
     StyleSheet,
     View,
     RefreshControl,
@@ -14,7 +14,7 @@ import {
 import CourseCardDrawer from '../../../../components/CourseCardDrawer';
 
 let data = [
-    {id: 1, courseName: "Course 101", tutorName: "John Doe", present: 3, maxSessions: 10,},
+    { id: 1, courseName: "Course 101", tutorName: "John Doe", present: 3, maxSessions: 10, },
     { id: 2, courseName: "Course 101", tutorName: "John Doe", present: 4, maxSessions: 10, },
     { id: 3, courseName: "Course 101", tutorName: "John Doe", present: 5, maxSessions: 10, },
     { id: 4, courseName: "Course 101", tutorName: "John Doe", present: 6, maxSessions: 10, },
@@ -24,8 +24,8 @@ let data = [
     { id: 8, courseName: "Course 101", tutorName: "John Doe", present: 7, maxSessions: 10, },
 ]
 
-class ViewAttendanceScreen extends Component {
-    
+class ViewCourseMarksScreen extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -35,9 +35,9 @@ class ViewAttendanceScreen extends Component {
         this._onRefresh = this._onRefresh.bind(this);
         this._gotoDetails = this._gotoDetails.bind(this);
     }
-    
+
     _gotoDetails() {
-        this.props.navigation.navigate('AttendanceDetails', {
+        this.props.navigation.navigate('MarksDetails', {
             data: this.props.data,
         });
     }
@@ -50,14 +50,14 @@ class ViewAttendanceScreen extends Component {
     }
 
     render() {
-        return(
+        return (
             <>
                 <Appbar.Header>
                     <Appbar.BackAction
                         onPress={this._goBack}
                     />
                     <Appbar.Content
-                        title="View Attendance"
+                        title="View Marks"
                     />
                 </Appbar.Header>
                 <FlatList
@@ -65,9 +65,10 @@ class ViewAttendanceScreen extends Component {
                     contentContainerStyle={styles.listContent}
                     data={data}
                     renderItem={({ item, index }) => (
-                        <CourseCardDrawer 
-                            data={item} 
-                            viewDetails={this._gotoDetails} 
+                        <CourseCardDrawer
+                            data={item}
+                            viewDetails={this._gotoDetails}
+                            isMarks={true}
                         />
                     )}
                     keyExtractor={(item, index) => item.id.toString()}
@@ -84,7 +85,7 @@ class ViewAttendanceScreen extends Component {
             </>
         );
     }
-} 
+}
 
 const styles = StyleSheet.create({
     listWrapper: {
@@ -95,4 +96,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ViewAttendanceScreen;
+export default ViewCourseMarksScreen;

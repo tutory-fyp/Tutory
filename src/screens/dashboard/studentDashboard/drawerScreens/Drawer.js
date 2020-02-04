@@ -17,7 +17,8 @@ import {
 } from 'react-native-paper';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import FontisoIcon from 'react-native-vector-icons/Fontisto';
-import ViewMarksScreen from './ViewMarksScreen';
+import ViewCourseMarksScreen from './ViewCourseMarksScreen';
+import MarksDetailsScreen from './MarksDetailsScreen';
 
 // Drawer Component 
 
@@ -107,9 +108,18 @@ const attendanceStack = createStackNavigator({
     }
 });
 
+const marksStack = createStackNavigator({
+    ViewCourseMarks: ViewCourseMarksScreen,
+    MarksDetails: MarksDetailsScreen,
+}, {
+    defaultNavigationOptions: {
+        header: null,
+    }
+});
+
 const rootNav = createSwitchNavigator({
     AttendanceNavigation: attendanceStack,
-    ViewMarks: ViewMarksScreen,
+    ViewMarks: marksStack,
 });
 
 export { Drawer as default, rootNav as DrawerNav, };

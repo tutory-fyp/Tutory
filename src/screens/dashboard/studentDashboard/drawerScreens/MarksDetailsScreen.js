@@ -34,7 +34,7 @@ let tableData = [
     ['9', '1-Aug-2019', '8.5/10'],
 ];
 
-class ViewMarksScreen extends Component {
+class MarksDetailsScreen extends Component {
     
     constructor(props) {
         super(props);
@@ -45,7 +45,7 @@ class ViewMarksScreen extends Component {
     }
     
     _goBack() {
-        this.props.navigation.navigate('Dashboard');
+        this.props.navigation.goBack();
     }
 
     render() {
@@ -97,4 +97,4 @@ const styles = StyleSheet.create({
     dataWrapper: { marginTop: -1 },
 });
 
-export default ViewMarksScreen;
+export default MarksDetailsScreen;
