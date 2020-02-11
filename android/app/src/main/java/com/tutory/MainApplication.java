@@ -19,6 +19,7 @@ import io.invertase.firebase.storage.ReactNativeFirebaseStoragePackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.RNTextInputMask.RNTextInputMaskPackage;
 import com.airbnb.android.react.maps.MapsPackage;
+import com.agontuk.RNFusedLocation.RNFusedLocationPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -54,7 +55,8 @@ public class MainApplication extends Application implements ReactApplication {
                     new PickerPackage(),
                     new LinearGradientPackage(),
                     new RNTextInputMaskPackage(),
-                    new MapsPackage()
+                    new MapsPackage(),
+                    new RNFusedLocationPackage()
             );
         }
 
