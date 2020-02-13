@@ -11,6 +11,7 @@ import {
 } from 'react-native-paper';
 import TopRatedTutorCard from '../../../components/TopRatedTutorCard';
 import PopularCourseCard from '../../../components/PopularCourseCard';
+import { Container, Icon } from 'native-base';
 
 export default class HomeScreen extends Component {
     render() {

@@ -8,6 +8,25 @@ import NotificationScreen from './NotificationScreen';
 import SettingScreen from './SettingScreen';
 import ProfileScreen from './ProfileScreen';
 import Drawer, { DrawerNav } from './drawerScreens/Drawer';
+import SearchScreen from './SearchScreen';
+
+const homeStack = createStackNavigator({
+    Main: {
+        screen: HomeScreen,
+        navigationOptions: {
+            tabBarIcon: ({ tintColor }) => (
+                <Icon
+                    style={{ paddingBottom: 4 }}
+                    name="ios-home"
+                    size={30}
+                />
+            )
+        }
+    },
+    Search: {
+        screen: SearchScreen,
+    }
+},);
 
 const MainTabs = createMaterialBottomTabNavigator(
     {
@@ -77,13 +96,7 @@ const MainTabs = createMaterialBottomTabNavigator(
         },
     },
         //activeTintColor: 'red',
-        barStyle: { backgroundColor: 'rgba(0,0,0,0.1)' },
-        navigationOptions: ({ navigation }) => {
-            const { routeName } = navigation.state.routes[navigation.state.index];
-            return {
-                //headerTitle: routeName,
-            };
-        }
+        barStyle: { backgroundColor: 'rgba(255,255,255)', },
     }
 );
 
