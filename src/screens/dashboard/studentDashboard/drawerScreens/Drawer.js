@@ -1,9 +1,3 @@
-import { createDrawerNavigator } from 'react-navigation-drawer';
-import { createStackNavigator } from 'react-navigation-stack';
-import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
-import { createSwitchNavigator, createAppContainer } from 'react-navigation';
-import ViewAttendanceScreen from './ViewAttendanceScreen';
-import AttendanceDetailsScreen from './AttendanceDetailsScreen';
 import React, { Component } from 'react';
 import { 
     StyleSheet,
@@ -17,10 +11,10 @@ import {
 } from 'react-native-paper';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import FontisoIcon from 'react-native-vector-icons/Fontisto';
+import ViewAttendanceScreen from './ViewAttendanceScreen';
+import AttendanceDetailsScreen from './AttendanceDetailsScreen';
 import ViewCourseMarksScreen from './ViewCourseMarksScreen';
 import MarksDetailsScreen from './MarksDetailsScreen';
-
-// Drawer Component 
 
 class Drawer extends Component {
     
@@ -34,11 +28,11 @@ class Drawer extends Component {
     }
     
     _gotoViewMarks() {
-        this.props.navigation.navigate('ViewMarks');
+        this.props.navigation.navigate('ViewCourseMarks');
     }
 
     _gotoViewAttendance() {
-        this.props.navigation.navigate('AttendanceNavigation');
+        this.props.navigation.navigate('ViewAttendance');
     }
 
     render() {
@@ -97,29 +91,4 @@ const styles = StyleSheet.create({
     },
 });
 
-// Navigation for the Drawer
-
-const attendanceStack = createStackNavigator({
-    ViewAttendance: ViewAttendanceScreen,
-    AttendanceDetails: AttendanceDetailsScreen,
-}, {
-    defaultNavigationOptions: {
-        header: null,
-    }
-});
-
-const marksStack = createStackNavigator({
-    ViewCourseMarks: ViewCourseMarksScreen,
-    MarksDetails: MarksDetailsScreen,
-}, {
-    defaultNavigationOptions: {
-        header: null,
-    }
-});
-
-const rootNav = createSwitchNavigator({
-    AttendanceNavigation: attendanceStack,
-    ViewMarks: marksStack,
-});
-
-export { Drawer as default, rootNav as DrawerNav, };
+export default Drawer;

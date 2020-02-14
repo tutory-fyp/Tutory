@@ -46,7 +46,7 @@ class ViewCourseMarksScreen extends Component {
     }
 
     _goBack() {
-        this.props.navigation.navigate('Dashboard');
+        this.props.navigation.goBack();
     }
 
     render() {

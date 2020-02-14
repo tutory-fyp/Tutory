@@ -254,7 +254,7 @@ class LoginScreen extends Component {
         const {
             navigate,
         } = navigation;
-        navigate('dashboardFlow');
+        navigate('studentDashboard');
     }
 
 }

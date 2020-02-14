@@ -4,6 +4,9 @@ import {
     View,
     Text,
 } from 'react-native';
+import {
+    Appbar,
+} from 'react-native-paper';
 
 class SearchScreen extends Component {
     
@@ -12,14 +15,22 @@ class SearchScreen extends Component {
         this.state = {
             
         };
+        this._goBack = this._goBack.bind(this);
     }
     
+    _goBack() {
+        const {
+            navigation: { goBack }
+        } = this.props;
+        goBack();
+    }
+
     render() {
         return(
             <View style={styles.container} >
-                <Text>
-                    This is SearchScreen Component
-                </Text>
+                <Appbar style={styles.header} >
+                    <Appbar.BackAction onPress={this._goBack} />
+                </Appbar>
             </View>
         );
     }
@@ -28,7 +39,10 @@ class SearchScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-    }
+    },
+    header: {
+        marginBottom: 8,
+    },
 });
 
 export default SearchScreen;

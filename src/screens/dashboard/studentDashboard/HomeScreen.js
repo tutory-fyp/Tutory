@@ -8,20 +8,32 @@ import {
 import {
     Searchbar,
     Title,
+    Appbar,
 } from 'react-native-paper';
 import TopRatedTutorCard from '../../../components/TopRatedTutorCard';
 import PopularCourseCard from '../../../components/PopularCourseCard';
-import { Container, Icon } from 'native-base';
 
-export default class HomeScreen extends Component {
+class HomeScreen extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+
+        };
+    }
+
     render() {
         return (
             <View style={styles.container} >
+                <Appbar style={styles.header} >
+                    <Appbar.Action icon="menu" onPress={this.props.navigation.openDrawer} />
+                    <Appbar.Content title="Home" />
+                </Appbar>
                 <ScrollView>
                     <Searchbar
                         onTouchEnd={() => {
                             Keyboard.dismiss();
-                            this.props.navigation.navigate('Profile');
+                            this.props.navigation.navigate('Search');
                         }}
                         style={styles.searchbar}
                         placeholder="Search for tutor"
@@ -63,7 +75,9 @@ export default class HomeScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: 70,
+    },
+    header: {
+        marginBottom: 8,
     },
     searchbar: {
         width: "90%",
@@ -82,3 +96,4 @@ const styles = StyleSheet.create({
     },
 });
 
+export default HomeScreen;

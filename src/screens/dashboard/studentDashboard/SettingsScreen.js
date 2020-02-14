@@ -8,7 +8,7 @@ import {
   Appbar,
 } from 'react-native-paper';
 
-class NotificationScreen extends Component {
+class SettingsScreen extends Component {
 
   constructor(props) {
     super(props);
@@ -22,7 +22,7 @@ class NotificationScreen extends Component {
       <View style={styles.container} >
         <Appbar style={styles.header} >
           <Appbar.Action icon="menu" onPress={this.props.navigation.openDrawer} />
-          <Appbar.Content title="Notifications" />
+          <Appbar.Content title="Settings" />
         </Appbar>
       </View>
     );
@@ -38,4 +38,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NotificationScreen;
+export default SettingsScreen;
