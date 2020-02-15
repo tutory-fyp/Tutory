@@ -85,7 +85,7 @@ const tabNav = createMaterialBottomTabNavigator({
             backgroundColor: '#3284E8',
         },
     },
-    barStyle: { backgroundColor: PRIMARY_COLOR, },
+    barStyle: { backgroundColor: 'white', },
 });
 
 const rootStack = createStackNavigator({

@@ -36,7 +36,7 @@ class HomeScreen extends Component {
                             this.props.navigation.navigate('Search');
                         }}
                         style={styles.searchbar}
-                        placeholder="Search for tutor"
+                        placeholder="Search for Courses"
                     />
                     <Title style={styles.title} >
                         Top Rated Tutors
