@@ -198,6 +198,9 @@ dependencies {
     implementation project(':react-native-text-input-mask')
     implementation project(':react-native-permissions')
     implementation project(':react-native-maps')
+    implementation project(':react-native-geolocation-service')
+    implementation project(':react-native-safe-area-context')
+    implementation project(':react-native-screens')
     implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02'
     implementation(project(':react-native-maps')){
@@ -207,7 +210,6 @@ dependencies {
     implementation 'com.google.android.gms:play-services-base:16.1.0'
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
     implementation 'com.google.maps.android:android-maps-utils:0.5'
-    implementation project(':react-native-geolocation-service')
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";

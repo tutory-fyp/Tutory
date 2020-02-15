@@ -23,7 +23,7 @@ import Drawer from '../../screens/dashboard/studentDashboard/drawerScreens/Drawe
 function _iconHandler(name) {
     return (
         <Icon
-            style={{ fontSize: 25, color: 'white' }}
+            style={{ fontSize: 25, color: PRIMARY_COLOR}}
             type="Ionicons"
             name={name}
         />
@@ -69,23 +69,10 @@ const tabNav = createMaterialBottomTabNavigator({
     }
 } ,{
     initialRouteName: "homeStack",
-    navigationOptions: {
-        activeTintColor: 'red',
-        inactiveTintColor: 'yellow',
-        labelStyle: {
-            fontSize: 23,
-            fontWeight: 'bold',
-        },
-        labelPosition: 'below-icon',
-        tabStyle: {
-            paddingTop: 10,
-        },
-        keyboardHidesTabBar: 'false',
-        style: {
-            backgroundColor: '#3284E8',
-        },
-    },
+    activeColor: PRIMARY_COLOR,
     barStyle: { backgroundColor: 'white', },
+    backBehavior: 'initialRoute',
+    labeled: true,
 });
 
 const rootStack = createStackNavigator({

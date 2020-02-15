@@ -8,6 +8,8 @@ import com.reactnativecommunity.rnpermissions.RNPermissionsPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.swmansion.reanimated.ReanimatedPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+import com.swmansion.rnscreens.RNScreensPackage;
+import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
 import com.reactnativecomponent.splashscreen.RCTSplashScreenPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
@@ -48,6 +50,8 @@ public class MainApplication extends Application implements ReactApplication {
                     new VectorIconsPackage(),
                     new ReanimatedPackage(),
                     new RNGestureHandlerPackage(),
+                    new SafeAreaContextPackage(),
+                    new RNScreensPackage(),
                     new ReactNativeFirebaseAppPackage(),
                     new ReactNativeFirebaseAuthPackage(),
                     new ReactNativeFirebaseFirestorePackage(),
