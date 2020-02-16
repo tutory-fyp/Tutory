@@ -4,6 +4,7 @@ import {
     View,
     Keyboard,
     ScrollView,
+    FlatList,
 } from 'react-native';
 import {
     Searchbar,
@@ -12,6 +13,27 @@ import {
 } from 'react-native-paper';
 import TopRatedTutorCard from '../../../components/TopRatedTutorCard';
 import PopularCourseCard from '../../../components/PopularCourseCard';
+
+let topRatedTutors = [
+    {
+        name: "Muhammad Usman",
+        desc: "Crash Course Physics HSSC-1",
+        rating: 5.0,
+        sPrice: 500,
+    },
+    {
+        name: "Muhammad Usman",
+        desc: "Crash Course Physics HSSC-1",
+        rating: 5.0,
+        sPrice: 500,
+    },
+    {
+        name: "Muhammad Usman",
+        desc: "Crash Course Physics HSSC-1",
+        rating: 5.0,
+        sPrice: 500,
+    },
+]
 
 class HomeScreen extends Component {
 
@@ -41,7 +63,25 @@ class HomeScreen extends Component {
                     <Title style={styles.title} >
                         Top Rated Tutors
                     </Title>
-                    <View style={{ height: 300 }} >
+                    <FlatList
+                        horizontal
+                        data={topRatedTutors}
+                        keyExtractor={(item, index) => (
+                            index.toString()
+                        )}
+                        renderItem={({item, index}) => (
+                            <TopRatedTutorCard
+                                name={item.name}
+                                description={item.desc}
+                                startingPrice={item.sPrice}
+                                rating={item.rating}
+                            />
+                        )}
+                    />
+                    <Title style={styles.title} >
+                        Popular Courses
+                    </Title>
+                    {/* <View style={{ height: 300 }} >
                         <ScrollView
                             style={styles.trtcScroll}
                             horizontal
@@ -64,7 +104,7 @@ class HomeScreen extends Component {
                             <PopularCourseCard />
                             <PopularCourseCard />
                         </ScrollView>
-                    </View>
+                    </View> */}
                 </ScrollView>
             </View>
         );
