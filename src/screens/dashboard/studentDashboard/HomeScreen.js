@@ -35,6 +35,18 @@ let topRatedTutors = [
     },
 ]
 
+let popCourses = [
+    {
+        desc: "Maths Pre-Engineering",
+    },
+    {
+        desc: "Compuer Science Pre-Engineering",
+    },
+    {
+        desc: "Physics Pre-Engineering",
+    },
+]
+
 class HomeScreen extends Component {
 
     constructor(props) {
@@ -81,6 +93,18 @@ class HomeScreen extends Component {
                     <Title style={styles.title} >
                         Popular Courses
                     </Title>
+                    <FlatList
+                        horizontal
+                        data={popCourses}
+                        keyExtractor={(item,index) => (
+                            index.toString()
+                        )}
+                        renderItem={({item}) => (
+                            <PopularCourseCard 
+                                description={item.desc}
+                            />
+                        )}
+                    />
                     {/* <View style={{ height: 300 }} >
                         <ScrollView
                             style={styles.trtcScroll}
@@ -109,6 +133,14 @@ class HomeScreen extends Component {
             </View>
         );
     }
+    
+    componentDidMount() {
+        const {
+            navigation: { navigate }
+        } = this.props;
+        navigate('Search');
+    }
+
 }
 
 
