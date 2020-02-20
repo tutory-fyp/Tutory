@@ -19,7 +19,6 @@ import {
 } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import SplashScreen from 'react-native-smart-splash-screen';
-import auth from '@react-native-firebase/auth';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
@@ -88,7 +87,6 @@ class LoginScreen extends Component {
         ) {
             this.props.navigation.navigate('dashboardFlow');
         } 
-        return;
         let re_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+[^<>()\.,;:\s@\"]{2,})$/;
         let re_password = /\S{6,}/;
         if (this.state.email.length === 0) {
@@ -249,12 +247,11 @@ class LoginScreen extends Component {
             delay: 500,
         });
         const {
-            navigation,
+            navigation: {
+                navigate,
+            },
         } = this.props;
-        const {
-            navigate,
-        } = navigation;
-        navigate('studentDashboard');
+        //navigate('studentDashboard');
     }
 
 }

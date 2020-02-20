@@ -5,14 +5,26 @@ import {
     Keyboard,
     ScrollView,
     FlatList,
+    Text,
 } from 'react-native';
 import {
     Searchbar,
     Title,
     Appbar,
+    Badge,
+    Theme,
 } from 'react-native-paper';
+import {
+  Overlay as EOverlay, 
+} from 'react-native-elements';
+import {
+    Icon as NBIcon
+} from 'native-base';
+import Riple from 'react-native-material-ripple';
 import TopRatedTutorCard from '../../../components/TopRatedTutorCard';
 import PopularCourseCard from '../../../components/PopularCourseCard';
+import { PRIMARY_COLOR } from '../../../constants/commonColors';
+
 
 let topRatedTutors = [
     {
@@ -56,12 +68,32 @@ class HomeScreen extends Component {
         };
     }
 
+    _gotoNotifications = () => {
+        const {
+            navigation: {
+                navigate
+            }
+        } = this.props;
+        navigate('Notifications');
+    }
+
     render() {
         return (
             <View style={styles.container} >
                 <Appbar style={styles.header} >
                     <Appbar.Action icon="menu" onPress={this.props.navigation.openDrawer} />
                     <Appbar.Content title="Home" />
+                    <Appbar.Action icon={() => {
+                        return <Riple
+                            onPress={this._gotoNotifications}
+                        >
+                            <NBIcon
+                                type="MaterialCommunityIcons"
+                                name="bell"
+                                style={{ color: "white" }}
+                            />
+                        </Riple>
+                    }} />
                 </Appbar>
                 <ScrollView>
                     <Searchbar
@@ -105,40 +137,16 @@ class HomeScreen extends Component {
                             />
                         )}
                     />
-                    {/* <View style={{ height: 300 }} >
-                        <ScrollView
-                            style={styles.trtcScroll}
-                            horizontal
-                        >
-                            <TopRatedTutorCard />
-                            <TopRatedTutorCard />
-                            <TopRatedTutorCard />
-                        </ScrollView>
-                    </View>
-                    <Title style={styles.title} >
-                        Popular Courses
-                    </Title>
-                    <View style={{height: 280}} >
-                        <ScrollView
-                            horizontal
-                            style={styles.popcScroll}
-                        >
-                            <PopularCourseCard />
-                            <PopularCourseCard />
-                            <PopularCourseCard />
-                            <PopularCourseCard />
-                        </ScrollView>
-                    </View> */}
                 </ScrollView>
             </View>
         );
     }
     
     componentDidMount() {
-        const {
-            navigation: { navigate }
-        } = this.props;
-        navigate('Search');
+        // const {
+        //     navigation: { navigate }
+        // } = this.props;
+        // navigate('Search');
     }
 
 }

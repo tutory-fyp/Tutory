@@ -17,6 +17,7 @@ import {
 import {
   Input,
   Slider as ESlider,
+  Overlay as EOverlay,
 } from 'react-native-elements';
 import { Dropdown } from 'react-native-material-dropdown';
 import { PRIMARY_COLOR } from '../../../constants/commonColors';
@@ -30,6 +31,7 @@ class SearchScreen extends Component {
             minPrice: 500,
             maxPrice: 500,
             hours: '',
+            overlay: false,
         };
         this._goBack = this._goBack.bind(this);
         this._handleMaxPrice = this._handleMaxPrice.bind(this);
@@ -67,8 +69,22 @@ class SearchScreen extends Component {
         this.setState({hours});
     }
 
-    render() {
-        return(
+    _renderOverlay() {
+        return (
+            <EOverlay isVisible={true} fullScreen containerStyle={{ 
+                justifyContent: 'center', alignItems: 'center'
+                 }} 
+                 onBackdropPress={() => this.setState({overlay: false})}
+            >
+                <PText>
+                    sdad
+                </PText>
+            </EOverlay>
+        );
+    }
+
+    _renderComp() {
+        return (
             <ScrollView>
                 <Appbar style={styles.header} >
                     <Appbar.BackAction onPress={this._goBack} />
@@ -218,7 +234,7 @@ class SearchScreen extends Component {
                         }} >
                             Tags
                         </PTitle>
-                        <PDivider style={{borderWidth: StyleSheet.hairlineWidth, marginBottom: 10,}} />
+                        <PDivider style={{ borderWidth: StyleSheet.hairlineWidth, marginBottom: 10, }} />
                         <View style={styles.ctContent} >
                             <PChip style={styles.ctChip} >
                                 Maths
@@ -232,7 +248,7 @@ class SearchScreen extends Component {
                         </View>
                     </View>
                     <PButton
-                        style={styles.btn} 
+                        style={styles.btn}
                         mode="contained"
                         onPress={() => {
 
@@ -243,6 +259,14 @@ class SearchScreen extends Component {
                 </View>
             </ScrollView>
         );
+    }
+
+    renderDecision() {
+        return this.state.overlay ? this._renderOverlay() : this._renderComp();
+    }
+
+    render() {
+        return this.renderDecision();
     }
 }
 

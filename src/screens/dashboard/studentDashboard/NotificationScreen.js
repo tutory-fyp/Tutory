@@ -17,11 +17,20 @@ class NotificationScreen extends Component {
     };
   }
 
+  _goBack = () => {
+    const {
+      navigation: {
+        goBack
+      }
+    } = this.props;
+    goBack();
+  }
+
   render() {
     return (
       <View style={styles.container} >
         <Appbar style={styles.header} >
-          <Appbar.Action icon="menu" onPress={this.props.navigation.openDrawer} />
+          <Appbar.BackAction onPress={this._goBack} />
           <Appbar.Content title="Notifications" />
         </Appbar>
       </View>

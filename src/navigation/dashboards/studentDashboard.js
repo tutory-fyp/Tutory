@@ -33,6 +33,7 @@ function _iconHandler(name) {
 const homeStack = createStackNavigator({
     Home: HomeScreen,
     Search: SearchScreen,
+    Notifications: NotificationScreen,
 } ,{
     initialRouteName: 'Home',
     headerMode: 'none',
@@ -51,13 +52,6 @@ const tabNav = createMaterialBottomTabNavigator({
         navigationOptions: {
             tabBarIcon: _iconHandler('ios-body'),
             tabBarLabel: "Profile"
-        }
-    },
-    Notification: {
-        screen: NotificationScreen,
-        navigationOptions: {
-            tabBarIcon: _iconHandler('ios-notifications'),
-            tabBarLabel: "Notifications"
         }
     },
     Settings: {
