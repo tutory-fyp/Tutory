@@ -18,7 +18,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    RCTSplashScreen.openSplashScreen(this);
+    RCTSplashScreen.openSplashScreen(this, R.style.SmartSplashScreenTheme);
     super.onCreate(savedInstanceState);
   }
   @Override

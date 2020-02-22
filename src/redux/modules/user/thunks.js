@@ -1,22 +1,20 @@
 import auth from '@react-native-firebase/auth';
+import {
+    loginSuccess,
+    loginFailed,
+} from './actionCreators';
 
-const loginUser = (email, password) => {
-    return (dispatch) => {
+const login = (email, password) => {
+    return async (dispatch) => {
         try {
-            await auth().signInWithEmailAndPassword(email, password);
-            this.setState({ loading: false });
+            let { user } = await auth().signInWithEmailAndPassword(email, password);
+            dispatch(loginSuccess(user));
         } catch (error) {
-            this.setState({ loading: false });
-            Alert.alert(
-                'Login Failed',
-                'Email or Password is Incorrect',
-                [
-                    { text: 'OK' },
-                ],
-                { cancelable: true },
-            );
-            console.log(error.code);
-            return;
+            dispatch(loginFailed(error.code));
         }
     }
-} 
+}
+
+export {
+    login,
+}

@@ -19,6 +19,9 @@ import {
 } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import SplashScreen from 'react-native-smart-splash-screen';
+import { connect } from 'react-redux';
+import { initState } from '../../redux/modules/user/actionCreators';
+import { login } from '../../redux/modules/user/thunks';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
@@ -80,13 +83,7 @@ class LoginScreen extends Component {
         }
     }
 
-    _handleLogin() {
-        if(
-            this.state.email === "abc123@gmail.com"
-            && this.state.password === "123456"
-        ) {
-            this.props.navigation.navigate('dashboardFlow');
-        } 
+    _handleLogin() { 
         let re_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+[^<>()\.,;:\s@\"]{2,})$/;
         let re_password = /\S{6,}/;
         if (this.state.email.length === 0) {
@@ -122,32 +119,34 @@ class LoginScreen extends Component {
             );
             return;
         }
-        if (re_email.test(this.state.email) && re_password.test(this.state.password)) {
-            this.setState({ loading: true });
-            (async (email, password) => {
-                try {
-                    await auth().signInWithEmailAndPassword(email, password);
-                    this.setState({ loading: false });
-                    this.props.navigation.navigate('dashboardFlow');
-                } catch (error) {
-                    this.setState({loading: false});
-                    Alert.alert(
-                        'Login Failed',
-                        'Email or Password is Incorrect',
-                        [
-                            { text: 'OK' },
-                        ],
-                        { cancelable: true },
-                    );
-                    console.log(error.code);
-                    return;
-                }
-            })(this.state.email, this.state.password);
-        }
+        this.setState({loading: true});
+        this.props.login(this.state.email, this.state.password);
+        //login(this.state.email, this.state.password);
+        // if (re_email.test(this.state.email) && re_password.test(this.state.password)) {
+        //     this.setState({ loading: true });
+        //     (async (email, password) => {
+        //         try {
+        //             await auth().signInWithEmailAndPassword(email, password);
+        //             this.setState({ loading: false });
+        //             this.props.navigation.navigate('dashboardFlow');
+        //         } catch (error) {
+        //             this.setState({loading: false});
+        //             Alert.alert(
+        //                 'Login Failed',
+        //                 'Email or Password is Incorrect',
+        //                 [
+        //                     { text: 'OK' },
+        //                 ],
+        //                 { cancelable: true },
+        //             );
+        //             console.log(error.code);
+        //             return;
+        //         }
+        //     })(this.state.email, this.state.password);
+        // }
     }
 
     render() {
-
         return (
             <ImageBackground
                 source={require('../../../assets/Login/backGround.png')}
@@ -251,7 +250,29 @@ class LoginScreen extends Component {
                 navigate,
             },
         } = this.props;
-        //navigate('studentDashboard');
+        navigate('studentDashboard');
+    }
+
+    componentDidUpdate() {
+        if (this.props.loginError) {
+            Alert.alert(
+                'Login Failed',
+                'Email or Password is Incorrect',
+                [
+                    { text: 'OK' },
+                ],
+                { cancelable: true },
+            );
+            console.log(this.props.loginError);
+            //this.props.initState();
+            this.setState({loading: false});
+        }
+        else if (this.props.user) {
+            const {
+                navigate,
+            } = this.props.navigation;
+            navigate('studentDashboard');
+        }
     }
 
 }
@@ -325,4 +346,22 @@ const styles = StyleSheet.create({
     },
 });
 
-export default LoginScreen;
+const mapStateToProps = (state) => {
+    
+    const {
+        login: {
+            error: loginError,
+            user
+        }
+    } = state;
+    
+    return {loginError, user };
+
+}
+
+const mapDispatchToProps = {
+    initState,
+    login,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

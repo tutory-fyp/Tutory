@@ -65,8 +65,8 @@ class SignupScreen extends Component {
     }
 
     componentDidMount() {
-        //let role = this.props.navigation.getParam('role');
-        this.setState({ role: 'student' });
+        let role = this.props.navigation.getParam('role');
+        this.setState({ role });
     }
 
 }

@@ -11,6 +11,7 @@ import {
 import ProfileScreen from '../../screens/dashboard/studentDashboard/ProfileScreen';
 import NotificationScreen from '../../screens/dashboard/studentDashboard/NotificationScreen';
 import SettingsScreen from '../../screens/dashboard/studentDashboard/SettingsScreen';
+import MessageScreen from '../../screens/dashboard/studentDashboard/MessageScreen';
 import {
     Dimensions,
 } from 'react-native';
@@ -20,15 +21,14 @@ import ViewCourseMarksScreen from '../../screens/dashboard/studentDashboard/draw
 import MarksDetailsScreen from '../../screens/dashboard/studentDashboard/drawerScreens/MarksDetailsScreen';
 import Drawer from '../../screens/dashboard/studentDashboard/drawerScreens/Drawer';
 
-function _iconHandler(name) {
-    return (
-        <Icon
-            style={{ fontSize: 25, color: PRIMARY_COLOR}}
-            type="Ionicons"
-            name={name}
-        />
-    );
-}
+
+const _iconHandler = (name, type) => (
+    <Icon
+        style={{ fontSize: 25, color: PRIMARY_COLOR }}
+        type={type || "MaterialCommunityIcons"}
+        name={name}
+    />
+);
 
 const homeStack = createStackNavigator({
     Home: HomeScreen,
@@ -43,22 +43,29 @@ const tabNav = createMaterialBottomTabNavigator({
     homeStack: {
         screen: homeStack,
         navigationOptions: {
-            tabBarIcon: _iconHandler('ios-home'),
+            tabBarIcon: _iconHandler('home-variant'),
             tabBarLabel: 'Home',
         }
     },
     Profile: {
         screen: ProfileScreen,
         navigationOptions: {
-            tabBarIcon: _iconHandler('ios-body'),
+            tabBarIcon: _iconHandler('ios-body', 'Ionicons'),
             tabBarLabel: "Profile"
         }
     },
     Settings: {
         screen: SettingsScreen,
         navigationOptions: {
-            tabBarIcon: _iconHandler('ios-settings'),
+            tabBarIcon: _iconHandler('settings'),
             tabBarLabel: "Settings"
+        }
+    },
+    Message: {
+        screen: MessageScreen,
+        navigationOptions: {
+            tabBarIcon: _iconHandler('android-messages'),
+            tabBarLabel: "Messages"
         }
     }
 } ,{

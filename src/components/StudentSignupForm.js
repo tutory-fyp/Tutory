@@ -24,6 +24,7 @@ import ImagePicker from 'react-native-image-picker';
 import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import { PRIMARY_COLOR } from '../constants/commonColors';
 
 const { height: HEIGHT } = Dimensions.get('window');
 
@@ -392,7 +393,8 @@ const styles = StyleSheet.create({
     regAccLoginBtnText: {
         fontSize: 16,
         borderBottomWidth: 1,
-        borderBottomColor: '#3185E8',
+        borderBottomColor: PRIMARY_COLOR,
+        color: PRIMARY_COLOR,
     },
 });
 

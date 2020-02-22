@@ -1,8 +1,31 @@
-import {LOGIN} from './actionTypes';
+import { 
+    LOGIN_SUCCESS,
+    LOGIN_ERROR,
+    INIT_STATE,
+} from './actionTypes';
 
-const addUserID = (userID) => {
+const initState = () => {
     return {
-        action: LOGIN,
-        payload: userID,
+        type: INIT_STATE,
     }
+}
+
+const loginSuccess = (user) => {
+    return {
+        type: LOGIN_SUCCESS,
+        payload: user,
+    }
+}
+
+const loginFailed = (error) => {
+    return {
+        type: LOGIN_ERROR,
+        payload: error,
+    }
+}
+
+export {
+    loginSuccess,
+    loginFailed,
+    initState,
 }
