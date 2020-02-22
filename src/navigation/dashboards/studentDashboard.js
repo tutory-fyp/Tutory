@@ -20,7 +20,7 @@ import AttendanceDetailsScreen from '../../screens/dashboard/studentDashboard/dr
 import ViewCourseMarksScreen from '../../screens/dashboard/studentDashboard/drawerScreens/ViewCourseMarksScreen';
 import MarksDetailsScreen from '../../screens/dashboard/studentDashboard/drawerScreens/MarksDetailsScreen';
 import Drawer from '../../screens/dashboard/studentDashboard/drawerScreens/Drawer';
-
+import loginStack from '../login';
 
 const _iconHandler = (name, type) => (
     <Icon
@@ -89,6 +89,7 @@ const rootStack = createStackNavigator({
 const drawerNav = createDrawerNavigator({
     Dashboard: rootStack,
 }, {
+    initialRouteName: 'Dashboard',
     contentComponent: Drawer,
     drawerWidth: Dimensions.get('window').width * 3/4,
 });

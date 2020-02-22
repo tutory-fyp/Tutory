@@ -60,17 +60,17 @@ class MarksDetailsScreen extends Component {
                     />
                 </Appbar.Header>
                 <View style={styles.container} >
-                    <Table borderStyle={{ borderWidth: 0 }} >
-                        <Row data={tableHead} flexArr={[1, 2, 1, 1]} style={styles.head} textStyle={styles.text} />
+                    <Table borderStyle={{ borderWidth: 1 }} >
+                        <Row data={tableHead} flexArr={[1, 2, 1]} style={styles.head} textStyle={styles.text} />
                     </Table>
                     <ScrollView style={styles.dataWrapper}>
-                        <Table borderStyle={{ borderWidth: 0, borderColor: '#C1C0B9' }}>
+                        <Table borderStyle={{ borderWidth: 1, borderColor: '#C1C0B9' }}>
                             {
                                 tableData.map((rowData, index) => (
                                     <Row
                                         key={index}
                                         data={rowData}
-                                        flexArr={[1, 2, 1, 1]}
+                                        flexArr={[1, 2, 1]}
                                         style={[styles.row]}
                                         textStyle={styles.text}
                                     />
@@ -92,8 +92,11 @@ const styles = StyleSheet.create({
     head: { height: 40, backgroundColor: '#f1f8ff' },
     wrapper: { flexDirection: 'row' },
     title: { flex: 1, backgroundColor: '#f6f8fa' },
-    row: { height: 28 },
-    text: { textAlign: 'center', color: '#000000' },
+    row: { height: 30, },
+    rowPresent: { backgroundColor: 'green', },
+    rowAbsent: { backgroundColor: 'red', },
+    text: { textAlign: 'center', color: '#000' },
+    rowText: { textAlign: 'center', color: '#fff', fontSize: 15, fontWeight: "bold" },
     dataWrapper: { marginTop: -1 },
 });
 

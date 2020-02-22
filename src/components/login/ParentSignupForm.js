@@ -6,6 +6,7 @@ import {
     TouchableOpacity,
     Image,
     Alert,
+    Text,
 } from 'react-native';
 import {
     Text as EText,
@@ -24,31 +25,27 @@ import ImagePicker from 'react-native-image-picker';
 import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import { PRIMARY_COLOR } from '../constants/commonColors';
+import { PRIMARY_COLOR } from '../../constants/commonColors';
 
-const { height: HEIGHT } = Dimensions.get('window');
+const { height: HEIGHT} = Dimensions.get('window');
 
-class StudentSignupForm extends Component {
+class ParentSignupScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
             fname: '',
             email: '',
-            phoneNo: '',
             password: '',
             cnic: '',
-            loading: false,
+            loading: false, 
         };
         this._emailInputRef = React.createRef();
-        this._phoneNoInputRef = React.createRef();
         this._passwordInputRef = React.createRef();
         this._CNICInputRef = React.createRef();
         this._handleSignup = this._handleSignup.bind(this);
     }
 
     _handleSignup() {
-        this.props.navigation.navigate('dashboardFlow');
-        return;
         let regex_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
         if (this.state.fname.length === 0) {
             Alert.alert(
@@ -94,28 +91,6 @@ class StudentSignupForm extends Component {
             );
             return;
         }
-        if (this.state.phoneNo.length === 0) {
-            Alert.alert(
-                'Empty Phone Number',
-                'Phone Number cannot be empty',
-                [
-                    { text: 'OK' },
-                ],
-                { cancelable: true },
-            );
-            return;
-        }
-        if (this.state.phoneNo.length < 13) {
-            Alert.alert(
-                'Invalid Phone Number',
-                'Phone Number Entered is Invalid',
-                [
-                    { text: 'OK' },
-                ],
-                { cancelable: true },
-            );
-            return;
-        }
         if (this.state.cnic.length === 0) {
             Alert.alert(
                 'CNIC Empty',
@@ -144,12 +119,11 @@ class StudentSignupForm extends Component {
             .then(userCredential => {
                 (async () => {
                     try {
-                        let tutors = await firestore().collection('students');
+                        let tutors = await firestore().collection('parents');
                         let tutor = await tutors.add({
                             id: userCredential.user.uid,
                             fname: this.state.fname,
                             email: this.state.email,
-                            phoneNo: this.state.phoneNo,
                             cnic: this.state.cnic,
                         });
                         let ref = await tutor.get();
@@ -251,31 +225,8 @@ class StudentSignupForm extends Component {
                             this.setState({ password });
                         }}
                         onSubmitEditing={() => {
-                            this._phoneNoInputRef.focus();
-                        }}
-                    />
-                    <PTextInput
-                        style={styles.signupFormInput}
-                        mode="outlined"
-                        label="Phone Number"
-                        placeholder="Enter Phone Number"
-                        keyboardType="phone-pad"
-                        returnKeyType="next"
-                        autoCapitalize="none"
-                        autoCorrect={false}
-                        onChangeText={(phoneNo) => {
-                            this.setState({ phoneNo });
-                        }}
-                        onSubmitEditing={() => {
                             this._CNICInputRef.focus();
                         }}
-                        render={props =>
-                            <TextInputMask
-                                {...props}
-                                refInput={ref => { this._phoneNoInputRef = ref }}
-                                mask="+92 [000]-[0000000]"
-                            />
-                        }
                     />
                     <PTextInput
                         style={styles.signupFormInput}
@@ -285,7 +236,7 @@ class StudentSignupForm extends Component {
                         returnKeyType="done"
                         value={this.state.cnic}
                         onChangeText={(cnic) => {
-                            this.setState({ cnic });
+                            this.setState({cnic});
                         }}
                         render={props =>
                             <TextInputMask
@@ -319,9 +270,9 @@ class StudentSignupForm extends Component {
                         style={styles.regAccLoginBtn}
                         onPress={() => this.props.navigation.navigate('Login')}
                     >
-                        <EText style={styles.regAccLoginBtnText}>
+                        <Text style={styles.regAccLoginBtnText}>
                             Log in
-                        </EText>
+                        </Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -332,8 +283,8 @@ class StudentSignupForm extends Component {
 
 const styles = StyleSheet.create({
     signupCard: {
-        marginTop: '10%',
-        height: HEIGHT - 220,
+        marginTop: '6%',
+        height: HEIGHT - 280,
         width: '90%',
         alignItems: 'center',
         justifyContent: 'center',
@@ -374,7 +325,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
     },
-    regAccWrapper: {
+    regAccWrapper: {  
         position: 'absolute',
         bottom: '2%',
         flexDirection: 'row',
@@ -385,17 +336,17 @@ const styles = StyleSheet.create({
         color: 'rgba(0,0,0,0.7)',
         marginTop: '3%',
     },
-    regAccLoginBtn: {
-        marginLeft: '3%',
+    regAccLoginBtn: { 
+        marginLeft: '3%', 
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center', 
     },
     regAccLoginBtnText: {
-        fontSize: 16,
-        borderBottomWidth: 1,
-        borderBottomColor: PRIMARY_COLOR,
+        fontSize: 16, 
+        borderBottomWidth: 1, 
+        borderBottomColor: '#3185E8',
         color: PRIMARY_COLOR,
     },
 });
 
-export default withNavigation(StudentSignupForm);
+export default withNavigation(ParentSignupScreen);

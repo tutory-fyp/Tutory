@@ -5,25 +5,19 @@ import {
     Keyboard,
     ScrollView,
     FlatList,
-    Text,
+    Picker,
 } from 'react-native';
 import {
     Searchbar,
-    Title,
     Appbar,
-    Badge,
-    Theme,
+    Text as PText,
+    Title as PTitle,
+    Chip as PChip,
+    Divider as PDivider,
+    Button as PButton,
 } from 'react-native-paper';
-import {
-  Overlay as EOverlay, 
-} from 'react-native-elements';
-import {
-    Icon as NBIcon
-} from 'native-base';
-import Riple from 'react-native-material-ripple';
-import TopRatedTutorCard from '../../../components/TopRatedTutorCard';
-import PopularCourseCard from '../../../components/PopularCourseCard';
-import { PRIMARY_COLOR } from '../../../constants/commonColors';
+import TopRatedTutorCard from '../../../components/studentDashboard/TopRatedTutorCard';
+import PopularCourseCard from '../../../components/studentDashboard/PopularCourseCard';
 
 
 let topRatedTutors = [
@@ -64,7 +58,7 @@ class HomeScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            overlayVisibility: false,
         };
     }
 
@@ -77,43 +71,37 @@ class HomeScreen extends Component {
         navigate('Notifications');
     }
 
+    _gotoSearchScreen = () => {
+        const {
+            navigate,
+        } = this.props.navigation;
+        navigate('Search');
+    }
+
     render() {
         return (
             <View style={styles.container} >
                 <Appbar style={styles.header} >
                     <Appbar.Action icon="menu" onPress={this.props.navigation.openDrawer} />
                     <Appbar.Content title="Home" />
-                    <Appbar.Action icon={() => {
-                        return <Riple
-                            onPress={this._gotoNotifications}
-                        >
-                            <NBIcon
-                                type="MaterialCommunityIcons"
-                                name="bell"
-                                style={{ color: "white" }}
-                            />
-                        </Riple>
-                    }} />
+                    <Appbar.Action icon="bell" onPress={this._gotoNotifications} />
                 </Appbar>
                 <ScrollView>
                     <Searchbar
-                        onTouchEnd={() => {
-                            Keyboard.dismiss();
-                            this.props.navigation.navigate('Search');
-                        }}
+                        onTouchEnd={this._gotoSearchScreen}
                         style={styles.searchbar}
                         placeholder="Search for Courses"
                     />
-                    <Title style={styles.title} >
+                    <PTitle style={styles.title} >
                         Top Rated Tutors
-                    </Title>
+                    </PTitle>
                     <FlatList
                         horizontal
                         data={topRatedTutors}
                         keyExtractor={(item, index) => (
                             index.toString()
                         )}
-                        renderItem={({item, index}) => (
+                        renderItem={({ item, index }) => (
                             <TopRatedTutorCard
                                 name={item.name}
                                 description={item.desc}
@@ -122,17 +110,17 @@ class HomeScreen extends Component {
                             />
                         )}
                     />
-                    <Title style={styles.title} >
+                    <PTitle style={styles.title} >
                         Popular Courses
-                    </Title>
+                    </PTitle>
                     <FlatList
                         horizontal
                         data={popCourses}
-                        keyExtractor={(item,index) => (
+                        keyExtractor={(item, index) => (
                             index.toString()
                         )}
-                        renderItem={({item}) => (
-                            <PopularCourseCard 
+                        renderItem={({ item }) => (
+                            <PopularCourseCard
                                 description={item.desc}
                             />
                         )}

@@ -6,9 +6,9 @@ import {
 import {
   Text as EText,
 } from 'react-native-elements';
-import ParentSignupForm from '../../components/ParentSignupForm';
-import StudentSignupForm from '../../components/StudentSignupForm';
-import TutorSignupForm from '../../components/TutorSignupForm';
+import ParentSignupForm from '../../components/login/ParentSignupForm';
+import StudentSignupForm from '../../components/login/StudentSignupForm';
+import TutorSignupForm from '../../components/login/TutorSignupForm';
 
 class SignupScreen extends Component {
     constructor(props) {

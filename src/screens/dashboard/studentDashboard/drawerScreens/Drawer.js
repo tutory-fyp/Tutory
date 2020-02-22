@@ -11,10 +11,11 @@ import {
 } from 'react-native-paper';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import FontisoIcon from 'react-native-vector-icons/Fontisto';
-import ViewAttendanceScreen from './ViewAttendanceScreen';
-import AttendanceDetailsScreen from './AttendanceDetailsScreen';
-import ViewCourseMarksScreen from './ViewCourseMarksScreen';
-import MarksDetailsScreen from './MarksDetailsScreen';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { navigate } from '../../../../navigation/navigationService';
+import {
+    Icon as NBIcon,
+} from 'native-base';
 
 class Drawer extends Component {
     
@@ -27,12 +28,46 @@ class Drawer extends Component {
         this._gotoViewMarks = this._gotoViewMarks.bind(this);
     }
     
+    _logout = () => {
+        const {
+            navigation
+        } = this.props;
+        navigation.navigate("loginStack");
+    }
+
     _gotoViewMarks() {
         this.props.navigation.navigate('ViewCourseMarks');
     }
 
     _gotoViewAttendance() {
         this.props.navigation.navigate('ViewAttendance');
+    }
+
+    _iconHandler = (name, type, size) => {
+        if (type === "FontisoIcon") {
+            return () => (
+                <FontisoIcon
+                    name={name}
+                    size={size}
+                />
+            )
+        }
+        else if (type === "AntDesignIcon") {
+            return () => (
+                <AntDesignIcon
+                    name={name}
+                    size={size}
+                />
+            )
+        }
+        else if (type === "MaterialCommunityIcons") {
+            return () => (
+                <MaterialCommunityIcons
+                    name={name}
+                    size={size}
+                />
+            )
+        }
     }
 
     render() {
@@ -56,22 +91,21 @@ class Drawer extends Component {
                     label="View Attendance"
                     onPress={this._gotoViewAttendance}
                     icon={
-                        () => <FontisoIcon
-                            name="date"
-                            color="#000"
-                            size={20}
-                        />
+                        this._iconHandler("date", "FontisoIcon", 20)
                     }
                 />
                 <PDrawer.Item
                     label="View Marks"
                     onPress={this._gotoViewMarks}
                     icon={
-                        () => <AntDesignIcon
-                            name="book"
-                            color="#000"
-                            size={22}
-                        />
+                        this._iconHandler("book", "AntDesignIcon", 20)
+                    }
+                />
+                <PDrawer.Item
+                    label="Logout"
+                    onPress={this._logout}
+                    icon={
+                        this._iconHandler("logout", "MaterialCommunityIcons", 22)
                     }
                 />
             </View>

@@ -33,7 +33,7 @@ class PopularCourseCard extends Component {
                     <Card.Cover
                         resizeMode="cover"
                         style={styles.img}
-                        source={require('../../assets/card_image.jpg')}
+                        source={require('../../../assets/card_image.jpg')}
                     />
                     <Card.Content style={styles.cardContent} >
                         <Paragraph>

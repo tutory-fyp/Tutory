@@ -83,7 +83,7 @@ class LoginScreen extends Component {
         }
     }
 
-    _handleLogin() { 
+    _handleLogin() {
         let re_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+[^<>()\.,;:\s@\"]{2,})$/;
         let re_password = /\S{6,}/;
         if (this.state.email.length === 0) {

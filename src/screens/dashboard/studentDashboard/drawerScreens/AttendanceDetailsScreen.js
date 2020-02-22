@@ -8,7 +8,7 @@ import {
     Appbar,
     List,
 } from 'react-native-paper';
-import AttendanceDetailsCard from '../../../../components/AttendanceDetailsCard';
+import AttendanceDetailsCard from '../../../../components/studentDashboard/drawer/AttendanceDetailsCard';
 import { Table, TableWrapper, Row, Rows, Col, Cell } from 'react-native-table-component';
 
 let tableHead = [
@@ -18,14 +18,14 @@ let tableHead = [
 ];
 
 let tableData = [
-    ['1-Aug-2019', '23:00:00 to 24:00:00', 'Present'],
-    ['1-Aug-2019', '23:00:00 to 24:00:00', 'Present'],
-    ['1-Aug-2019', '23:00:00 to 24:00:00', 'Absent'],
-    ['1-Aug-2019', '23:00:00 to 24:00:00', 'Present'],
-    ['1-Aug-2019', '23:00:00 to 24:00:00', 'Absent'],
-    ['1-Aug-2019', '23:00:00 to 24:00:00', 'Present'],
-    ['1-Aug-2019', '23:00:00 to 24:00:00', 'Absent'],
-    ['1-Aug-2019', '23:00:00 to 24:00:00', 'Present'],
+    ['31-Sept-2019', '10:00 AM to 10:00 PM', 'Present'],
+    ['1-Aug-2019', '10:00 AM to 10:00 PM', 'Present'],
+    ['1-Aug-2019', '10:00 AM to 10:00 PM', 'Absent'],
+    ['1-Aug-2019', '10:00 AM to 10:00 PM', 'Present'],
+    ['1-Aug-2019', '10:00 AM to 10:00 PM', 'Absent'],
+    ['1-Aug-2019', '10:00 AM to 10:00 PM', 'Present'],
+    ['1-Aug-2019', '10:00 AM to 10:00 PM', 'Absent'],
+    ['1-Aug-2019', '10:00 AM to 10:00 PM', 'Present'],
 ];
 
 class AttendanceDetailsScreen extends Component {
@@ -54,19 +54,17 @@ class AttendanceDetailsScreen extends Component {
                     />
                 </Appbar.Header>
                 <View style={styles.container} >
-                    <Table borderStyle={{ borderWidth: 1 }} >
-                        <Row data={tableHead} flexArr={[1, 2, 1, 1]} style={styles.head} textStyle={styles.text} />
-                    </Table>
                     <ScrollView style={styles.dataWrapper}>
-                        <Table borderStyle={{ borderWidth: 1, borderColor: '#C1C0B9' }}>
+                        <Table borderStyle={{ borderWidth: 1, borderColor: '#C1C0B9'}}>
+                            <Row data={tableHead} flexArr={[1, 1, 1]} style={styles.head} textStyle={styles.text} />
                             {
                                 tableData.map((rowData, index) => (
                                     <Row
                                         key={index}
                                         data={rowData}
-                                        flexArr={[1, 2, 1, 1]}
-                                        style={[styles.row]}
-                                        textStyle={styles.text}
+                                        flexArr={[1, 1, 1]}
+                                        style={[styles.row, rowData[2] === "Present" ? styles.rowPresent : styles.rowAbsent ]}
+                                        textStyle={styles.rowText}
                                     />
                                 ))
                             }
@@ -103,12 +101,15 @@ const styles = StyleSheet.create({
     listContent: {
         alignItems: 'center',
     },
-    container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
+    container: { flex: 1, paddingTop: 30 },
     head: { height: 40, backgroundColor: '#f1f8ff' },
     wrapper: { flexDirection: 'row' },
     title: { flex: 1, backgroundColor: '#f6f8fa' },
-    row: { height: 28 },
-    text: { textAlign: 'center', color: '#000000' },
+    row: { height: 50, },
+    rowPresent: { backgroundColor: 'green', },
+    rowAbsent: { backgroundColor: 'red', },
+    text: { textAlign: 'center', color: '#000', },
+    rowText: { textAlign: 'center', color: '#fff', fontSize: 15, fontWeight: "bold" },
     dataWrapper: { marginTop: -1 },
 });
 

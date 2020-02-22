@@ -10,7 +10,7 @@ import {
     Paragraph,
 } from 'react-native-paper';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { YELLOW_COLOR } from '../constants/commonColors';
+import { YELLOW_COLOR } from '../../constants/commonColors';
 
 class TopRatedTutorCard extends Component {
 
@@ -34,7 +34,7 @@ class TopRatedTutorCard extends Component {
                 <Image
                     resizeMode="cover"
                     style={styles.img}
-                    source={require('../../assets/card_image.jpg')}
+                    source={require('../../../assets/card_image.jpg')}
                 />
                 <View style={styles.contentWrapper} >
                     <Text style={styles.name} >

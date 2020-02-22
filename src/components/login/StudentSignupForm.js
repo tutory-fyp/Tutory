@@ -24,11 +24,11 @@ import ImagePicker from 'react-native-image-picker';
 import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import { PRIMARY_COLOR } from '../constants/commonColors';
+import { PRIMARY_COLOR } from '../../constants/commonColors';
 
 const { height: HEIGHT } = Dimensions.get('window');
 
-class TutorSignupForm extends Component {
+class StudentSignupForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -38,8 +38,6 @@ class TutorSignupForm extends Component {
             password: '',
             cnic: '',
             loading: false,
-            filePath: {},
-            disable: false,
         };
         this._emailInputRef = React.createRef();
         this._phoneNoInputRef = React.createRef();
@@ -48,25 +46,11 @@ class TutorSignupForm extends Component {
         this._handleSignup = this._handleSignup.bind(this);
     }
 
-    _chooseFile = () => {
-        let options = {
-            title: 'Select Image',
-            storageOptions: {
-                skipBackup: true,
-                path: 'images',
-            },
-        };
-        ImagePicker.showImagePicker(options, response => {
-            let source = response;
-            this.setState({
-                filePath: source,
-            });
-        });
-    }
-
     _handleSignup() {
+        this.props.navigation.navigate('dashboardFlow');
+        return;
         let regex_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-        if(this.state.fname.length === 0) {
+        if (this.state.fname.length === 0) {
             Alert.alert(
                 'Empty Fullname',
                 'Fullname cannot be empty',
@@ -77,7 +61,7 @@ class TutorSignupForm extends Component {
             );
             return;
         }
-        if(this.state.email.length === 0) {
+        if (this.state.email.length === 0) {
             Alert.alert(
                 'Empty Email',
                 'Email cannot be empty',
@@ -154,91 +138,63 @@ class TutorSignupForm extends Component {
             );
             return;
         }
-        if(!this.state.filePath.path) {
-            Alert.alert(
-                'No Image File Selected',
-                'Please select image of latest academic document',
-                [
-                    { text: 'OK' },
-                ],
-                { cancelable: true },
-            );
-            return;
-        }
         this.setState({ loading: true });
         let authentication = auth();
         authentication.createUserWithEmailAndPassword(this.state.email, this.state.password)
-        .then(userCredential => {
-            (async () => {
-                try {
-                    let tutors = await firestore().collection('tutors');
-                    let tutor = await tutors.add({
-                        id: userCredential.user.uid,
-                        fname: this.state.fname,
-                        email: this.state.email,
-                        phoneNo: this.state.phoneNo,
-                        cnic: this.state.cnic,
-                    });
-                    let ref = await tutor.get();
-                    console.log(ref.get('fname'));
-                }
-                catch(err) {
+            .then(userCredential => {
+                (async () => {
+                    try {
+                        let tutors = await firestore().collection('students');
+                        let tutor = await tutors.add({
+                            id: userCredential.user.uid,
+                            fname: this.state.fname,
+                            email: this.state.email,
+                            phoneNo: this.state.phoneNo,
+                            cnic: this.state.cnic,
+                        });
+                        let ref = await tutor.get();
+                        console.log(ref.get('fname'));
+                        this.setState({ loading: false });
+                    }
+                    catch (err) {
+                        Alert.alert(
+                            'Error',
+                            'Something went wrong with signup',
+                            [
+                                { text: 'OK', onPress: () => { console.log(err) } },
+                            ],
+                            { cancelable: true },
+                        );
+                        this.setState({ loading: false });
+                    }
+                })();
+            })
+            .catch(error => {
+                if (error.code == 'auth/email-already-in-use') {
                     Alert.alert(
-                        'Error',
-                        'Something went wrong with signup',
+                        'Email Already in use',
+                        'The Email you entered is already in use',
                         [
-                            { text: 'OK', onPress: () => { console.log(err) } },
+                            { text: 'OK' },
                         ],
                         { cancelable: true },
                     );
                     this.setState({ loading: false });
+                    return;
                 }
-            })();
-            let ref = storage().ref(`academicImages/${userCredential.user.uid}/${this.state.filePath.fileName}`);
-            let task = ref.putFile(this.state.filePath.path, {
-                cacheControl: 'no-store',
+                else {
+                    Alert.alert(
+                        'Error',
+                        'Something went wrong with signup',
+                        [
+                            { text: 'OK', onPress: () => { console.log(error.code) } },
+                        ],
+                        { cancelable: true },
+                    );
+                    this.setState({ loading: false });
+                    return;
+                }
             });
-            task.then((snapshot) => {
-                this.props.navigation.navigate('Login');
-            })
-            .catch(err => {
-                Alert.alert(
-                    'Error',
-                    'Something went wrong with signup',
-                    [
-                        { text: 'OK', onPress: () => { console.log(error.code) } },
-                    ],
-                    { cancelable: true },
-                );
-                this.setState({ loading: false });
-            });
-        })
-        .catch(error => {
-            if(error.code == 'auth/email-already-in-use') {
-                Alert.alert(
-                    'Email Already in use',
-                    'The Email you entered is already in use',
-                    [
-                        { text: 'OK' },
-                    ],
-                    { cancelable: true },
-                );
-                this.setState({ loading: false });
-                return;
-            }
-            else {
-                Alert.alert(
-                    'Error',
-                    'Something went wrong with signup',
-                    [
-                        { text: 'OK', onPress: () => { console.log(error.code) } },
-                    ],
-                    { cancelable: true },
-                );
-                this.setState({ loading: false });
-                return;
-            }
-        });
     }
 
     render() {
@@ -257,7 +213,6 @@ class TutorSignupForm extends Component {
                         placeholder="Enter Full Name"
                         returnKeyType="next"
                         autoCapitalize="none"
-                        disabled={this.state.disable}
                         autoCorrect={false}
                         value={this.state.fname}
                         onChangeText={(fname) => {
@@ -274,7 +229,6 @@ class TutorSignupForm extends Component {
                         keyboardType="email-address"
                         returnKeyType="next"
                         autoCapitalize="none"
-                        disabled={this.state.disable}
                         autoCorrect={false}
                         value={this.state.email}
                         onChangeText={(email) => {
@@ -290,9 +244,8 @@ class TutorSignupForm extends Component {
                         placeholder="Enter Password"
                         returnKeyType="next"
                         autoCapitalize="none"
-                        disabled={this.state.disable}
-                        autoCorrect={false}
                         secureTextEntry
+                        autoCorrect={false}
                         value={this.state.password}
                         onChangeText={(password) => {
                             this.setState({ password });
@@ -309,9 +262,7 @@ class TutorSignupForm extends Component {
                         keyboardType="phone-pad"
                         returnKeyType="next"
                         autoCapitalize="none"
-                        disabled={this.state.disable}
                         autoCorrect={false}
-                        value={this.state.phoneNo}
                         onChangeText={(phoneNo) => {
                             this.setState({ phoneNo });
                         }}
@@ -322,7 +273,7 @@ class TutorSignupForm extends Component {
                             <TextInputMask
                                 {...props}
                                 refInput={ref => { this._phoneNoInputRef = ref }}
-                                mask="+92[000]-[0000000]"
+                                mask="+92 [000]-[0000000]"
                             />
                         }
                     />
@@ -330,10 +281,8 @@ class TutorSignupForm extends Component {
                         style={styles.signupFormInput}
                         mode="outlined"
                         label="CNIC"
-                        placeholder="Enter CNIC"
                         keyboardType="number-pad"
                         returnKeyType="done"
-                        disabled={this.state.disable}
                         value={this.state.cnic}
                         onChangeText={(cnic) => {
                             this.setState({ cnic });
@@ -346,24 +295,6 @@ class TutorSignupForm extends Component {
                             />
                         }
                     />
-                    <View
-                        style={styles.uploadImageWrapper}
-                    >
-                        <EButton
-                            title={this.state.filePath.fileName ? "1 file selected" : "Upload Latest Degree Image" }
-                            titleStyle={styles.uploadImageBtnTitle}
-                            containerStyle={styles.uploadImageBtnContainer}
-                            buttonStyle={styles.uploadImageBtn}
-                            icon={<Icon name="upload" size={20} color="white" />}
-                            onPress={() => {
-                                this._chooseFile();
-                            }}
-                        />
-                        {/* <Image
-                            source={{ uri: this.state.filePath.uri }}
-                            style={styles.uploadImagePlaceholder}
-                        /> */}
-                    </View>
                     <EButton
                         title="Signup"
                         ViewComponent={LinearGradient}
@@ -379,7 +310,6 @@ class TutorSignupForm extends Component {
                         buttonStyle={styles.signupBtn}
                         onPress={this._handleSignup}
                     />
-                    
                 </KeyboardAwareScrollView>
                 <View style={styles.regAccWrapper}>
                     <EText style={styles.regAccText}>
@@ -403,7 +333,7 @@ class TutorSignupForm extends Component {
 const styles = StyleSheet.create({
     signupCard: {
         marginTop: '10%',
-        height: HEIGHT - 160,
+        height: HEIGHT - 220,
         width: '90%',
         alignItems: 'center',
         justifyContent: 'center',
@@ -463,41 +393,9 @@ const styles = StyleSheet.create({
     regAccLoginBtnText: {
         fontSize: 16,
         borderBottomWidth: 1,
-        borderBottomColor: '#3185E8',
+        borderBottomColor: PRIMARY_COLOR,
         color: PRIMARY_COLOR,
-    },
-    uploadImageWrapper: {
-        width: '100%',
-        height: 50,
-        flexDirection: 'row', 
-        justifyContent: 'center', 
-        alignItems: 'center',
-        marginTop: '2%',
-    },
-    uploadImageBtnContainer: {
-        marginTop: 5,
-    },
-    uploadImageBtnTitle: {
-        paddingLeft: '2%',
-    },
-    uploadImageBtn: { 
-        borderRadius: 30,
-        height: 50,
-        width: 300, 
-    },
-    uploadImagePlaceholder: { 
-        width: 35, 
-        height: 60, 
-        marginTop: '2%', 
-        marginLeft: 20 
-    },
-    uploadImageText: {
-        fontSize: 14,
-        borderWidth: 3,
-        borderColor: 'rgba(0,0,0,0.5)',
-        borderRadius: 30,
-        padding: 10,
     },
 });
 
-export default withNavigation(TutorSignupForm);
+export default withNavigation(StudentSignupForm);

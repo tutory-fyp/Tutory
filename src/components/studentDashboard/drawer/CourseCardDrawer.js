@@ -12,6 +12,7 @@ import {
     TouchableRipple,
 } from 'react-native-paper';
 import { withNavigation } from 'react-navigation';
+import { PRIMARY_COLOR } from '../../../constants/commonColors';
 
 const { height: HEIGHT, width: WIDTH } = Dimensions.get('window');
 
@@ -68,6 +69,7 @@ const styles = StyleSheet.create({
     },
     viewDetailsBtnText: {
         fontSize: 15,
+        color: PRIMARY_COLOR,
     },
 });
 
