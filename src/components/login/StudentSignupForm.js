@@ -47,8 +47,6 @@ class StudentSignupForm extends Component {
     }
 
     _handleSignup() {
-        this.props.navigation.navigate('dashboardFlow');
-        return;
         let regex_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
         if (this.state.fname.length === 0) {
             Alert.alert(
@@ -144,17 +142,14 @@ class StudentSignupForm extends Component {
             .then(userCredential => {
                 (async () => {
                     try {
-                        let tutors = await firestore().collection('students');
-                        let tutor = await tutors.add({
-                            id: userCredential.user.uid,
+                        await firestore().doc(`students/${userCredential.user.uid}`).set({
                             fname: this.state.fname,
                             email: this.state.email,
                             phoneNo: this.state.phoneNo,
                             cnic: this.state.cnic,
                         });
-                        let ref = await tutor.get();
-                        console.log(ref.get('fname'));
                         this.setState({ loading: false });
+                        this.props.navigation.navigate('Login');
                     }
                     catch (err) {
                         Alert.alert(

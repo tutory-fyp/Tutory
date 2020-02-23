@@ -119,16 +119,13 @@ class ParentSignupScreen extends Component {
             .then(userCredential => {
                 (async () => {
                     try {
-                        let tutors = await firestore().collection('parents');
-                        let tutor = await tutors.add({
-                            id: userCredential.user.uid,
+                        await firestore().doc(`parents/${userCredential.user.uid}`).set({
                             fname: this.state.fname,
                             email: this.state.email,
                             cnic: this.state.cnic,
                         });
-                        let ref = await tutor.get();
-                        console.log(ref.get('fname'));
                         this.setState({ loading: false });
+                        this.props.navigation.navigate('Login');
                     }
                     catch (err) {
                         Alert.alert(

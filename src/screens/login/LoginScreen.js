@@ -20,8 +20,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import SplashScreen from 'react-native-smart-splash-screen';
 import { connect } from 'react-redux';
-import { initState } from '../../redux/modules/user/actionCreators';
-import { login } from '../../redux/modules/user/thunks';
+import { initState, login } from '../../redux/modules/user';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
@@ -84,6 +83,11 @@ class LoginScreen extends Component {
     }
 
     _handleLogin() {
+        // const {
+        //     navigate,
+        // } = this.props.navigation;
+        // navigate('studentDashboard');
+        // return;
         let re_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+[^<>()\.,;:\s@\"]{2,})$/;
         let re_password = /\S{6,}/;
         if (this.state.email.length === 0) {
@@ -250,7 +254,7 @@ class LoginScreen extends Component {
                 navigate,
             },
         } = this.props;
-        navigate('studentDashboard');
+        //navigate('studentDashboard');
     }
 
     componentDidUpdate() {
@@ -263,8 +267,7 @@ class LoginScreen extends Component {
                 ],
                 { cancelable: true },
             );
-            console.log(this.props.loginError);
-            //this.props.initState();
+            this.props.initState();
             this.setState({loading: false});
         }
         else if (this.props.user) {

@@ -171,16 +171,15 @@ class TutorSignupForm extends Component {
         .then(userCredential => {
             (async () => {
                 try {
-                    let tutors = await firestore().collection('tutors');
-                    let tutor = await tutors.add({
+                    await firestore().doc(`tutors/${userCredential.user.uid}`).set({
                         id: userCredential.user.uid,
                         fname: this.state.fname,
                         email: this.state.email,
                         phoneNo: this.state.phoneNo,
                         cnic: this.state.cnic,
                     });
-                    let ref = await tutor.get();
-                    console.log(ref.get('fname'));
+                    this.setState({ loading: false });
+                    this.props.navigation.navigate('Login');
                 }
                 catch(err) {
                     Alert.alert(

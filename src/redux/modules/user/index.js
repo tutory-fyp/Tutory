@@ -2,6 +2,7 @@ import reducer from './reducer';
 import { 
     loginSuccess,
     loginFailed,
+    initState,
 } from "./actionCreators";
 import {
   login, 
@@ -12,4 +13,5 @@ export {
     loginSuccess,
     loginFailed,
     login,
+    initState,
 }

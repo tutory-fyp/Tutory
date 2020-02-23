@@ -12,10 +12,8 @@ import {
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import FontisoIcon from 'react-native-vector-icons/Fontisto';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { navigate } from '../../../../navigation/navigationService';
-import {
-    Icon as NBIcon,
-} from 'native-base';
+import { connect } from 'react-redux';
+import { initState } from '../../../../redux/modules/user';
 
 class Drawer extends Component {
     
@@ -30,8 +28,10 @@ class Drawer extends Component {
     
     _logout = () => {
         const {
-            navigation
+            navigation,
+            initState,
         } = this.props;
+        initState();
         navigation.navigate("loginStack");
     }
 
@@ -111,6 +111,11 @@ class Drawer extends Component {
             </View>
         );
     }
+
+    componentDidMount() {
+        console.log("DRAWER SCREEN", this.props.user);
+    }
+
 } 
 
 const styles = StyleSheet.create({
@@ -125,4 +130,12 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Drawer;
+mapStateToProps = state => ({
+    user: state.login.user,
+})
+
+const mapDispatch = {
+    initState,
+}
+
+export default connect(mapStateToProps, mapDispatch)(Drawer);
