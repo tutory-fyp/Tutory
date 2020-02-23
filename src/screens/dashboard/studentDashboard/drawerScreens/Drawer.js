@@ -111,11 +111,6 @@ class Drawer extends Component {
             </View>
         );
     }
-
-    componentDidMount() {
-        console.log("DRAWER SCREEN", this.props.user);
-    }
-
 } 
 
 const styles = StyleSheet.create({

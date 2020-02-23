@@ -129,13 +129,6 @@ class HomeScreen extends Component {
             </View>
         );
     }
-    
-    componentDidMount() {
-        // const {
-        //     navigation: { navigate }
-        // } = this.props;
-        // navigate('Search');
-    }
 
 }
 

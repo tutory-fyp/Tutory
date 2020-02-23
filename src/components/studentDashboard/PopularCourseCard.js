@@ -5,10 +5,12 @@ import {
     View,
     Image,
 } from 'react-native';
+import Ripple from 'react-native-material-ripple';
 import {
     Card,
     Paragraph
 } from 'react-native-paper';
+
 
 class PopularCourseCard extends Component {
     
@@ -25,23 +27,25 @@ class PopularCourseCard extends Component {
     
     render() {
         return(
-            <View style={styles.container} >
-                <Card
-                    elevation={1} 
-                    style={styles.wrapper}
-                >
-                    <Card.Cover
-                        resizeMode="cover"
-                        style={styles.img}
-                        source={require('../../../assets/card_image.jpg')}
-                    />
-                    <Card.Content style={styles.cardContent} >
-                        <Paragraph>
-                            {this.props.description}
-                        </Paragraph>
-                    </Card.Content>
-                </Card>
-            </View>
+            <Ripple>
+                <View style={styles.container} >
+                    <Card
+                        elevation={1}
+                        style={styles.wrapper}
+                    >
+                        <Card.Cover
+                            resizeMode="cover"
+                            style={styles.img}
+                            source={require('../../../assets/card_image.jpg')}
+                        />
+                        <Card.Content style={styles.cardContent} >
+                            <Paragraph>
+                                {this.props.description}
+                            </Paragraph>
+                        </Card.Content>
+                    </Card>
+                </View>
+            </Ripple>
         );
     }
 } 

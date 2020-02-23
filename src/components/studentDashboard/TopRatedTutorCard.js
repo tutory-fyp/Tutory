@@ -9,6 +9,7 @@ import {
     Text,
     Paragraph,
 } from 'react-native-paper';
+import Ripple from 'react-native-material-ripple';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { YELLOW_COLOR } from '../../constants/commonColors';
 
@@ -30,34 +31,36 @@ class TopRatedTutorCard extends Component {
     
     render() {
         return(
-            <View style={styles.wrapper} >
-                <Image
-                    resizeMode="cover"
-                    style={styles.img}
-                    source={require('../../../assets/card_image.jpg')}
-                />
-                <View style={styles.contentWrapper} >
-                    <Text style={styles.name} >
-                        {this.props.name}
-                    </Text>
-                    <Paragraph style={styles.info} >
-                        {this.props.description}
-                    </Paragraph>
-                    <View style={styles.trtcRatingWrapper} >
-                        <AntDesign
-                            name="star"
-                            color={YELLOW_COLOR}
-                            size={18}
-                        />
-                        <Text style={styles.ratingText} >
-                            {this.props.rating}
+            <Ripple>
+                <View style={styles.wrapper} >
+                    <Image
+                        resizeMode="cover"
+                        style={styles.img}
+                        source={require('../../../assets/card_image.jpg')}
+                    />
+                    <View style={styles.contentWrapper} >
+                        <Text style={styles.name} >
+                            {this.props.name}
                         </Text>
-                        <Text style={styles.price} >
-                            From Rs.{this.props.startingPrice}
-                        </Text>
+                        <Paragraph style={styles.info} >
+                            {this.props.description}
+                        </Paragraph>
+                        <View style={styles.trtcRatingWrapper} >
+                            <AntDesign
+                                name="star"
+                                color={YELLOW_COLOR}
+                                size={18}
+                            />
+                            <Text style={styles.ratingText} >
+                                {this.props.rating}
+                            </Text>
+                            <Text style={styles.price} >
+                                From Rs.{this.props.startingPrice}
+                            </Text>
+                        </View>
                     </View>
                 </View>
-            </View>
+            </Ripple>
         );
     }
 } 

@@ -47,10 +47,17 @@ const tabNav = createMaterialBottomTabNavigator({
             tabBarLabel: 'Home',
         }
     },
+    Message: {
+        screen: MessageScreen,
+        navigationOptions: {
+            tabBarIcon: _iconHandler('android-messages'),
+            tabBarLabel: "Messages"
+        }
+    },
     Profile: {
         screen: ProfileScreen,
         navigationOptions: {
-            tabBarIcon: _iconHandler('ios-body', 'Ionicons'),
+            tabBarIcon: _iconHandler('user', 'FontAwesome'),
             tabBarLabel: "Profile"
         }
     },
@@ -61,13 +68,6 @@ const tabNav = createMaterialBottomTabNavigator({
             tabBarLabel: "Settings"
         }
     },
-    Message: {
-        screen: MessageScreen,
-        navigationOptions: {
-            tabBarIcon: _iconHandler('android-messages'),
-            tabBarLabel: "Messages"
-        }
-    }
 } ,{
     initialRouteName: "homeStack",
     activeColor: PRIMARY_COLOR,
