@@ -249,12 +249,6 @@ class LoginScreen extends Component {
             duration: 850,
             delay: 500,
         });
-        const {
-            navigation: {
-                navigate,
-            },
-        } = this.props;
-        //navigate('studentDashboard');
     }
 
     componentDidUpdate() {

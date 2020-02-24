@@ -287,7 +287,7 @@ class SearchScreen extends Component {
                             style={styles.btn}
                             mode="contained"
                             onPress={() => {
-
+                                this.props.navigation.navigate('SearchResult');
                             }}
                         >
                             Search

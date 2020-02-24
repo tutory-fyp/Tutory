@@ -12,6 +12,8 @@ import ProfileScreen from '../../screens/dashboard/studentDashboard/ProfileScree
 import NotificationScreen from '../../screens/dashboard/studentDashboard/NotificationScreen';
 import SettingsScreen from '../../screens/dashboard/studentDashboard/SettingsScreen';
 import MessageScreen from '../../screens/dashboard/studentDashboard/MessageScreen';
+import SearchResultScreen from '../../screens/dashboard/studentDashboard/SearchResultScreen';
+import MapScreen from '../../screens/dashboard/studentDashboard/MapScreen';
 import {
     Dimensions,
 } from 'react-native';
@@ -20,7 +22,6 @@ import AttendanceDetailsScreen from '../../screens/dashboard/studentDashboard/dr
 import ViewCourseMarksScreen from '../../screens/dashboard/studentDashboard/drawerScreens/ViewCourseMarksScreen';
 import MarksDetailsScreen from '../../screens/dashboard/studentDashboard/drawerScreens/MarksDetailsScreen';
 import Drawer from '../../screens/dashboard/studentDashboard/drawerScreens/Drawer';
-import loginStack from '../login';
 
 const _iconHandler = (name, type) => (
     <Icon
@@ -34,6 +35,8 @@ const homeStack = createStackNavigator({
     Home: HomeScreen,
     Search: SearchScreen,
     Notifications: NotificationScreen,
+    SearchResult: SearchResultScreen,
+    Map: MapScreen,
 } ,{
     initialRouteName: 'Home',
     headerMode: 'none',

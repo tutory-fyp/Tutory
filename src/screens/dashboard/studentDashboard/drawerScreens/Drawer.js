@@ -14,6 +14,7 @@ import FontisoIcon from 'react-native-vector-icons/Fontisto';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect } from 'react-redux';
 import { initState } from '../../../../redux/modules/user';
+import { personImage } from '../../../../constants/images';
 
 class Drawer extends Component {
     
@@ -81,12 +82,16 @@ class Drawer extends Component {
                 <PDrawer.Section>
                     <Image
                         style={profileImage}
-                        source={require('../../../../../assets/dp_placeholder.png')}
+                        source={personImage}
                     />
                     <PHeadline>
-                        Muhammad Usman
+                        John Doe
                     </PHeadline>
                 </PDrawer.Section>
+                <View style={{
+                    marginVertical: 10,
+                    borderBottomWidth: StyleSheet.hairlineWidth,
+                }} />
                 <PDrawer.Item 
                     label="View Attendance"
                     onPress={this._gotoViewAttendance}

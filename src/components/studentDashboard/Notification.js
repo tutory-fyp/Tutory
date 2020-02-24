@@ -49,7 +49,7 @@ class Notification extends Component {
                     </View>
                     <View style={styles.textWrapper} >
                         <Title>
-                            Jhon Doe
+                            John Doe
                             </Title>
                         <Subheading>
                             Has Sent you request
@@ -57,7 +57,7 @@ class Notification extends Component {
                     </View>
                     <View style={styles.timeWrapper} >
                         <Text style={styles.timeText} >
-                            4 min
+                            4 mins ago
                     </Text>
                     </View>
                 </View>
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     },
     timeText: {
         fontWeight: '900',
-        fontSize: 20,
+        fontSize: 16,
     }
 });
 

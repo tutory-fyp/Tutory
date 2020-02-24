@@ -6,7 +6,7 @@ const rootNavigator = createSwitchNavigator({
     loginStack,
     studentDashboard,
 }, {
-    initialRouteName: 'studentDashboard',
+    initialRouteName: 'loginStack',
     headerMode: 'none',
 })
 
