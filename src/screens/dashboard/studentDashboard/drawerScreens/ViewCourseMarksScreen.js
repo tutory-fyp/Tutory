@@ -11,7 +11,13 @@ import {
 import {
     Appbar,
 } from 'react-native-paper';
-import CourseCardDrawer from '../../../../components/studentDashboard/drawer/CourseCardDrawer';
+import {
+    studentComponents,
+} from '../../../../components';
+
+const {
+    CourseCardDrawer,
+} = studentComponents;
 
 let data = [
     { id: 1, courseName: "Course 101", tutorName: "John Doe", present: 3, maxSessions: 10, },

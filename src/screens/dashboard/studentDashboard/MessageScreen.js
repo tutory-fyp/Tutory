@@ -8,7 +8,13 @@ import {
 import {
     Appbar,
 } from 'react-native-paper';
-import Message from '../../../components/studentDashboard/Message';
+import {
+    studentComponents,
+} from '../../../components';
+
+const {
+    Message,
+} = studentComponents;
 
 class MessageScreen extends Component {
 

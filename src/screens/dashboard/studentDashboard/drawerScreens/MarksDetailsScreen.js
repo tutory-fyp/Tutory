@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { 
     StyleSheet,
     View,
-    Text,
     ScrollView,
 } from 'react-native';
 import {
@@ -10,10 +9,7 @@ import {
 } from 'react-native-paper';
 import { 
     Table, 
-    TableWrapper, 
-    Row, 
-    Rows,
-    Col, 
+    Row,
  } from 'react-native-table-component';
 
 let tableHead = [

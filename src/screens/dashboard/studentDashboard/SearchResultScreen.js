@@ -9,7 +9,13 @@ import {
     Appbar,
     Avatar,
 } from 'react-native-paper';
-import SearchResult from '../../../components/studentDashboard/SearchResult';
+import {
+    studentComponents,
+} from '../../../components';
+
+const {
+    SearchResult,
+} = studentComponents;
 
 class SearchResultScreen extends Component {
     

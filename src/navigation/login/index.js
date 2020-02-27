@@ -1,8 +1,16 @@
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import LoginScreen from '../../screens/login/LoginScreen';
-import SignupScreen from '../../screens/login/SignupScreen';
-import RoleSelectorScreen from '../../screens/login/RoleSelectorScreen';
+import {
+    loginScreens,
+} from '../../screens';
+
+// Login Screens
+
+const {
+    LoginScreen,
+    SignupScreen,
+    RoleSelectorScreen,
+} = loginScreens;
 
 const loginStack = createStackNavigator({
     Login: LoginScreen,

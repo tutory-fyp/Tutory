@@ -16,9 +16,14 @@ import {
     Divider as PDivider,
     Button as PButton,
 } from 'react-native-paper';
-import TopRatedTutorCard from '../../../components/studentDashboard/TopRatedTutorCard';
-import PopularCourseCard from '../../../components/studentDashboard/PopularCourseCard';
+import { 
+    studentComponents,
+} from "../../../components";
 
+const {
+    TopRatedTutorCard,
+    PopularCourseCard,
+} = studentComponents;
 
 let topRatedTutors = [
     {

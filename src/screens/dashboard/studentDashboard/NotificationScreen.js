@@ -7,7 +7,13 @@ import {
 import {
     Appbar,
 } from 'react-native-paper';
-import Notification from '../../../components/studentDashboard/Notification';
+import {
+    studentComponents,
+} from '../../../components';
+
+const {
+    Notification,
+} = studentComponents;
 
 
 class NotificationScreen extends Component {

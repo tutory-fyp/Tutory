@@ -6,9 +6,7 @@ import {
 } from 'react-native';
 import {
     Appbar,
-    List,
 } from 'react-native-paper';
-import AttendanceDetailsCard from '../../../../components/studentDashboard/drawer/AttendanceDetailsCard';
 import { Table, TableWrapper, Row, Rows, Col, Cell } from 'react-native-table-component';
 
 let tableHead = [

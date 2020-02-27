@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import { 
     StyleSheet,
-    View,
     RefreshControl,
-    ScrollView,
-    Text,
-    Dimensions,
     FlatList,
 } from 'react-native';
 import {
     Appbar,
 } from 'react-native-paper';
-import CourseCardDrawer from '../../../../components/studentDashboard/drawer/CourseCardDrawer';
+import {
+    studentComponents,
+} from '../../../../components';
+
+const {
+    CourseCardDrawer,
+} = studentComponents;
 
 let data = [
     {id: 1, courseName: "Course 101", tutorName: "John Doe", present: 3, maxSessions: 10,},
