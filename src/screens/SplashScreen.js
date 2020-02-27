@@ -24,7 +24,7 @@ class SplashScreen extends React.Component {
     render() {
         return(
             <ImageBackground
-                source={require('../../assets/splash.png')}
+                source={require('../../assets/Splash.png')}
                 style={styles.bgStyle}
             >
                 <StatusBar backgroundColor="#4C9BFA" />
@@ -38,7 +38,7 @@ class SplashScreen extends React.Component {
     }
 
     spring() {
-        if(this.state.animationCount < 2) {
+        if(this.state.animationCount < 1) {
             this.springValue.setValue(0.3)
             Animated.spring(
                 this.springValue,
@@ -48,11 +48,14 @@ class SplashScreen extends React.Component {
                 }
             ).start(this.spring);
             this.setState({ animationCount: this.state.animationCount + 1 });
+        } else {
+            this.props.navigation.navigate('Login');
         }
     }
 
     componentDidMount() {
         NativeSplashScreen.hide();
+        //this.props.navigation.navigate('Dashboard');
         this.spring();
     }
 
