@@ -1,7 +1,8 @@
 import {
     LOGIN_SUCCESS,
     LOGIN_ERROR,
-    INIT_STATE
+    INIT_STATE,
+    SET_USER,
 } from './actionTypes';
 
 const initialState = {
@@ -19,6 +20,9 @@ const reducer = (state = initialState, action) => {
         }
         case LOGIN_ERROR: {
             return { ...state, user: null, error: action.payload }
+        }
+        case SET_USER: {
+            return { ...state, user: action.payload, };
         }
         default: return state;
     }

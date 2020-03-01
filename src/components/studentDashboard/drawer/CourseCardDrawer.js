@@ -17,6 +17,7 @@ import { PRIMARY_COLOR } from '../../../constants/commonColors';
 const { height: HEIGHT, width: WIDTH } = Dimensions.get('window');
 
 class CourseCardDrawer extends React.Component {
+
     constructor(props) {
         super(props);
     }
@@ -35,7 +36,7 @@ class CourseCardDrawer extends React.Component {
                     {
                         this.props.isMarks === true ? null : 
                         <Text>
-                                Present: {this.props.data.present}/{this.props.data.maxSessions}
+                            Present: {this.props.data.present}/{this.props.data.maxSessions}
                         </Text>
                     }
                 </Subheading>

@@ -7,16 +7,19 @@ import {
 import {
     Appbar,
 } from 'react-native-paper';
+
 import {
     studentComponents,
 } from '../../../../components';
+import { connect } from 'react-redux';
+import db from '@react-native-firebase/firestore';
 
 const {
     CourseCardDrawer,
 } = studentComponents;
 
 let data = [
-    {id: 1, courseName: "Course 101", tutorName: "John Doe", present: 3, maxSessions: 10,},
+    { id: 1, courseName: "Course 101", tutorName: "John Doe", present: 3, maxSessions: 10, },
     { id: 2, courseName: "Course 101", tutorName: "John Doe", present: 4, maxSessions: 10, },
     { id: 3, courseName: "Course 101", tutorName: "John Doe", present: 5, maxSessions: 10, },
     { id: 4, courseName: "Course 101", tutorName: "John Doe", present: 6, maxSessions: 10, },
@@ -32,6 +35,7 @@ class ViewAttendanceScreen extends Component {
         super(props);
         this.state = {
             refreshing: false,
+            courses: [],
         };
         this._goBack = this._goBack.bind(this);
         this._onRefresh = this._onRefresh.bind(this);
@@ -72,7 +76,7 @@ class ViewAttendanceScreen extends Component {
                             viewDetails={this._gotoDetails} 
                         />
                     )}
-                    keyExtractor={(item, index) => item.id.toString()}
+                    keyExtractor={(item, index) => index.toString()}
                     refreshControl={
                         <RefreshControl
                             refreshing={false}
@@ -86,6 +90,11 @@ class ViewAttendanceScreen extends Component {
             </>
         );
     }
+
+    componentDidMount() {
+        
+    }
+
 } 
 
 const styles = StyleSheet.create({
@@ -97,4 +106,15 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ViewAttendanceScreen;
+const mapStateToProps = (state) => {
+    const {
+        login: {
+            user,
+        }
+    } = state;
+    return {
+        userId: user.uid,
+    };
+}
+
+export default connect(mapStateToProps)(ViewAttendanceScreen);

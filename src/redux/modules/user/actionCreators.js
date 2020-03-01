@@ -2,6 +2,7 @@ import {
     LOGIN_SUCCESS,
     LOGIN_ERROR,
     INIT_STATE,
+    SET_USER,
 } from './actionTypes';
 
 const initState = () => {
@@ -24,8 +25,16 @@ const loginFailed = (error) => {
     }
 }
 
+const setUser = (user) => {
+    return {
+        type: SET_USER,
+        payload: user,
+    }
+}
+
 export {
     loginSuccess,
     loginFailed,
     initState,
+    setUser,
 }

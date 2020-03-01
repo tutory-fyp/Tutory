@@ -8,6 +8,7 @@ import {
     Appbar,
 } from 'react-native-paper';
 import { Table, TableWrapper, Row, Rows, Col, Cell } from 'react-native-table-component';
+import db from '@react-native-firebase/firestore';
 
 let tableHead = [
     'Session Date',
@@ -31,7 +32,7 @@ class AttendanceDetailsScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            
+            sessions: [],
         };
         this._goBack = this._goBack.bind(this);
     }
@@ -56,15 +57,15 @@ class AttendanceDetailsScreen extends Component {
                         <Table borderStyle={{ borderWidth: 1, borderColor: '#C1C0B9'}}>
                             <Row data={tableHead} flexArr={[1, 1, 1]} style={styles.head} textStyle={styles.text} />
                             {
-                                tableData.map((rowData, index) => (
-                                    <Row
+                                tableData.map((rowData, index) => {
+                                    return <Row
                                         key={index}
                                         data={rowData}
                                         flexArr={[1, 1, 1]}
                                         style={[styles.row, rowData[2] === "Present" ? styles.rowPresent : styles.rowAbsent ]}
                                         textStyle={styles.rowText}
                                     />
-                                ))
+                                })
                             }
                         </Table>
                     </ScrollView>
@@ -90,6 +91,7 @@ class AttendanceDetailsScreen extends Component {
             </>
         );
     }
+
 } 
 
 const styles = StyleSheet.create({

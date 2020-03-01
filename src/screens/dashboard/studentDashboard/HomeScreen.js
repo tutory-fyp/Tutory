@@ -6,6 +6,7 @@ import {
     ScrollView,
     FlatList,
     Picker,
+    ToastAndroid,
 } from 'react-native';
 import {
     Searchbar,
@@ -133,6 +134,15 @@ class HomeScreen extends Component {
                 </ScrollView>
             </View>
         );
+    }
+
+    componentDidMount() {
+        const {
+            navigation: {
+                navigate,
+            }
+        } = this.props;
+        navigate('ViewAttendance');
     }
 
 }

@@ -6,6 +6,7 @@ import {
     Dimensions,
     TouchableOpacity,
     Alert,
+    ToastAndroid,
 } from 'react-native';
 import {
     Text as EText,
@@ -15,12 +16,17 @@ import {
 } from 'react-native-elements';
 import {
     TextInput as PTextInput,
-    HelperText,
 } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import SplashScreen from 'react-native-smart-splash-screen';
 import { connect } from 'react-redux';
-import { initState, login } from '../../redux/modules/user';
+import { 
+    initState, 
+    login,
+    setUser,
+} from '../../redux/modules/user';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
@@ -83,11 +89,6 @@ class LoginScreen extends Component {
     }
 
     _handleLogin() {
-        const {
-            navigate,
-        } = this.props.navigation;
-        navigate('studentDashboard');
-        return;
         let re_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+[^<>()\.,;:\s@\"]{2,})$/;
         let re_password = /\S{6,}/;
         if (this.state.email.length === 0) {
@@ -125,29 +126,6 @@ class LoginScreen extends Component {
         }
         this.setState({loading: true});
         this.props.login(this.state.email, this.state.password);
-        //login(this.state.email, this.state.password);
-        // if (re_email.test(this.state.email) && re_password.test(this.state.password)) {
-        //     this.setState({ loading: true });
-        //     (async (email, password) => {
-        //         try {
-        //             await auth().signInWithEmailAndPassword(email, password);
-        //             this.setState({ loading: false });
-        //             this.props.navigation.navigate('dashboardFlow');
-        //         } catch (error) {
-        //             this.setState({loading: false});
-        //             Alert.alert(
-        //                 'Login Failed',
-        //                 'Email or Password is Incorrect',
-        //                 [
-        //                     { text: 'OK' },
-        //                 ],
-        //                 { cancelable: true },
-        //             );
-        //             console.log(error.code);
-        //             return;
-        //         }
-        //     })(this.state.email, this.state.password);
-        // }
     }
 
     render() {
@@ -249,6 +227,16 @@ class LoginScreen extends Component {
             duration: 850,
             delay: 500,
         });
+        const user = auth().currentUser;
+        if (user) {
+            this.props.setUser(user);
+            const {
+                navigate,
+            } = this.props.navigation;
+            navigate('studentDashboard');
+            return;
+        }
+        ToastAndroid.show("Please Provide Login Credentials", ToastAndroid.LONG);
     }
 
     componentDidUpdate() {
@@ -359,6 +347,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     initState,
     login,
+    setUser,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

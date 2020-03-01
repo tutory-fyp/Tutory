@@ -3,6 +3,7 @@ import {
     loginSuccess,
     loginFailed,
     initState,
+    setUser,
 } from "./actionCreators";
 import {
   login, 
@@ -14,4 +15,5 @@ export {
     loginFailed,
     login,
     initState,
+    setUser,
 }
