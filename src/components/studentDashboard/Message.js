@@ -14,6 +14,9 @@ import {
     Title,
     Subheading,
 } from 'react-native-paper';
+import {
+    withNavigation,
+} from 'react-navigation';
 import Ripple from 'react-native-material-ripple';
 import {
     personImage,
@@ -45,9 +48,18 @@ class Message extends Component {
         return this.props.online ? {} : { backgroundColor: 'grey' };
     }
 
+    _handleMessage = () => {
+        const {
+            navigation: {
+                navigate,
+            }
+        } = this.props;
+        navigate('Message');
+    }
+
     render() {
         return (
-            <Ripple>
+            <Ripple onPress={this._handleMessage} >
                 <View style={styles.wrapper} >
                     <View style={styles.avatarWrapper} >
                         <Avatar.Image
@@ -72,7 +84,7 @@ class Message extends Component {
                     <View style={styles.timeWrapper} >
                         <Text style={styles.timeText} >
                             4 mins ago
-                    </Text>
+                        </Text>
                     </View>
                 </View>
             </Ripple>
@@ -84,9 +96,9 @@ const styles = StyleSheet.create({
     wrapper: {
         flexDirection: 'row',
         height: 80,
-        width: WIDTH - 20,
-        elevation: 2,
-        borderRadius: 25,
+        width: WIDTH - 10,
+        elevation: 1,
+        borderRadius: 0,
     },
     avatarWrapper: {
         justifyContent: 'center',
@@ -120,4 +132,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Message;
+export default withNavigation(Message);

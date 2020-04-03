@@ -142,7 +142,7 @@ class HomeScreen extends Component {
                 navigate,
             }
         } = this.props;
-        navigate('ViewAttendance');
+        navigate('Search');
     }
 
 }

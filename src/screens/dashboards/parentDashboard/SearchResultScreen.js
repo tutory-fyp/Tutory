@@ -3,7 +3,9 @@ import {
     StyleSheet,
     View,
     Text,
+    RefreshControl,
     FlatList,
+    Dimensions,
 } from 'react-native';
 import {
     Appbar,
@@ -12,10 +14,32 @@ import {
 import {
     studentComponents,
 } from '../../../components';
+import {
+    connect,
+} from 'react-redux';
+
+import {
+    setIsLoading,
+} from '../../../redux/modules/tutor';
 
 const {
     SearchResult,
 } = studentComponents;
+
+const {
+    height: HEIGHT,
+    width: WIDTH,
+} = Dimensions.get('window');
+
+const mapStateToProps = (state) => {
+    return {
+        isLoading: state.tutor.isLoading,
+        tutors: state.tutor.tutors,
+    }
+};
+const mapDispatchToProps = {
+    setIsLoading,
+};
 
 class SearchResultScreen extends Component {
     
@@ -44,17 +68,24 @@ class SearchResultScreen extends Component {
                 </Appbar>
                 <View style={styles.content} >
                     <FlatList
+                        style={styles.flatListWrapper}
+                        contentContainerStyle={styles.flatListContent}
+                        ListHeaderComponentStyle={styles.listHeader}
+                        ListFooterComponentStyle={styles.listFooter}
+                        refreshControl={<RefreshControl 
+                            refreshing={this.props.isLoading}
+                        />}
                         keyExtractor={(item, index) => index.toString()}
-                        data={new Array(5).fill(0)}
+                        data={new Array(10).fill(0)}
                         renderItem={({ item, index }) => (
                             <SearchResult
                             />
                         )}
                         ListHeaderComponent={() => (
-                            <View style={{ marginTop: 5, }} />
+                            <View style={{ marginTop: 10, }} />
                         )}
                         ItemSeparatorComponent={() => (
-                            <View style={{ marginVertical: 5, }} />
+                            <View style={{ marginVertical: 2, }} />
                         )}
                         ListFooterComponent={() => (
                             <View style={{ marginBottom: 5, }} />
@@ -64,6 +95,11 @@ class SearchResultScreen extends Component {
             </View>
         );
     }
+
+    componentDidMount() {
+        this.props?.setIsLoading(false);
+    }
+
 } 
 
 const styles = StyleSheet.create({
@@ -76,8 +112,21 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
         alignItems: 'center',
-        paddingTop: 10,
+    },
+    listHeader: {
+        marginTop: 10,
+    },
+    listFooter: {
+        marginBottom: 10,
+    },
+    flatListWrapper: {
+        height: HEIGHT,
+        width: WIDTH,
+    },
+    flatListContent: {
+        alignItems: 'center',
     },
 });
 
-export default SearchResultScreen;
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchResultScreen);

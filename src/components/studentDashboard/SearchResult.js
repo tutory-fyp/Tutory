@@ -51,7 +51,7 @@ class SearchResult extends Component {
                 <View style={styles.textWrapper} >
                     <Title>
                         John Doe
-                        </Title>
+                    </Title>
                     <Subheading>
                         Matric Physics
                     </Subheading>
@@ -82,9 +82,9 @@ const styles = StyleSheet.create({
     wrapper: {
         flexDirection: 'row',
         height: 100,
-        width: WIDTH - 20,
-        elevation: 2,
-        borderRadius: 25,
+        width: WIDTH - 10,
+        elevation: 1,
+        borderRadius: 0,
     },
     avatarWrapper: {
         justifyContent: 'center',

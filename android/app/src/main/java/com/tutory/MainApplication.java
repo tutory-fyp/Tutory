@@ -18,6 +18,7 @@ import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
 import io.invertase.firebase.auth.ReactNativeFirebaseAuthPackage;
 import io.invertase.firebase.firestore.ReactNativeFirebaseFirestorePackage;
 import io.invertase.firebase.storage.ReactNativeFirebaseStoragePackage;
+import io.invertase.firebase.messaging.ReactNativeFirebaseMessagingPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.RNTextInputMask.RNTextInputMaskPackage;
 import com.airbnb.android.react.maps.MapsPackage;
@@ -56,6 +57,7 @@ public class MainApplication extends Application implements ReactApplication {
                     new ReactNativeFirebaseAuthPackage(),
                     new ReactNativeFirebaseFirestorePackage(),
                     new ReactNativeFirebaseStoragePackage(),
+                    new ReactNativeFirebaseMessagingPackage(),
                     new PickerPackage(),
                     new LinearGradientPackage(),
                     new RNTextInputMaskPackage(),

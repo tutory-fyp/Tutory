@@ -5,6 +5,7 @@ import ViewCourseMarksScreen from './drawerScreens/ViewCourseMarksScreen';
 import ViewAttendanceScreen from './drawerScreens/ViewAttendanceScreen';
 import HomeScreen from './HomeScreen';
 import MapScreen from './MapScreen';
+import MessagesScreen from './MessagesScreen';
 import MessageScreen from './MessageScreen';
 import NotificationScreen from './NotificationScreen';
 import ProfileScreen from './ProfileScreen';
@@ -21,6 +22,7 @@ export {
     ViewAttendanceScreen,
     HomeScreen,
     MapScreen,
+    MessagesScreen,
     MessageScreen,
     NotificationScreen,
     ProfileScreen,

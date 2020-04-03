@@ -4,13 +4,13 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createStackNavigator } from 'react-navigation-stack';
 import { Icon } from 'native-base';
 import {
-  PRIMARY_COLOR, 
+    PRIMARY_COLOR,
 } from '../../constants/commonColors';
 import {
     Dimensions,
 } from 'react-native';
 import {
-    studentScreens,
+    parentScreens,
 } from '../../screens';
 
 // Student Dashboard Screens
@@ -30,7 +30,7 @@ const {
     AttendanceDetailsScreen,
     MarksDetailsScreen,
     Drawer,
-} = studentScreens;
+} = parentScreens;
 
 const _iconHandler = (name, type) => (
     <Icon
@@ -46,7 +46,7 @@ const homeStack = createStackNavigator({
     Notifications: NotificationScreen,
     SearchResult: SearchResultScreen,
     Map: MapScreen,
-} ,{
+}, {
     initialRouteName: 'Home',
     headerMode: 'none',
 });
@@ -88,7 +88,7 @@ const tabNav = createMaterialBottomTabNavigator({
             tabBarLabel: "Settings"
         }
     },
-} ,{
+}, {
     initialRouteName: "homeStack",
     activeColor: PRIMARY_COLOR,
     barStyle: { backgroundColor: 'white', },
@@ -112,7 +112,7 @@ const drawerNav = createDrawerNavigator({
 }, {
     initialRouteName: 'Dashboard',
     contentComponent: Drawer,
-    drawerWidth: Dimensions.get('window').width * 3/4,
+    drawerWidth: Dimensions.get('window').width * 3 / 4,
 });
 
 export default drawerNav;
