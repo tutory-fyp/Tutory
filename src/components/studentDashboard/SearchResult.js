@@ -24,6 +24,11 @@ import {
 import {
     YELLOW_COLOR, PRIMARY_COLOR,
 } from '../../constants/commonColors';
+import {
+    Grid,
+    Row,
+    Col,
+} from 'react-native-easy-grid';
 
 const {
     width: WIDTH,
@@ -40,40 +45,44 @@ class SearchResult extends Component {
 
     render() {
         return (
-
-            <View style={styles.wrapper} >
-                <View style={styles.avatarWrapper} >
-                    <Avatar.Image
-                        style={styles.avatar}
-                        source={personImage}
-                    />
-                </View>
-                <View style={styles.textWrapper} >
-                    <Title>
-                        John Doe
-                    </Title>
-                    <Subheading>
-                        Matric Physics
-                    </Subheading>
-                </View>
-                <View style={styles.timeWrapper} >
-                    <Ripple onPress={() => {
-                        this.props.navigation.navigate("Map");
-                    }} >
-                        <Text 
-                            style={{
-                                fontSize: 15,
-                                color: PRIMARY_COLOR,
-                                borderBottomWidth: StyleSheet.hairlineWidth,
-                                borderBottomColor: PRIMARY_COLOR,
-                            }}
-                        >
-                            View on Map
-                        </Text>
-                    </Ripple>
-                </View>
-            </View>
-
+          <View style={styles.wrapper} >
+              <View style={styles.avatarWrapper} >
+                  <Avatar.Image
+                      style={styles.avatar}
+                      source={personImage}
+                  />
+              </View>
+              <View style={styles.textWrapper} >
+                  <Title>
+                      John Doe
+                      4.7
+                      <AntDesign
+                          name='star'
+                          size={18}
+                          color={YELLOW_COLOR}
+                      />
+                  </Title>
+                  <Subheading>
+                      Matric Physics
+                  </Subheading>
+              </View>
+              <View style={styles.timeWrapper} >
+                  <Ripple onPress={() => {
+                      this.props.navigation.navigate("Map");
+                  }} >
+                      <Text
+                          style={{
+                              fontSize: 15,
+                              color: PRIMARY_COLOR,
+                              borderBottomWidth: StyleSheet.hairlineWidth,
+                              borderBottomColor: PRIMARY_COLOR,
+                          }}
+                      >
+                          View on Map
+                      </Text>
+                  </Ripple>
+              </View>
+          </View>
         );
     }
 }

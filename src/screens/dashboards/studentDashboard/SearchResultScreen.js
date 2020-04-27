@@ -81,9 +81,6 @@ class SearchResultScreen extends Component {
                             <SearchResult
                             />
                         )}
-                        ListHeaderComponent={() => (
-                            <View style={{ marginTop: 10, }} />
-                        )}
                         ItemSeparatorComponent={() => (
                             <View style={{ marginVertical: 2, }} />
                         )}

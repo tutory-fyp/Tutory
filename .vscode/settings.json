@@ -1,3 +1,29 @@
 {
-    "java.configuration.updateBuildConfiguration": "automatic"
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "workbench.iconTheme": "material-icon-theme",
+    "material-icon-theme.activeIconPack": "react_redux",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnPaste": true
+    },
+    "prettier.tabWidth": 4,
+    "emmet.triggerExpansionOnTab": true,
+    "emmet.showSuggestionsAsSnippets": true,
+    "editor.formatOnPaste": true,
+    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
+    "python.jediEnabled": false,
+    "editor.largeFileOptimizations": false,
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "window.zoomLevel": 0,
+    "emmet.includeLanguages": {
+        "javascript": "javascriptreact"
+    },
+    "java.configuration.checkProjectSettingsExclusions": false,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "C_Cpp.updateChannel": "Insiders",
+    "java.errors.incompleteClasspath.severity": "ignore",
+    "workbench.colorTheme": "Monokai",
+    "merge-conflict.autoNavigateNextConflict.enabled": true
 }
