@@ -17,6 +17,7 @@ import {
     withNavigation,
 } from 'react-navigation';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Entypo from 'react-native-vector-icons/Entypo';
 import Ripple from 'react-native-material-ripple';
 import {
     personImage,
@@ -43,45 +44,47 @@ class SearchResult extends Component {
         };
     }
 
+    _gotoMapScreen = () => {
+        const {
+            navigation: {
+                navigate,
+            }
+        } = this.props;
+        navigate('Map');
+    }
+
     render() {
         return (
-          <View style={styles.wrapper} >
-              <View style={styles.avatarWrapper} >
-                  <Avatar.Image
-                      style={styles.avatar}
-                      source={personImage}
+          <View style={styles.wrapper}>
+            <Row>
+              <Col style={styles.avatarWrapper} size={0.5}>
+                <Avatar.Image source={personImage} />
+              </Col>
+              <Col style={styles.textWrapper} size={2}>
+                <Title>
+                  John Doe 4.7
+                  <AntDesign
+                    name="star"
+                    size={18}
+                    color={YELLOW_COLOR}
                   />
-              </View>
-              <View style={styles.textWrapper} >
-                  <Title>
-                      John Doe
-                      4.7
-                      <AntDesign
-                          name='star'
-                          size={18}
-                          color={YELLOW_COLOR}
-                      />
-                  </Title>
-                  <Subheading>
-                      Matric Physics
-                  </Subheading>
-              </View>
-              <View style={styles.timeWrapper} >
-                  <Ripple onPress={() => {
-                      this.props.navigation.navigate("Map");
-                  }} >
-                      <Text
-                          style={{
-                              fontSize: 15,
-                              color: PRIMARY_COLOR,
-                              borderBottomWidth: StyleSheet.hairlineWidth,
-                              borderBottomColor: PRIMARY_COLOR,
-                          }}
-                      >
-                          View on Map
-                      </Text>
-                  </Ripple>
-              </View>
+                </Title>
+                <Subheading>Matric Physics</Subheading>
+              </Col>
+              <Col size={1.5}>
+                <Row style={{ alignItems: 'center' }}>
+                  <Text>Slot: 6pm to 7pm</Text>
+                </Row>
+                <Row style={{flexDirection: 'column'}} >
+                  <Text>Minimum Charges: 400/hr</Text>
+                  <Entypo 
+                    name="compass"
+                    size={25}
+                    onPress={this._gotoMapScreen}
+                  />
+                </Row>
+              </Col>
+            </Row>
           </View>
         );
     }
@@ -90,8 +93,8 @@ class SearchResult extends Component {
 const styles = StyleSheet.create({
     wrapper: {
         flexDirection: 'row',
-        height: 100,
         width: WIDTH - 10,
+        padding: 10,
         elevation: 1,
         borderRadius: 0,
     },
