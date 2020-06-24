@@ -50,7 +50,7 @@ class SearchResult extends Component {
                 navigate,
             }
         } = this.props;
-        navigate('Map');
+        navigate('TeacherDetail');
     }
 
     render() {

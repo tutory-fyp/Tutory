@@ -12,6 +12,7 @@ import ProfileScreen from './ProfileScreen';
 import SearchResultScreen from './SearchResultScreen';
 import SearchScreen from './SearchScreen';
 import SettingsScreen from './SettingsScreen';
+import TeacherDetailScreen from './TeacherDetailScreen';
 
 
 export {
@@ -29,4 +30,5 @@ export {
     SearchResultScreen,
     SearchScreen,
     SettingsScreen,
+    TeacherDetailScreen,
 }
