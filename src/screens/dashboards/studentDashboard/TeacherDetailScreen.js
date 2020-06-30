@@ -5,6 +5,11 @@ import Ripple from 'react-native-material-ripple';
 import { personImage } from '../../../constants/images';
 import { PRIMARY_COLOR } from '../../../constants/commonColors';
 import { Textarea } from 'native-base';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+  widthPercentageToDP,
+} from 'react-native-responsive-screen';
 
 class ProfileScreen extends Component {
   constructor(props) {
@@ -12,15 +17,19 @@ class ProfileScreen extends Component {
     this.state = {};
   }
 
+  _goBack = () => {
+    const {
+      navigation: { goBack },
+    } = this.props;
+    goBack();
+  };
+
   render() {
     return (
       <View style={styles.container}>
         <Appbar style={styles.header}>
-          <Appbar.Action
-            icon="menu"
-            onPress={this.props.navigation.openDrawer}
-          />
-          <Appbar.Content title="Profile" />
+          <Appbar.BackAction onPress={this._goBack} />
+          <Appbar.Content title="Tutor Information" />
         </Appbar>
         <ScrollView style={styles.container}>
           <View style={styles.content}>
@@ -29,7 +38,7 @@ class ProfileScreen extends Component {
             </View>
             <View
               style={{
-                marginLeft: 100,
+                marginLeft: 80,
                 marginTop: 50,
               }}>
               <Ripple>
@@ -75,14 +84,14 @@ class ProfileScreen extends Component {
                 }}>
                 <Text
                   style={{
-                    fontSize: 20,
+                    fontSize: 16,
                   }}>
                   Name:
                 </Text>
                 <Text
                   style={{
                     marginLeft: 10,
-                    fontSize: 20,
+                    fontSize: 16,
                   }}>
                   John Doe
                 </Text>
@@ -100,14 +109,14 @@ class ProfileScreen extends Component {
                 }}>
                 <Text
                   style={{
-                    fontSize: 20,
+                    fontSize: 16,
                   }}>
                   Email:
                 </Text>
                 <Text
                   style={{
                     marginLeft: 10,
-                    fontSize: 20,
+                    fontSize: 16,
                   }}>
                   test123@test.com
                 </Text>
@@ -125,14 +134,14 @@ class ProfileScreen extends Component {
                 }}>
                 <Text
                   style={{
-                    fontSize: 20,
+                    fontSize: 16,
                   }}>
                   Qualification:
                 </Text>
                 <Text
                   style={{
                     marginLeft: 10,
-                    fontSize: 20,
+                    fontSize: 16,
                   }}>
                   Matric
                 </Text>
@@ -150,14 +159,14 @@ class ProfileScreen extends Component {
                 }}>
                 <Text
                   style={{
-                    fontSize: 20,
+                    fontSize: 16,
                   }}>
                   Contact:
                 </Text>
                 <Text
                   style={{
                     marginLeft: 10,
-                    fontSize: 20,
+                    fontSize: 16,
                   }}>
                   555-555-555
                 </Text>
@@ -175,14 +184,14 @@ class ProfileScreen extends Component {
                 }}>
                 <Text
                   style={{
-                    fontSize: 20,
+                    fontSize: 16,
                   }}>
                   Address:
                 </Text>
                 <Text
                   style={{
                     marginLeft: 10,
-                    fontSize: 20,
+                    fontSize: 16,
                   }}>
                   Block A, Sector B-17, Islamabad
                 </Text>
@@ -196,7 +205,7 @@ class ProfileScreen extends Component {
               />
             </View>
           }
-          <Textarea
+          {/* <Textarea
             style={{
               marginLeft: 30,
               marginTop: 40,
@@ -206,7 +215,41 @@ class ProfileScreen extends Component {
               borderColor: 'black',
             }}
             placeholder="Enter Your Description"
-          />
+          /> */}
+          <View
+            style={{
+              borderColor: PRIMARY_COLOR,
+              borderWidth: 2,
+              height: hp('25%'),
+              width: wp('93%'),
+              alignSelf: 'center',
+              justifyContent: 'center',
+              alignItems: 'center',
+              paddingLeft: 5,
+              paddingRight: 5,
+            }}>
+            <Text style={{ textAlign: 'justify', fontSize: 16 }}>
+              My current focus is to achieve a mutually beneficial relation with
+              a company, where I enjoy spending my time, my skills are polished,
+              I work on something that makes a difference, my personality is
+              groomed and I have opportunities and resources to excel in
+              professional as well as personal life. With my current skills and
+              knowledge, I would be able to give back to the company that I work
+              for.
+            </Text>
+          </View>
+          <View>
+            <Text
+              style={{
+                flexDirection: 'row',
+                marginLeft: 30,
+                marginTop: 20,
+                fontSize: 16,
+              }}>
+              Wage: 400/hour
+            </Text>
+          </View>
+
           <View style={{ flexDirection: 'row', marginLeft: 30, marginTop: 20 }}>
             <Text
               style={{
@@ -217,12 +260,11 @@ class ProfileScreen extends Component {
               }}>
               Click here to see cv
             </Text>
+
             <Button
-              style={{
-                marginLeft: 60,
-                borderWidth: 2,
-                borderColor: 'black',
-              }}>
+              style={{ marginLeft: 80 }}
+              mode="contained"
+              onPress={() => {}}>
               BUY PACKAGE
             </Button>
           </View>
@@ -241,6 +283,9 @@ const styles = StyleSheet.create({
   },
   content: {
     flexDirection: 'row',
+    marginLeft: 30,
+    marginTop: 10,
+    width: wp('80%'),
   },
 });
 
