@@ -12,21 +12,22 @@ import ProfileScreen from './ProfileScreen';
 import SearchResultScreen from './SearchResultScreen';
 import SearchScreen from './SearchScreen';
 import SettingsScreen from './SettingsScreen';
-
+import TeacherDetailScreen from './TeacherDetailScreen';
 
 export {
-    AttendanceDetailsScreen,
-    Drawer,
-    MarksDetailsScreen,
-    ViewCourseMarksScreen,
-    ViewAttendanceScreen,
-    HomeScreen,
-    MapScreen,
-    MessagesScreen,
-    MessageScreen,
-    NotificationScreen,
-    ProfileScreen,
-    SearchResultScreen,
-    SearchScreen,
-    SettingsScreen,
-}
+  AttendanceDetailsScreen,
+  Drawer,
+  MarksDetailsScreen,
+  ViewCourseMarksScreen,
+  ViewAttendanceScreen,
+  HomeScreen,
+  MapScreen,
+  MessagesScreen,
+  MessageScreen,
+  NotificationScreen,
+  ProfileScreen,
+  SearchResultScreen,
+  SearchScreen,
+  SettingsScreen,
+  TeacherDetailScreen,
+};
