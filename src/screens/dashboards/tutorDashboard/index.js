@@ -9,24 +9,23 @@ import MessagesScreen from './MessagesScreen';
 import MessageScreen from './MessageScreen';
 import NotificationScreen from './NotificationScreen';
 import ProfileScreen from './ProfileScreen';
-import SearchResultScreen from './SearchResultScreen';
-import SearchScreen from './SearchScreen';
+import EnrolledStudentScreen from './EnrolledStudentScreen';
+import EnrolledStudentsScreen from './EnrolledStudentsScreen';
 import SettingsScreen from './SettingsScreen';
 
-
 export {
-    AttendanceDetailsScreen,
-    Drawer,
-    MarksDetailsScreen,
-    ViewCourseMarksScreen,
-    ViewAttendanceScreen,
-    HomeScreen,
-    MapScreen,
-    MessagesScreen,
-    MessageScreen,
-    NotificationScreen,
-    ProfileScreen,
-    SearchResultScreen,
-    SearchScreen,
-    SettingsScreen,
-}
+  AttendanceDetailsScreen,
+  Drawer,
+  MarksDetailsScreen,
+  ViewCourseMarksScreen,
+  ViewAttendanceScreen,
+  HomeScreen,
+  MapScreen,
+  MessagesScreen,
+  MessageScreen,
+  NotificationScreen,
+  ProfileScreen,
+  EnrolledStudentScreen,
+  EnrolledStudentsScreen,
+  SettingsScreen,
+};

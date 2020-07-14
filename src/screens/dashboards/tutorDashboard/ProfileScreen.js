@@ -5,8 +5,9 @@ import {
   Text,
   ScrollView,
   KeyboardAvoidingView,
+  TouchableOpacity,
 } from 'react-native';
-import { Input } from 'react-native-elements';
+import { Input, CheckBox, Button as EButton } from 'react-native-elements';
 import { Picker } from '@react-native-community/picker';
 import { Appbar, Avatar, Button, TextInput } from 'react-native-paper';
 import Ripple from 'react-native-material-ripple';
@@ -26,6 +27,22 @@ class ProfileScreen extends Component {
       gender: 'none',
       minHour: 7,
       maxHour: 23,
+      subjectsSelected: {
+        phy: false,
+        chem: false,
+        maths: false,
+        compSci: false,
+        bio: false,
+      },
+      classesSelected: {
+        matric: false,
+        oALevels: false,
+        fsc: false,
+      },
+      gotoStudent: false,
+      studentGotoTutor: false,
+      teachOnline: false,
+      loading: false,
     };
   }
 
@@ -170,6 +187,276 @@ class ProfileScreen extends Component {
                 step={1}
                 onValuesChange={this._handleHours}
               />
+              {/* This is where you select Subjects you want to teach */}
+              <Text style={styles.label}>I CAN TEACH THESE SUBJECTS</Text>
+              <View
+                style={{
+                  width: '100%',
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  marginTop: hp('1%'),
+                }}>
+                <TouchableOpacity
+                  style={[
+                    styles.subjects,
+                    this.state.subjectsSelected.phy
+                      ? { backgroundColor: PRIMARY_COLOR }
+                      : {},
+                  ]}
+                  onPress={() => {
+                    this.setState({
+                      subjectsSelected: {
+                        ...this.state.subjectsSelected,
+                        phy: !this.state.subjectsSelected.phy,
+                      },
+                    });
+                  }}>
+                  <Text
+                    style={[
+                      styles.subjectsText,
+                      this.state.subjectsSelected.phy ? { color: '#fff' } : {},
+                    ]}>
+                    Physics
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.subjects,
+                    this.state.subjectsSelected.chem
+                      ? { backgroundColor: PRIMARY_COLOR }
+                      : {},
+                  ]}
+                  onPress={() => {
+                    this.setState({
+                      subjectsSelected: {
+                        ...this.state.subjectsSelected,
+                        chem: !this.state.subjectsSelected.chem,
+                      },
+                    });
+                  }}>
+                  <Text
+                    style={[
+                      styles.subjectsText,
+                      this.state.subjectsSelected.chem ? { color: '#fff' } : {},
+                    ]}>
+                    Chemistry
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.subjects,
+                    this.state.subjectsSelected.maths
+                      ? { backgroundColor: PRIMARY_COLOR }
+                      : {},
+                  ]}
+                  onPress={() => {
+                    this.setState({
+                      subjectsSelected: {
+                        ...this.state.subjectsSelected,
+                        maths: !this.state.subjectsSelected.maths,
+                      },
+                    });
+                  }}>
+                  <Text
+                    style={[
+                      styles.subjectsText,
+                      this.state.subjectsSelected.maths
+                        ? { color: '#fff' }
+                        : {},
+                    ]}>
+                    Mathematics
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.subjects,
+                    this.state.subjectsSelected.bio
+                      ? { backgroundColor: PRIMARY_COLOR }
+                      : {},
+                  ]}
+                  onPress={() => {
+                    this.setState({
+                      subjectsSelected: {
+                        ...this.state.subjectsSelected,
+                        bio: !this.state.subjectsSelected.bio,
+                      },
+                    });
+                  }}>
+                  <Text
+                    style={[
+                      styles.subjectsText,
+                      this.state.subjectsSelected.bio ? { color: '#fff' } : {},
+                    ]}>
+                    Biology
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.subjects,
+                    this.state.subjectsSelected.compSci
+                      ? { backgroundColor: PRIMARY_COLOR }
+                      : {},
+                  ]}
+                  onPress={() => {
+                    this.setState({
+                      subjectsSelected: {
+                        ...this.state.subjectsSelected,
+                        compSci: !this.state.subjectsSelected.compSci,
+                      },
+                    });
+                  }}>
+                  <Text
+                    style={[
+                      styles.subjectsText,
+                      this.state.subjectsSelected.compSci
+                        ? { color: '#fff' }
+                        : {},
+                    ]}>
+                    Computer Science
+                  </Text>
+                </TouchableOpacity>
+                {/* This is where you select Classes you want to teach */}
+                <Text style={styles.label}>I CAN TEACH THESE CLASSES</Text>
+                <View
+                  style={{
+                    width: '100%',
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    marginTop: hp('1%'),
+                  }}>
+                  <TouchableOpacity
+                    style={[
+                      styles.subjects,
+                      this.state.classesSelected.matric
+                        ? { backgroundColor: PRIMARY_COLOR }
+                        : {},
+                    ]}
+                    onPress={() => {
+                      this.setState({
+                        classesSelected: {
+                          ...this.state.classesSelected,
+                          matric: !this.state.classesSelected.matric,
+                        },
+                      });
+                    }}>
+                    <Text
+                      style={[
+                        styles.subjectsText,
+                        this.state.classesSelected.matric
+                          ? { color: '#fff' }
+                          : {},
+                      ]}>
+                      Matric
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[
+                      styles.subjects,
+                      this.state.classesSelected.oALevels
+                        ? { backgroundColor: PRIMARY_COLOR }
+                        : {},
+                    ]}
+                    onPress={() => {
+                      this.setState({
+                        classesSelected: {
+                          ...this.state.classesSelected,
+                          oALevels: !this.state.classesSelected.oALevels,
+                        },
+                      });
+                    }}>
+                    <Text
+                      style={[
+                        styles.subjectsText,
+                        this.state.classesSelected.oALevels
+                          ? { color: '#fff' }
+                          : {},
+                      ]}>
+                      O/A Levels
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[
+                      styles.subjects,
+                      this.state.classesSelected.fsc
+                        ? { backgroundColor: PRIMARY_COLOR }
+                        : {},
+                    ]}
+                    onPress={() => {
+                      this.setState({
+                        classesSelected: {
+                          ...this.state.classesSelected,
+                          fsc: !this.state.classesSelected.fsc,
+                        },
+                      });
+                    }}>
+                    <Text
+                      style={[
+                        styles.subjectsText,
+                        this.state.classesSelected.fsc ? { color: '#fff' } : {},
+                      ]}>
+                      O/A Levels
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+                {/* This is where you select Teaching Options */}
+                <Text style={styles.label}>TUTORING OPTIONS</Text>
+                <View
+                  style={{
+                    width: '100%',
+                    marginTop: hp('1%'),
+                  }}
+                />
+                <CheckBox
+                  title="I can visit student home to Teach"
+                  checked={this.state.gotoStudent}
+                  onPress={() => {
+                    this.setState({
+                      gotoStudent: !this.state.gotoStudent,
+                    });
+                  }}
+                  textStyle={{
+                    fontSize: hp('2.5%'),
+                  }}
+                />
+                <CheckBox
+                  title="Student can visit me for Tution"
+                  checked={this.state.studentGotoTutor}
+                  onPress={() => {
+                    this.setState({
+                      studentGotoTutor: !this.state.studentGotoTutor,
+                    });
+                  }}
+                  textStyle={{
+                    fontSize: hp('2.5%'),
+                  }}
+                />
+                <CheckBox
+                  title="I can Teach Online"
+                  checked={this.state.teachOnline}
+                  onPress={() => {
+                    this.setState({
+                      teachOnline: !this.state.teachOnline,
+                    });
+                  }}
+                  textStyle={{
+                    fontSize: hp('2.5%'),
+                  }}
+                />
+              </View>
+              <EButton
+                loading={this.state.loading}
+                title="Update Profile"
+                containerStyle={{
+                  width: '80%',
+                  alignSelf: 'center',
+                }}
+                buttonStyle={{
+                  backgroundColor: PRIMARY_COLOR,
+                }}
+                loadingProps={{
+                  size: 'large',
+                }}
+              />
             </KeyboardAvoidingView>
           </View>
         </ScrollView>
@@ -199,12 +486,24 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 25,
     elevation: 1,
+    marginBottom: hp('3%'),
   },
   label: {
     color: '#a2acb4',
     fontWeight: 'bold',
     fontSize: hp('2.4%'),
     marginLeft: wp('2%'),
+  },
+  subjects: {
+    borderWidth: 1,
+    borderColor: PRIMARY_COLOR,
+    padding: hp('2%'),
+    marginHorizontal: hp('2%'),
+    marginVertical: wp('1%'),
+  },
+  subjectsText: {
+    fontSize: hp('2.5%'),
+    fontWeight: 'bold',
   },
 });
 

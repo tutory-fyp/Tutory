@@ -11,9 +11,9 @@ import { tutorScreens } from '../../screens';
 
 const {
   HomeScreen,
-  SearchScreen,
+  EnrolledStudentsScreen,
   NotificationScreen,
-  SearchResultScreen,
+  EnrolledStudentScreen,
   MapScreen,
   MessagesScreen,
   MessageScreen,
@@ -37,10 +37,8 @@ const _iconHandler = (name, type) => (
 const homeStack = createStackNavigator(
   {
     Home: HomeScreen,
-    Search: SearchScreen,
-    Notifications: NotificationScreen,
-    SearchResult: SearchResultScreen,
-    Map: MapScreen,
+    EnrolledStudents: EnrolledStudentsScreen,
+    EnrolledStudent: EnrolledStudentScreen,
   },
   {
     initialRouteName: 'Home',
