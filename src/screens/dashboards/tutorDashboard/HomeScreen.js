@@ -23,6 +23,13 @@ class HomeScreen extends Component {
     navigate('EnrolledStudents');
   };
 
+  _gotoPreviouslyEnrolledStudentsScreen = () => {
+    const {
+      navigation: { navigate },
+    } = this.props;
+    navigate('PreviousEnrolledStudents');
+  };
+
   _renderApprovedHome = () => (
     <View style={styles.approvedContent}>
       <View style={{ alignItems: 'center' }}>
@@ -49,7 +56,9 @@ class HomeScreen extends Component {
             />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.card}>
+        <TouchableOpacity
+          style={styles.card}
+          onPress={this._gotoPreviouslyEnrolledStudentsScreen}>
           <Text
             style={{
               fontSize: hp('3%'),

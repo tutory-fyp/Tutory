@@ -21,6 +21,14 @@ class EnrolledStudentScreen extends Component {
     goBack();
   };
 
+  _gotoStudentsMarksScreen = () => {
+    this.props?.navigation?.navigate('StudentMarks');
+  };
+
+  _gotoStudentAttendanceScreen = () => {
+    this.props?.navigation?.navigate('StudentAttendance');
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -70,20 +78,14 @@ class EnrolledStudentScreen extends Component {
             <Button
               style={styles.actionsBtn}
               mode="contained"
-              onPress={() => {}}>
+              onPress={this._gotoStudentsMarksScreen}>
               UPLOAD MARKS
             </Button>
             <Button
               style={styles.actionsBtn}
               mode="contained"
-              onPress={() => {}}>
+              onPress={this._gotoStudentAttendanceScreen}>
               Mark Attendance
-            </Button>
-            <Button
-              style={styles.actionsBtn}
-              mode="contained"
-              onPress={() => {}}>
-              Give Daily Feedback
             </Button>
           </View>
         </ScrollView>

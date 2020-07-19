@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
-import { Appbar } from 'react-native-paper';
+import { Appbar, Button } from 'react-native-paper';
 import { Table, Row } from 'react-native-table-component';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 
 let tableHead = ['Session Date', 'Session Duration', 'Attendance'];
 
@@ -16,7 +20,7 @@ let tableData = [
   ['1-Aug-2019', '10:00 AM to 10:00 PM', 'Present'],
 ];
 
-class AttendanceDetailsScreen extends Component {
+class StudentAttendanceScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -63,25 +67,48 @@ class AttendanceDetailsScreen extends Component {
               })}
             </Table>
           </ScrollView>
+          <View
+            style={{
+              position: 'absolute',
+              bottom: hp('3%'),
+            }}>
+            <View
+              style={{
+                width: wp(100),
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'row',
+              }}>
+              <Button
+                mode="contained"
+                style={{
+                  width: wp(25),
+                  marginHorizontal: wp(2),
+                }}
+                onPress={() => {}}>
+                ADD
+              </Button>
+              <Button
+                onPress={() => {}}
+                mode="contained"
+                style={{
+                  width: wp(25),
+                  marginHorizontal: wp(2),
+                }}>
+                UPDATE
+              </Button>
+              <Button
+                onPress={() => {}}
+                mode="contained"
+                style={{
+                  width: wp(25),
+                  marginHorizontal: wp(2),
+                }}>
+                DELETE
+              </Button>
+            </View>
+          </View>
         </View>
-        {/* <FlatList
-                    style={styles.listWrapper}
-                    contentContainerStyle={styles.listContent}
-                    data={[0, 2, 3, 4, 5]}
-                    renderItem={({ item, index }) => (
-                        <AttendanceDetailsCard />
-                    )}
-                    keyExtractor={(item, index) => index.toString()}
-                    refreshControl={
-                        <RefreshControl
-                            refreshing={false}
-                            onRefresh={() => { }}
-                            title="Pull to refresh"
-                            tintColor="#fff"
-                            titleColor="#fff"
-                        />
-                    }
-                /> */}
       </>
     );
   }
@@ -99,16 +126,16 @@ const styles = StyleSheet.create({
   wrapper: { flexDirection: 'row' },
   title: { flex: 1, backgroundColor: '#f6f8fa' },
   row: { height: 50 },
-  rowPresent: { backgroundColor: 'green' },
-  rowAbsent: { backgroundColor: 'red' },
+  rowPresent: {},
+  rowAbsent: { backgroundColor: '#e0e0e0' },
   text: { textAlign: 'center', color: '#000' },
   rowText: {
     textAlign: 'center',
-    color: '#fff',
+    color: '#000',
     fontSize: 15,
     fontWeight: 'bold',
   },
   dataWrapper: { marginTop: -1 },
 });
 
-export default AttendanceDetailsScreen;
+export default StudentAttendanceScreen;

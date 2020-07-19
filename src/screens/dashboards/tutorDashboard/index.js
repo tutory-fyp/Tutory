@@ -1,10 +1,6 @@
-import AttendanceDetailsScreen from './drawerScreens/AttendanceDetailsScreen';
 import Drawer from './drawerScreens/Drawer';
-import MarksDetailsScreen from './drawerScreens/MarksDetailsScreen';
-import ViewCourseMarksScreen from './drawerScreens/ViewCourseMarksScreen';
-import ViewAttendanceScreen from './drawerScreens/ViewAttendanceScreen';
 import HomeScreen from './HomeScreen';
-import MapScreen from './MapScreen';
+import StudentMarksScreen from './StudentMarksScreen';
 import MessagesScreen from './MessagesScreen';
 import MessageScreen from './MessageScreen';
 import NotificationScreen from './NotificationScreen';
@@ -12,15 +8,13 @@ import ProfileScreen from './ProfileScreen';
 import EnrolledStudentScreen from './EnrolledStudentScreen';
 import EnrolledStudentsScreen from './EnrolledStudentsScreen';
 import SettingsScreen from './SettingsScreen';
+import StudentAttendanceScreen from './StudentAttendanceScreen';
+import PreviousEnrolledStudentsScreen from './PreviousEnrolledStudentsScreen';
 
 export {
-  AttendanceDetailsScreen,
   Drawer,
-  MarksDetailsScreen,
-  ViewCourseMarksScreen,
-  ViewAttendanceScreen,
   HomeScreen,
-  MapScreen,
+  StudentMarksScreen,
   MessagesScreen,
   MessageScreen,
   NotificationScreen,
@@ -28,4 +22,6 @@ export {
   EnrolledStudentScreen,
   EnrolledStudentsScreen,
   SettingsScreen,
+  StudentAttendanceScreen,
+  PreviousEnrolledStudentsScreen,
 };

@@ -14,15 +14,13 @@ const {
   EnrolledStudentsScreen,
   NotificationScreen,
   EnrolledStudentScreen,
-  MapScreen,
+  StudentMarksScreen,
   MessagesScreen,
   MessageScreen,
   ProfileScreen,
   SettingsScreen,
-  ViewCourseMarksScreen,
-  ViewAttendanceScreen,
-  AttendanceDetailsScreen,
-  MarksDetailsScreen,
+  PreviousEnrolledStudentsScreen,
+  StudentAttendanceScreen,
   Drawer,
 } = tutorScreens;
 
@@ -39,6 +37,9 @@ const homeStack = createStackNavigator(
     Home: HomeScreen,
     EnrolledStudents: EnrolledStudentsScreen,
     EnrolledStudent: EnrolledStudentScreen,
+    StudentMarks: StudentMarksScreen,
+    StudentAttendance: StudentAttendanceScreen,
+    PreviousEnrolledStudents: PreviousEnrolledStudentsScreen,
   },
   {
     initialRouteName: 'Home',
@@ -101,10 +102,6 @@ const tabNav = createMaterialBottomTabNavigator(
 const rootStack = createStackNavigator(
   {
     MainTabs: tabNav,
-    ViewAttendance: ViewAttendanceScreen,
-    AttendanceDetails: AttendanceDetailsScreen,
-    ViewCourseMarks: ViewCourseMarksScreen,
-    MarksDetails: MarksDetailsScreen,
   },
   {
     headerMode: 'none',

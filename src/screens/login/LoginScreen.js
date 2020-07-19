@@ -224,7 +224,7 @@ class LoginScreen extends Component {
     if (user) {
       this.props.setUser(user);
       const { navigate } = this.props.navigation;
-      navigate('tutorDashboard');
+      navigate('parentDashboard');
       return;
     }
     ToastAndroid.show('Please Provide Login Credentials', ToastAndroid.LONG);
