@@ -139,7 +139,7 @@ class ProfileScreen extends Component {
                   marginVertical: hp('1%'),
                 }}
               />
-              <Text style={styles.label}>SELECT YOUR AVAILABILITY HOURS</Text>
+              <Text style={styles.label}>SELECT YOUR AVAILABILITY SLOT</Text>
               <View
                 style={{
                   marginVertical: hp('1%'),

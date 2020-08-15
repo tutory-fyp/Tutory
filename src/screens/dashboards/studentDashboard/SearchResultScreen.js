@@ -9,9 +9,15 @@ import {
 } from 'react-native';
 import { Appbar, Avatar } from 'react-native-paper';
 import { studentComponents } from '../../../components';
+import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 
-import { setIsLoading } from '../../../redux/modules/tutor';
+// For Firestore
+import firestore from '@react-native-firebase/firestore';
+const appFirestore = firestore();
+//
+import { setIsLoading } from '../../../redux/modules/student';
+import { error } from 'react-native-gifted-chat/lib/utils';
 
 const { SearchResult } = studentComponents;
 
@@ -19,8 +25,8 @@ const { height: HEIGHT, width: WIDTH } = Dimensions.get('window');
 
 const mapStateToProps = state => {
   return {
-    isLoading: state.tutor.isLoading,
-    tutors: state.tutor.tutors,
+    isLoading: state.student.isLoading,
+    tutors: state.student.tutors,
   };
 };
 const mapDispatchToProps = {
@@ -30,8 +36,39 @@ const mapDispatchToProps = {
 class SearchResultScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      isLoading: false,
+      tutors: null,
+    };
   }
+
+  _fetchTutors = () => {
+    const query = this.props?.navigation?.getParam('query');
+    this.setState({ isLoading: true });
+    (async () => {
+      try {
+        const querySnapshot = await appFirestore
+          .collection('tutors')
+          .where(`categories.${query.category}`, '==', true)
+          .where(`subjects.${query.subject}`, '==', true)
+          .get();
+        let tutors = querySnapshot.docs.map(doc => doc.data());
+        tutors = tutors
+          .filter(
+            tutor =>
+              tutor.availabilitySlot.start <= query.minHour &&
+              tutor.availabilitySlot.end >= query.maxHour,
+          )
+          .filter(
+            tutor =>
+              query.minPrice <= tutor.wage && query.maxPrice >= tutor.wage,
+          );
+        this.setState({ tutors, isLoading: false });
+      } catch (error) {
+        console.log('Error Getting Tutors', error);
+      }
+    })();
+  };
 
   _goBack = () => {
     const {
@@ -43,6 +80,7 @@ class SearchResultScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <NavigationEvents onDidFocus={this._fetchTutors} />
         <Appbar style={styles.header}>
           <Appbar.BackAction onPress={this._goBack} />
           <Appbar.Content title="Searched Results" />
@@ -54,11 +92,23 @@ class SearchResultScreen extends Component {
             ListHeaderComponentStyle={styles.listHeader}
             ListFooterComponentStyle={styles.listFooter}
             refreshControl={
-              <RefreshControl refreshing={this.props.isLoading} />
+              <RefreshControl
+                refreshing={this.state.isLoading}
+                onRefresh={this._fetchTutors}
+              />
             }
             keyExtractor={(item, index) => index.toString()}
-            data={new Array(10).fill(0)}
-            renderItem={({ item, index }) => <SearchResult />}
+            data={this.state.tutors}
+            renderItem={({ item }) => (
+              <SearchResult
+                name={item.fname}
+                rating={item.rating}
+                availabilitySlot={item.availabilitySlot}
+                category={this.props?.navigation.getParam('query').category}
+                subject={this.props?.navigation.getParam('query').subject}
+                wage={item.wage}
+              />
+            )}
             ItemSeparatorComponent={() => (
               <View style={{ marginVertical: 2 }} />
             )}

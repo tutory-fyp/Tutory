@@ -101,50 +101,6 @@ class ProfileScreen extends Component {
             />
             <View
               style={{
-                flexDirection: 'row',
-                marginLeft: 10,
-              }}>
-              <Text
-                style={{
-                  fontSize: 20,
-                }}>
-                Contact:
-              </Text>
-              <Text
-                style={{
-                  marginLeft: 10,
-                  fontSize: 20,
-                }}>
-                555-555-555
-              </Text>
-            </View>
-            <View
-              style={{
-                marginVertical: 14,
-                borderBottomWidth: StyleSheet.hairlineWidth,
-              }}
-            />
-            <View
-              style={{
-                flexDirection: 'row',
-                marginLeft: 10,
-              }}>
-              <Text
-                style={{
-                  fontSize: 20,
-                }}>
-                Address:
-              </Text>
-              <Text
-                style={{
-                  marginLeft: 10,
-                  fontSize: 20,
-                }}>
-                Block A, Sector B-17, Islamabad
-              </Text>
-            </View>
-            <View
-              style={{
                 marginVertical: 14,
                 borderBottomWidth: StyleSheet.hairlineWidth,
               }}
@@ -165,6 +121,7 @@ const styles = StyleSheet.create({
   },
   content: {
     alignItems: 'center',
+    width: wp(100),
   },
 });
 

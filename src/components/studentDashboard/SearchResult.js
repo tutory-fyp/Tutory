@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Dimensions } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 import { Badge } from 'react-native-elements';
 import { Avatar, Title, Subheading } from 'react-native-paper';
 import { withNavigation } from 'react-navigation';
@@ -18,12 +24,26 @@ class SearchResult extends Component {
     this.state = {};
   }
 
-  _gotoMapScreen = () => {
+  _gotoTutorDetailScreen = () => {
     const {
       navigation: { navigate },
     } = this.props;
-    navigate('TeacherDetail');
+    navigate('TutorDetail');
   };
+
+  _printHours = hour => {
+    if (hour < 12) {
+      return `${hour}:00 AM`;
+    } else if (hour === 12) {
+      return `${hour}:00 PM`;
+    } else {
+      return `${hour - 12}:00 PM`;
+    }
+  };
+
+  _capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
   render() {
     return (
@@ -34,18 +54,28 @@ class SearchResult extends Component {
           </Col>
           <Col style={styles.textWrapper} size={2}>
             <Title>
-              John Doe 4.7
+              {this.props.name} {this.props.rating}
               <AntDesign name="star" size={18} color={YELLOW_COLOR} />
             </Title>
-            <Subheading>Matric Physics</Subheading>
+            <Subheading>
+              {this._capitalizeFirstLetter(this.props.category)}{' '}
+              {this._capitalizeFirstLetter(this.props.subject)}
+            </Subheading>
           </Col>
           <Col size={1.5}>
             <Row style={{ alignItems: 'center' }}>
-              <Text>Slot: 6pm to 7pm</Text>
+              <Text>
+                Slot: {this._printHours(this.props.availabilitySlot.start)} to{' '}
+                {this._printHours(this.props.availabilitySlot.end)}
+              </Text>
             </Row>
             <Row style={{ flexDirection: 'column' }}>
-              <Text>Minimum Charges: 400/hr</Text>
-              <Entypo name="compass" size={25} onPress={this._gotoMapScreen} />
+              <Text>Wage(Per Hour): {this.props.wage}</Text>
+              <Entypo
+                name="compass"
+                size={25}
+                onPress={this._gotoTutorDetailScreen}
+              />
             </Row>
           </Col>
         </Row>

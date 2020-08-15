@@ -9,6 +9,10 @@ import {
   ToastAndroid,
 } from 'react-native';
 import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import {
   Text as EText,
   Input as EInput,
   Button as EButton,
@@ -20,7 +24,8 @@ import SplashScreen from 'react-native-smart-splash-screen';
 import { connect } from 'react-redux';
 import { initState, login, setUser } from '../../redux/modules/user';
 import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
+import { Dropdown } from 'react-native-material-dropdown';
+import validator from 'validator';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
@@ -34,6 +39,7 @@ class LoginScreen extends Component {
       emailErr: false,
       passwordErr: false,
       rememberMe: false,
+      role: '',
     };
     this._handleRememberMe = this._handleRememberMe.bind(this);
     this._handleEmailInput = this._handleEmailInput.bind(this);
@@ -42,6 +48,17 @@ class LoginScreen extends Component {
     this._checkEmail = this._checkEmail.bind(this);
     this._checkPassword = this._checkPassword.bind(this);
     this._passwordInputRef = null;
+    this.data = [
+      {
+        value: 'Tutor',
+      },
+      {
+        value: 'Student',
+      },
+      {
+        value: 'Parent',
+      },
+    ];
   }
 
   _handleRememberMe() {
@@ -83,15 +100,7 @@ class LoginScreen extends Component {
   }
 
   _handleLogin() {
-    let re_email = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+[^<>()\.,;:\s@\"]{2,})$/;
-    let re_password = /\S{6,}/;
-    if (this.state.email.length === 0) {
-      Alert.alert('Empty Email', 'Email cannot be empty', [{ text: 'OK' }], {
-        cancelable: true,
-      });
-      return;
-    }
-    if (!re_email.test(this.state.email)) {
+    if (!validator.isEmail(this.state.email)) {
       Alert.alert(
         'Invalid Email',
         'The Entered Email is Invalid',
@@ -100,13 +109,19 @@ class LoginScreen extends Component {
       );
       return;
     }
-    if (!re_password.test(this.state.password)) {
+    if (this.state.password.length < 6) {
       Alert.alert(
         'Invalid Password',
         'Password length must be atleast 6 characters',
         [{ text: 'OK' }],
         { cancelable: true },
       );
+      return;
+    }
+    if (!this.state.role) {
+      Alert.alert('Select Role', 'Please Select a Role', [{ text: 'OK' }], {
+        cancelable: true,
+      });
       return;
     }
     this.setState({ loading: true });
@@ -133,7 +148,7 @@ class LoginScreen extends Component {
             keyboardType="email-address"
             autoCapitalize="none"
             autoCorrect={false}
-            style={styles.inputTextStyle}
+            style={styles.input}
             onSubmitEditing={() => this._passwordInputRef.focus()}
             onChangeText={this._handleEmailInput}
           />
@@ -147,28 +162,18 @@ class LoginScreen extends Component {
             placeholderTextColor="rgba(255,255,255,0.7)"
             returnKeyType="done"
             onChangeText={this._handlePasswordInput}
-            style={styles.inputTextStyle}
+            style={styles.input}
           />
-          <View style={styles.forgotPassword}>
-            <ECheckBox
-              title="Remember Me"
-              textStyle={{ color: 'rgba(0,0,0,0.3)' }}
-              containerStyle={{ backgroundColor: 'white', borderWidth: 0 }}
-              checked={this.state.rememberMe}
-              checkedColor="black"
-              onPress={this._handleRememberMe}
-            />
-            <TouchableOpacity style={{ flexDirection: 'row' }}>
-              <EText
-                style={{
-                  alignSelf: 'center',
-                  color: 'rgba(0,0,0,0.5)',
-                  paddingLeft: '7%',
-                }}>
-                Forgot Password?
-              </EText>
-            </TouchableOpacity>
-          </View>
+          <Dropdown
+            label="Role"
+            data={this.data}
+            textColor="#3185E8"
+            fontSize={18}
+            onChangeText={role => {
+              this.setState({ role });
+            }}
+            containerStyle={styles.input}
+          />
           <EButton
             title="Login"
             ViewComponent={LinearGradient}
@@ -188,8 +193,6 @@ class LoginScreen extends Component {
             <EText
               style={{
                 color: 'rgba(0,0,0,0.3)',
-                alignSelf: 'center',
-                marginLeft: '15%',
               }}>
               Dont Have an Account?
             </EText>
@@ -220,14 +223,11 @@ class LoginScreen extends Component {
       duration: 850,
       delay: 500,
     });
-    const user = auth().currentUser;
-    if (user) {
-      this.props.setUser(user);
-      const { navigate } = this.props.navigation;
-      navigate('parentDashboard');
-      return;
-    }
-    ToastAndroid.show('Please Provide Login Credentials', ToastAndroid.LONG);
+    this.setState({
+      email: 'student1@a.com',
+      password: '123456',
+      role: 'Student',
+    });
   }
 
   componentDidUpdate() {
@@ -238,11 +238,24 @@ class LoginScreen extends Component {
         [{ text: 'OK' }],
         { cancelable: true },
       );
+      console.log('Login Error', this.props.loginError);
       this.props.initState();
       this.setState({ loading: false });
     } else if (this.props.user) {
-      const { navigate } = this.props.navigation;
-      navigate('tutorDashboard');
+      switch (this.state.role) {
+        case 'Student': {
+          this.props?.navigation?.navigate('studentDashboard');
+          return;
+        }
+        case 'Tutor': {
+          this.props?.navigation?.navigate('tutorDashboard');
+          return;
+        }
+        case 'Parent': {
+          this.props?.navigation?.navigate('parentDashboard');
+          return;
+        }
+      }
     }
   }
 }
@@ -271,35 +284,23 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   loginCard: {
-    marginTop: '3%',
+    width: wp(80),
+    padding: wp(3),
     alignItems: 'center',
-    justifyContent: 'flex-start',
-    width: WIDTH - 80,
-    paddingTop: '8%',
-    height: 350,
     backgroundColor: 'white',
     borderRadius: 30,
     elevation: 10,
   },
   signUpText: {
-    position: 'absolute',
-    bottom: 5,
-    height: 50,
-    width: '90%',
+    marginTop: hp(1),
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  forgotPassword: {
-    flexDirection: 'row',
-    marginTop: '2%',
-    width: '100%',
-  },
-  inputTextStyle: {
+  input: {
     width: '90%',
     marginTop: '2%',
     borderColor: 'red',
-  },
-  errMsgStyle: {
-    fontSize: 15,
   },
   loginBtnContainer: {
     width: '80%',

@@ -23,7 +23,7 @@ const {
   ViewAttendanceScreen,
   AttendanceDetailsScreen,
   MarksDetailsScreen,
-  TeacherDetailScreen,
+  TutorDetailScreen,
   Drawer,
 } = studentScreens;
 
@@ -41,7 +41,7 @@ const homeStack = createStackNavigator(
     Search: SearchScreen,
     Notifications: NotificationScreen,
     SearchResult: SearchResultScreen,
-    TeacherDetail: TeacherDetailScreen,
+    TutorDetail: TutorDetailScreen,
     Map: MapScreen,
   },
   {

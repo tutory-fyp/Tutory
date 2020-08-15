@@ -10,7 +10,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
-class TeacherDetailScreen extends Component {
+class TutorDetailScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -288,4 +288,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TeacherDetailScreen;
+export default TutorDetailScreen;
